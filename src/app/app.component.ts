@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StorageService } from 'src/services/storage.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -14,5 +15,14 @@ export class AppComponent {
     { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+  constructor(private storage: StorageService) {
+    this.asyncConstructor()
+  }
+
+  async asyncConstructor() {
+    await this.storage.set('sport', 'ste');
+    const res = await this.storage.get('sport');
+    alert(JSON.stringify(res));
+  }
+
 }
