@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AssetsService } from 'src/services/assets/assets.service';
 import { StorageService } from 'src/services/storage/storage.service';
 @Component({
   selector: 'app-root',
@@ -15,14 +16,20 @@ export class AppComponent {
     { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor(private storage: StorageService) {
-    this.asyncConstructor()
+  constructor(private storage: StorageService, 
+    private assets: AssetsService) 
+  {
+    this.asyncConstructor();
+
   }
 
   async asyncConstructor() {
     await this.storage.set('sport', 'ste');
     const res = await this.storage.get('sport');
-    alert(JSON.stringify(res));
+
+    const asset = await this.assets.getFile('assets/Test.json')
+
+    // alert(JSON.stringify(asset));
   }
 
 }
