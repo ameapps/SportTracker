@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AssetsService } from 'src/services/assets/assets.service';
-import { StorageService } from 'src/services/storage/storage.service';
+import { AssetsService } from 'src/services/Helpers/assets/assets.service';
+import { StorageService } from 'src/services/Helpers/storage/storage.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -26,10 +26,8 @@ export class AppComponent {
   async asyncConstructor() {
     await this.storage.set('sport', 'ste');
     const res = await this.storage.get('sport');
-
     const asset = await this.assets.getFile('assets/Test.json')
 
-    // alert(JSON.stringify(asset));
   }
 
 }
