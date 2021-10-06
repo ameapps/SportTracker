@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { InitialConfigurationService } from 'src/services/App/initial-configuration.service';
 import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 import { StorageService } from 'src/services/Helpers/storage/storage.service';
 @Component({
@@ -17,17 +18,30 @@ export class AppComponent {
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor(private storage: StorageService, 
-    private assets: AssetsService) 
+    private assets: AssetsService,
+    private config: InitialConfigurationService
+    ) 
   {
     this.asyncConstructor();
 
   }
 
   async asyncConstructor() {
-    await this.storage.set('sport', 'ste');
-    const res = await this.storage.get('sport');
-    const asset = await this.assets.getFile('assets/Test.json')
+
+    await this.testIonicStorage();
+
+    const menu = await this.config.getMenuItems();
+    console.log(menu);
 
   }
 
+
+  /**
+   *Metodo che mostra come usare lo storage di ionic.
+   Eliminarlo appena possibile.
+   */
+  private async testIonicStorage() {
+    await this.storage.set('sport', 'ste');
+    const res = await this.storage.get('sport');
+  }
 }
