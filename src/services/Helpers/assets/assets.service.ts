@@ -24,7 +24,6 @@ export class AssetsService {
    */
   async getFile(path: string): Promise<string> {
     const res = await this.http.get<string>(path).toPromise();
-    console.log(res);
     return res; 
   }
 }
