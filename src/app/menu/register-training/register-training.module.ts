@@ -6,11 +6,10 @@ import { RegisterTrainingComponent } from './register-training.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [RegisterTrainingComponent],
   imports: [
     CommonModule,
     RegisterTrainingRoutingModule
-  ],
-  exports: [RegisterTrainingComponent]
+  ]
 })
 export class RegisterTrainingModule { }

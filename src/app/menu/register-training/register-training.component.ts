@@ -9,7 +9,6 @@ export class RegisterTrainingComponent implements OnInit {
 
   constructor() { 
     console.log('davide cane')
-    alert('ciao')
   }
 
   ngOnInit() {}
