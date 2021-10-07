@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class RegisterTrainingComponent implements OnInit {
 
   constructor() { 
-    console.log('davide cane')
   }
 
   ngOnInit() {}

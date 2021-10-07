@@ -1,18 +1,22 @@
 [
     {
         "name" : "Register training",
-        "component": null
+        "url" : "menu/register-training",
+        "component": "RegisterTrainingComponent"
     },
     {
         "name" : "Report",
+        "url" : "",
         "component": null
     },
     {
         "name" : "Register eaten food",
+        "url" : "",
         "component": null
     },
     {
         "name" : "Gallery",
+        "url" : "",
         "component": null
     }  
 ]

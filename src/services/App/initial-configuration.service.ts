@@ -15,7 +15,7 @@ export class InitialConfigurationService {
   async getMenuItems(): Promise<string>
   {
     const menuItems = await this.assets.getFile('assets/menu.json');
-    return menuItems;
+    return JSON.stringify(menuItems);
   }
 
 }

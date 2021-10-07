@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AppPage } from 'e2e/src/app.po';
+import { AppPages } from 'src/Models/appPages';
 import { InitialConfigurationService } from 'src/services/App/initial-configuration.service';
 import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 import { StorageService } from 'src/services/Helpers/storage/storage.service';
@@ -8,15 +10,8 @@ import { StorageService } from 'src/services/Helpers/storage/storage.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  public appPages = [
-    { title: 'Inbox', url: '/folder/Inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
-  ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+  public appPages = [];
+  public labels = [];
   constructor(private storage: StorageService, 
     private assets: AssetsService,
     private config: InitialConfigurationService
@@ -30,8 +25,16 @@ export class AppComponent {
 
     await this.testIonicStorage();
 
-    const menu = await this.config.getMenuItems();
+    const menuSer = await this.config.getMenuItems();
+    const menu = JSON.parse(menuSer);
     console.log(menu);
+
+
+    menu.forEach(element => {
+      const page = new AppPages(element.name, element.url, 'mail');
+      this.appPages.push(page)        
+    });
+
 
   }
 
