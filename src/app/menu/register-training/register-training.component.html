@@ -8,12 +8,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <p>
-    register-training works!
-  </p>
 
   <mat-form-field appearance="fill">
-    <mat-label >Toppings</mat-label>
+    <mat-label class="color-text">training types</mat-label>
     <mat-select [formControl]="toppings" multiple>
       <mat-select-trigger>
         {{toppings.value ? toppings.value[0] : ''}}
@@ -21,7 +18,7 @@
           (+{{toppings.value.length - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
         </span>
       </mat-select-trigger>
-      <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+      <mat-option *ngFor="let training of trainings" [value]="training">{{training}}</mat-option>
     </mat-select>
   </mat-form-field>
 

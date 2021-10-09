@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AppPage } from 'e2e/src/app.po';
 import { AppPages } from 'src/Models/appPages';
-import { InitialConfigurationService } from 'src/services/App/initial-configuration.service';
+import { InitialConfigurationService } from 'src/services/App/Initial Configuration/initial-configuration.service';
 import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 import { StorageService } from 'src/services/Helpers/storage/storage.service';
 @Component({
@@ -28,7 +28,6 @@ export class AppComponent {
     const menuSer = await this.config.getMenuItems();
     const menu = JSON.parse(menuSer);
     console.log(menu);
-
 
     menu.forEach(element => {
       const page = new AppPages(element.name, element.url, 'mail');

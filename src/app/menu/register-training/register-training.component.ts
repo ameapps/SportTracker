@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { RegisterTrainingService } from 'src/services/App/Register Training/register-training.service';
 
 
 
@@ -9,13 +10,20 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./register-training.component.scss'],
 })
 export class RegisterTrainingComponent implements OnInit {
-  toppings = new FormControl();
+  toppings = new FormControl(); 
 
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  trainings: string[] = [];
 
-  constructor() { 
+  constructor(private componentService: RegisterTrainingService) { 
+    this.asyncConstructor();
   }
 
   ngOnInit() {}
+
+  async asyncConstructor() {
+    /* Getting trainings from assets */
+    const trainigs = await this.componentService.getTrainigs();
+    this.trainings = JSON.parse(trainigs);
+  }
 
 }
