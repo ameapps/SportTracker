@@ -24,3 +24,18 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+// #region material
+
+// #region select 
+
+/* The panel of the material select get the specified color */
+div#mat-select-0-panel {
+    background-color: var(--violet-primary);
+}
+
+// #endregion
+
+// #endregion
+
