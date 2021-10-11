@@ -32,7 +32,22 @@
 
 /* The panel of the material select get the specified color */
 div#mat-select-0-panel {
-    background-color: var(--violet-primary);
+    background-color: var(--grey-primary);
+}
+
+/* Changing selected option color */
+span.mat-select-min-line.ng-tns-c169-1.ng-star-inserted {
+    color: var(--grey-text);
+}
+
+/* Chaning the color of the bottom border of the material select */
+.mat-form-field-underline.ng-tns-c166-0.ng-star-inserted {
+    filter: invert(1);
+}
+
+/* Chaning the color of the arrow icon included into the mterial select*/
+.mat-select-arrow.ng-tns-c169-1 {
+    color: black;
 }
 
 // #endregion

@@ -12,9 +12,28 @@
     width: 100% !important;
 }
 
+div#mat-select-value-1 {
+    color: var(--var-grey-text);
+}
+
 * {
     color: black;
 }
 
+/* The select width is full screen */
+mat-form-field {
+    width: 100%;
+}
+
 
 // endregion
+
+// #region page
+
+/* The background color of the page changes */
+ion-content {
+    --background: var(--grey-primary)
+}
+
+// endregion
+
