@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -9,13 +9,33 @@
 
 <ion-content [fullscreen]="true">
 
+  <!-- Material select for traninig selection -->
   <mat-form-field appearance="fill">
     <mat-label class="select-training color-text">training types</mat-label>
-    <mat-select class="select-training width" >
+    <mat-select class="select-training width">
       <mat-option *ngFor="let training of trainings" class="select-training color-sel" [value]="training">
         {{training}}
       </mat-option>
     </mat-select>
   </mat-form-field>
+
+  <!-- Material input for morning weight insertion -->
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Pre training morning weight" value="70kg">
+    </mat-form-field>
+  </form>
+
+  <!-- Timepicker basico  -->
+  <!-- <mat-form-field class="example-full-width">
+    <input mat-timepicker matInput type="time" placeholder="Click to get the time" value="10:55 AM">
+  </mat-form-field> -->
+
+	<!-- <div class="ngx-timepicker-field-example">
+		<ngx-timepicker-field [format]="24" [defaultTime]="'23:11'"></ngx-timepicker-field>
+	</div> -->
+
+  <!-- <ion-router-outlet id="main-content"></ion-router-outlet> -->
+  <app-chrono-time-picker [chronoType]="'clock'"></app-chrono-time-picker>
 
 </ion-content>

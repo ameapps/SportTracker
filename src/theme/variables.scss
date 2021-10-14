@@ -80,6 +80,7 @@
   --violet-light: #b085f5;
   --violet-dark: #4d2c91;
 
+
   /* Grey */
   --grey-primary: #E1E2E1; 
   --grey-light: #F5F5F6; 
@@ -87,7 +88,7 @@
 
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   /*
    * Dark Colors
    * -------------------------------------------

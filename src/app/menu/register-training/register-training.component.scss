@@ -4,21 +4,21 @@
 
 }
 
-.select-training .color-text {
-    color: black;
-}
+// .select-training .color-text {
+//     color: black;
+// }
 
 .select-training .width {
     width: 100% !important;
 }
 
-div#mat-select-value-1 {
-    color: var(--var-grey-text);
-}
+// div#mat-select-value-1 {
+//     color: var(--var-grey-text);
+// }
 
-* {
-    color: black;
-}
+// * {
+//     color: black;
+// }
 
 /* The select width is full screen */
 mat-form-field {
@@ -26,14 +26,15 @@ mat-form-field {
 }
 
 
+
 // endregion
 
 // #region page
 
 /* The background color of the page changes */
-ion-content {
-    --background: var(--grey-primary)
-}
+// ion-content {
+//     --background: var(--grey-primary)
+// }
 
 // endregion
 
