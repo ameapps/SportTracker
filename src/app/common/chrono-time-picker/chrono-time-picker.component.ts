@@ -7,6 +7,12 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 })
 export class ChronoTimePickerComponent implements OnInit, OnChanges {
 
+  //#region fields
+
+  inputClockClick = false;
+
+  //#endregion
+
   @Input() chronoType: string = "";
 
   constructor() {
@@ -22,9 +28,40 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges {
 
   ngOnInit() {}
 
-  isClock(): boolean {
-    console.log(`this.chronoType ${this.chronoType}`)
-    return this.chronoType === 'clock';
+  //#region  checks
+
+  /**
+   * Method checking whether the timepicker to 
+   * @returns a boolean condition
+   */
+  isBasic(): boolean {
+    return this.chronoType === 'basic';
+  }
+
+  /**
+   * Method checking whether the timepicker to show is 
+   * a clock close to a time setter
+   * @returns a boolean condition 
+   */
+   isTimeClock(): boolean {
+    return this.chronoType === 'time-clock';
+  }
+
+  /**
+   * Method checking whether the timepicker to show is 
+   * a clock close to an input element
+   * @returns a boolean condition
+   */
+  isInputClock(): boolean {
+    return this.chronoType === 'input-clock';
+  }
+  //#endregion
+  
+  /**
+   * Click event listener over input click element.  
+   */
+  InputClockClicked(): void {
+    this.inputClockClick = !this.inputClockClick;
   }
 
 }

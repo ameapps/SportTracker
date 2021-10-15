@@ -1,0 +1,39 @@
+
+/* Spariscono le input */
+::ng-deep .ngx-timepicker input {
+    visibility: collapse;
+    font-size: 0 !important;
+}
+
+/* The colon disappears. Find another solution */
+::ng-deep span.ngx-timepicker__time-colon.ngx-timepicker__control--second {
+    font-size: 0;
+}
+
+/* the clock is displayed inside the input */
+::ng-deep ngx-material-timepicker-toggle.ngx-timepicker__toggle.ng-star-inserted {
+    margin-top: -78px;
+    margin-left: -14vw;
+}
+
+/* the clock's button is as large as the input */
+::ng-deep button.ngx-material-timepicker-toggle {
+    background: blue;
+    width: 100vw; 
+}
+
+/* clock icon disappears from the button */
+::ng-deep svg.ng-star-inserted {
+    visibility: hidden;
+}
+
+/* the components arrow disappear */
+::ng-deep span.ngx-timepicker-control__arrow {
+    visibility: collapse;
+}
+
+/* The input of the input time picker expands to full screen  */
+#in-input-timepicker {
+    width: 100%;
+}
+
