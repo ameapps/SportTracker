@@ -6,20 +6,23 @@
 
   <!-- Timepicker with clock 24H close to a time setter -->
   <div *ngIf="this.isTimeClock()" class="ngx-timepicker-field-example">
-    <ngx-timepicker-field 
-      [format]="24" 
-      [defaultTime]="'23:11'">
+    <ngx-timepicker-field [format]="24" [defaultTime]="'23:11'">
     </ngx-timepicker-field>
   </div>
 
   <!-- Timepicker with clock 24H close to an input -->
-  <div *ngIf="this.isInputClock()"  class="input-timepicker">
-
-  <input (click)="InputClockClicked()" disabled id="in-input-timepicker" placeholder="Click here to set the time" >
-  <ngx-timepicker-field 
-    [format]="24" 
-    [defaultTime]="'23:11'">
-  </ngx-timepicker-field>
-      
+  <div *ngIf="this.isInputClock()" class="input-timepicker">
+    <input (click)="InputClockClicked()" disabled id="in-input-timepicker" placeholder="Click here to set the time">
+    <ngx-timepicker-field 
+      [format]="24" 
+      [defaultTime]="'23:11'" 
+      (timeSet)="timeSet()"
+      (opened)="opened()"
+      (closed)="closed()"
+      (hourSelected)="hourSelected()"
+      (timeChanged)="timeChanged($event)"
+      >
+    </ngx-timepicker-field>
   </div>
+
 </div>

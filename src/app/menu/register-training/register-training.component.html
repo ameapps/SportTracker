@@ -26,7 +26,11 @@
     </mat-form-field>
   </form>
 
+  <!-- Getting the training time  -->
+  <app-chrono-time-picker (definedTime)="definedTime($event)" [chronoType]="'input-clock'"></app-chrono-time-picker>
 
-  <app-chrono-time-picker [chronoType]="'input-clock'"></app-chrono-time-picker>
+  <mat-checkbox (click)="startTimeClicked()" [checked]="isTimerEnabled">Start timer?</mat-checkbox>
+
+  <app-timer [leftTime]="this.componentService.definedTime"></app-timer>
 
 </ion-content>

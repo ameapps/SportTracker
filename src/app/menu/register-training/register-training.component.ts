@@ -14,6 +14,8 @@ export class RegisterTrainingComponent implements OnInit {
 
   trainings: string[] = [];
 
+  isTimerEnabled = false; 
+
   constructor(private componentService: RegisterTrainingService) { 
     this.asyncConstructor();
   }
@@ -26,4 +28,26 @@ export class RegisterTrainingComponent implements OnInit {
     this.trainings = JSON.parse(trainigs);
   }
 
+  //#region checks
+
+  /**
+   * Method to set as clicked/unclicked the checkbox
+   */
+  startTimeClicked() {
+    this.isTimerEnabled = !this.isTimerEnabled;
+  }
+  //#endregion
+
+  //#region listeners
+
+  /**
+   * Listener for time events from chrono-timer component
+   * @param event stirng representing the time emitted 
+   */
+  definedTime(event) {
+    this.componentService.definedTime = event;
+    console.log('register-trainig defined time')
+  }
+
+  //#endregion
 }

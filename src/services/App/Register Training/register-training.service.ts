@@ -6,6 +6,11 @@ import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 })
 export class RegisterTrainingService {
 
+  //#region fields
+  definedTime = '';
+
+  //#endregion
+
   constructor(private assets: AssetsService) { }
 
   async getTrainigs(): Promise<string> {

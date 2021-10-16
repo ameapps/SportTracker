@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, EventEmitter, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-chrono-time-picker',
@@ -11,13 +11,15 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges {
 
   inputClockClick = false;
 
+  time = '';
+
+  @Output() definedTime = new EventEmitter();
+
   //#endregion
 
   @Input() chronoType: string = "";
 
-  constructor() {
-    console.log('ChronoTimePickerComponent')
-   }
+  constructor() {}
    
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["chronoType"]) {
@@ -63,5 +65,25 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges {
   InputClockClicked(): void {
     this.inputClockClick = !this.inputClockClick;
   }
+
+  //#region chrono-time-picker
+
+  //#region subscribers
+
+  /**
+   * Event listener for a time selection from
+   * the clock widget
+   * @param value hour gotten from the widget
+   */
+  timeChanged(value) {
+    this.time = value;
+    this.definedTime.emit(value);
+  }
+
+
+  //#endregion
+
+
+  //#endregion
 
 }

@@ -12,19 +12,17 @@
     width: 100% !important;
 }
 
-// div#mat-select-value-1 {
-//     color: var(--var-grey-text);
-// }
 
-// * {
-//     color: black;
-// }
 
 /* The select width is full screen */
 mat-form-field {
     width: 100%;
 }
 
+/* Material ckeckbox is moved */
+mat-checkbox {
+    margin-left: 1%;
+}
 
 
 // endregion
