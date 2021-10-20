@@ -10,27 +10,66 @@
 <ion-content [fullscreen]="true">
 
   <!-- Material select for traninig selection -->
-  <mat-form-field appearance="fill">
+  <!-- <mat-form-field appearance="fill">
     <mat-label class="select-training color-text">training types</mat-label>
     <mat-select class="select-training width">
       <mat-option *ngFor="let training of trainings" class="select-training color-sel" [value]="training">
         {{training}}
       </mat-option>
     </mat-select>
-  </mat-form-field>
+  </mat-form-field> -->
 
   <!-- Material input for morning weight insertion -->
-  <form class="example-form">
+  <!-- <form class="example-form">
     <mat-form-field class="example-full-width">
       <input matInput placeholder="Pre training morning weight" value="70kg">
     </mat-form-field>
-  </form>
+  </form> -->
 
   <!-- Getting the training time  -->
-  <app-chrono-time-picker (definedTime)="definedTime($event)" [chronoType]="'input-clock'"></app-chrono-time-picker>
+  <!-- <app-chrono-time-picker (definedTime)="definedTime($event)" [chronoType]="'input-clock'"></app-chrono-time-picker>
 
   <mat-checkbox (click)="startTimeClicked()" [checked]="isTimerEnabled">Start timer?</mat-checkbox>
 
-  <app-timer [leftTime]="this.componentService.definedTime"></app-timer>
+  <app-timer [leftTime]="this.componentService.definedTime"></app-timer> -->
+
+
+
+  <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Fill out your name</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Fill out your address</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Address" formControlName="secondCtrl" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      You are now done.
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+
+
+  <app-selector [selections]="this.struments"></app-selector>
 
 </ion-content>

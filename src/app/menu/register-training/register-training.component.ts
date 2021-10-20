@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RegisterTrainingService } from 'src/services/App/Register Training/register-training.service';
 
 
@@ -13,19 +13,36 @@ export class RegisterTrainingComponent implements OnInit {
   toppings = new FormControl(); 
 
   trainings: string[] = [];
+  struments: string[] = [];
 
   isTimerEnabled = false; 
 
-  constructor(private componentService: RegisterTrainingService) { 
+  //#region stepper
+  isLinear = false;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  //#endregion
+
+  constructor(private componentService: RegisterTrainingService, private _formBuilder: FormBuilder) { 
     this.asyncConstructor();
   }
-
-  ngOnInit() {}
+  
+  ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
+  }
 
   async asyncConstructor() {
     /* Getting trainings from assets */
     const trainigs = await this.componentService.getTrainigs();
     this.trainings = JSON.parse(trainigs);
+
+    const struments = await this.componentService.getStruments();
+    this.struments = JSON.parse(trainigs);
   }
 
   //#region checks

@@ -10,6 +10,9 @@ import { MatInputModule } from '@angular/material/input';
 import { ChronoTimePickerModule } from 'src/app/common/chrono-time-picker/chrono-time-picker.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TimerModule } from 'src/app/common/timer/timer.module';
+import {MatStepperModule} from '@angular/material/stepper';
+import { SelectorModule } from 'src/app/common/selector/selector.module';
+
 
 
 @NgModule({
@@ -22,7 +25,9 @@ import { TimerModule } from 'src/app/common/timer/timer.module';
     MatInputModule,
     ChronoTimePickerModule,
     MatCheckboxModule,
-    TimerModule
+    TimerModule,
+    MatStepperModule,
+    SelectorModule
   ]
 })
 export class RegisterTrainingModule { }
