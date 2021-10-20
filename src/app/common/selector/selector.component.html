@@ -1,11 +1,9 @@
-<!-- <p style="color:aliceblue;">
-  selector works!
-</p> -->
-
 <div id="selector-content" style="display: flex; flex-direction: row;">
-  <div class="selector-box" *ngFor="let strument of selections;">
-    <div id="image-container">
-      <img [src]="strument.path" >
+  <div class="selector-box" *ngFor="let strument of selections; let i = index;">
+    <div id="image-container" 
+      (click)="strumentSelected(i)" 
+      [ngClass]="isClicked(i) ? 'strument-selected' : 'no-class'">
+      <img [src]="isClicked(i) ? strument.pathLight : strument.pathDark" >
     </div>
   </div>
 </div>
