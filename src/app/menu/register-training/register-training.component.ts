@@ -42,7 +42,7 @@ export class RegisterTrainingComponent implements OnInit {
     this.trainings = JSON.parse(trainigs);
 
     const struments = await this.componentService.getStruments();
-    this.struments = JSON.parse(trainigs);
+    this.struments = JSON.parse(struments);
   }
 
   //#region checks

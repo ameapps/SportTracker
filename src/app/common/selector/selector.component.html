@@ -3,9 +3,9 @@
 </p> -->
 
 <div id="selector-content" style="display: flex; flex-direction: row;">
-  <div class="selector-box" *ngFor="let i of arr">
+  <div class="selector-box" *ngFor="let strument of selections;">
     <div id="image-container">
-      <img src="assets/icon/register-training/tapis-roulant.svg" >
+      <img [src]="strument.path" >
     </div>
   </div>
 </div>

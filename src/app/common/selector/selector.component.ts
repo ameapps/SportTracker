@@ -9,13 +9,14 @@ export class SelectorComponent implements OnInit, OnChanges {
 
   arr = [1,2,3,4,5,6,7,8,8,8,8,8,8,8,8,8,8];
 
-  @Input() selections;
+  @Input() selections: object[];
 
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["selections"]) {
       this.selections = changes["selections"].currentValue;
+      console.log(this.selections)
     }
   }
 
