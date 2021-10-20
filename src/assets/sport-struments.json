@@ -1,22 +1,27 @@
 [
     {
         "id": "Tapis roulant",
-        "path": "assets/icon/register-training/tapis-roulant.svg"
+        "pathLight": "assets/icon/register-training/light/tapis-roulant.svg",
+        "pathDark":"assets/icon/register-training/dark/tapis-roulant.svg"
     },    
     {
         "id": "Cyclette",
-        "path": "assets/icon/register-training/cyclette.svg"
+        "pathLight": "assets/icon/register-training/light/cyclette.svg",
+        "pathDark":"assets/icon/register-training/dark/cyclette.svg"
     },    
     {
         "id": "Run",
-        "path": "assets/icon/register-training/run.svg"
+        "pathLight": "assets/icon/register-training/light/run.svg",
+        "pathDark":"assets/icon/register-training/dark/run.svg"
     },    
     {
         "id": "Bycicle",
-        "path": "assets/icon/register-training/bycicle.svg"
+        "pathLight": "assets/icon/register-training/light/bycicle.svg",
+        "pathDark":"assets/icon/register-training/dark/bycicle.svg"
     },    
     {
         "id": "Swim",
-        "path": "assets/icon/register-training/swim.svg"
+        "pathLight": "assets/icon/register-training/light/swim.svg",
+        "pathDark":"assets/icon/register-training/dark/swim.svg"
     }
 ]
