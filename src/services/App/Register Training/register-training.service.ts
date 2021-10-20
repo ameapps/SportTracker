@@ -18,4 +18,10 @@ export class RegisterTrainingService {
     const trainings = await this.assets.getFile('assets/trainings.json');
     return JSON.stringify(trainings);
   }
+
+  async getStruments() : Promise<string> {
+    const struments = await this.assets.getFile('assets/sport-struments.json');
+    return JSON.stringify(struments);
+  }
+
 }

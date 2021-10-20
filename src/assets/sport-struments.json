@@ -1,0 +1,22 @@
+[
+    {
+        "id": "Tapis roulant",
+        "path": "assets/icon/register-training/tapis-roulant.svg"
+    },    
+    {
+        "id": "Cyclette",
+        "path": "assets/icon/register-training/cyclette.svg"
+    },    
+    {
+        "id": "Run",
+        "path": "assets/icon/register-training/run.svg"
+    },    
+    {
+        "id": "Bycicle",
+        "path": "assets/icon/register-training/bycicle.svg"
+    },    
+    {
+        "id": "Swim",
+        "path": "assets/icon/register-training/swim.svg"
+    }
+]
