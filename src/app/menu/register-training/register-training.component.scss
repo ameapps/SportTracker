@@ -21,8 +21,21 @@ mat-form-field {
 
 /* Material ckeckbox is moved */
 mat-checkbox {
-    margin-left: 1%;
+    margin-left: 2%;
 }
+
+
+/* Bottons to navigate the steppers are set to the bottom of the screen */
+.stepper-navigators-position {
+    position: absolute;
+    bottom: 5%;
+}
+
+/* The 'Previous step' button is hidden */
+.hide-previous-stepper {
+    display:none;
+}
+
 
 
 // endregion

@@ -9,6 +9,8 @@
 
 <ion-content [fullscreen]="true">
 
+  <!-- #region OLD -->
+
   <!-- Material select for traninig selection -->
   <!-- <mat-form-field appearance="fill">
     <mat-label class="select-training color-text">training types</mat-label>
@@ -33,43 +35,46 @@
 
   <app-timer [leftTime]="this.componentService.definedTime"></app-timer> -->
 
+  <!-- #endregion -->
 
 
-  <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+  <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper" style="height: 100%;">
+    <!-- Primo step -->
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Fill out your name</ng-template>
+        <ng-template matStepLabel>{{stepsName[0]}}</ng-template>
         <mat-form-field>
-          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+          <input matInput [(ngModel)]="this.componentService.before_training_weight" placeholder="Before training weight" formControlName="firstCtrl" required>
         </mat-form-field>
-        <div>
+        <div class="stepper-navigators-position"  *ngIf="this.componentService.stepsComplete[0]">
           <button mat-button matStepperNext>Next</button>
         </div>
       </form>
     </mat-step>
+    <!-- Secondo step -->
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Fill out your address</ng-template>
+        <ng-template matStepLabel>{{stepsName[1]}}</ng-template>
         <mat-form-field>
           <input matInput placeholder="Address" formControlName="secondCtrl" required>
         </mat-form-field>
-        <div>
+        <div class="stepper-navigators" *ngIf="this.componentService.stepsComplete[1]">
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </div>
       </form>
     </mat-step>
+    <!-- Terzo step -->
     <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
+      <ng-template matStepLabel>{{stepsName[2]}}</ng-template>
       You are now done.
-      <div>
+      <div class="stepper-navigators"  *ngIf="this.componentService.stepsComplete[2]">
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>
 
-
-  <app-selector [selections]="this.struments"></app-selector>
+  <!-- <app-selector [selections]="this.struments"></app-selector> -->
 
 </ion-content>

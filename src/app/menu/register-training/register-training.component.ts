@@ -14,13 +14,16 @@ export class RegisterTrainingComponent implements OnInit {
 
   trainings: string[] = [];
   struments: string[] = [];
+  stepsName: string[] = [];
 
   isTimerEnabled = false; 
+
 
   //#region stepper
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  stepperPage = 0;
   //#endregion
 
   constructor(private componentService: RegisterTrainingService, private _formBuilder: FormBuilder) { 
@@ -43,6 +46,10 @@ export class RegisterTrainingComponent implements OnInit {
 
     const struments = await this.componentService.getStruments();
     this.struments = JSON.parse(struments);
+
+    const stepsName = await this.componentService.getStepsName();
+    this.stepsName = JSON.parse(stepsName);
+
   }
 
   //#region checks
