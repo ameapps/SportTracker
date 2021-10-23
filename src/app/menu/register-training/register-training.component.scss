@@ -24,6 +24,10 @@ mat-checkbox {
     margin-left: 2%;
 }
 
+/** The user can't navigate thought the steps by clicking on them! */
+::ng-deep .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+}
 
 /* Bottons to navigate the steppers are set to the bottom of the screen */
 .stepper-navigators-position {

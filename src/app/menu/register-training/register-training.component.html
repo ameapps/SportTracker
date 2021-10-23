@@ -43,15 +43,26 @@
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>{{stepsName[0]}}</ng-template>
+        <!-- Input for pre training weight -->
         <mat-form-field>
           <input 
-            (keyup)="this.preWeightInput($event)"
+            (keypress)="this.isValidPreWeight($event)"
+            (keypress)="this.componentService.preWeightInput()"
             matInput 
             [(ngModel)]="this.componentService.before_training_weight" 
-            placeholder="Before training weight" 
+            placeholder="Before training weight (KG)" 
             formControlName="firstCtrl" 
             required>
         </mat-form-field>
+        <!-- Select for the time of preweight measurement -->
+        <mat-form-field>
+          <mat-select placeholder="Pre weight measurement time">
+            <mat-option *ngFor="let time of preWeightTimes" [value]="preWeightTime">
+              {{ time }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <div class="stepper-navigators-position"  *ngIf="this.componentService.stepsComplete[0]">
           <button mat-button matStepperNext>Next</button>
         </div>
@@ -61,9 +72,10 @@
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>{{stepsName[1]}}</ng-template>
-        <mat-form-field>
-          <input matInput placeholder="Address" formControlName="secondCtrl" required>
-        </mat-form-field>
+        <p>Select your training! </p>
+        <!-- Selection of the training to do -->
+        <app-selector [selections]="this.struments"></app-selector>
+
         <div class="stepper-navigators" *ngIf="this.componentService.stepsComplete[1]">
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
@@ -80,7 +92,5 @@
       </div>
     </mat-step>
   </mat-horizontal-stepper>
-
-  <!-- <app-selector [selections]="this.struments"></app-selector> -->
 
 </ion-content>

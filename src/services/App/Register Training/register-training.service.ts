@@ -12,7 +12,7 @@ export class RegisterTrainingService {
 
   stepsComplete = [false, false, false];
 
-  stepCheck: unknown; /* Timeout */
+  repeat: unknown; /* Timeout */
 
   //#region component fields
 
@@ -23,7 +23,7 @@ export class RegisterTrainingService {
   //#endregion
 
   constructor(private assets: AssetsService) { 
-    this.checkComplete();
+    this.repeatChecks();
   }
 
   //#region async methods
@@ -43,17 +43,28 @@ export class RegisterTrainingService {
     return JSON.stringify(stepsName);
   }
 
+  async getPreWeightTimes() {
+    const preWeightTimes = await this.assets.getFile('assets/Preweight-measuement-times.json');
+    return JSON.stringify(preWeightTimes);
+  }
+
   //#endregion
+
+  /* Method to repeat constantly some operations */
+  public repeatChecks() {
+    this.repeat = setInterval(() => {
+      this.checkComplete();
+      this.preWeightInput();
+    }, 500);
+  }
 
   //#region check if steps are complete 
 
   /** Method always checking the state of the stepper steps */
   public checkComplete(): void {
-    this.stepCheck = setInterval(() => {
       this.stepsComplete.forEach((element, index) => {
         this.isStepComplete(index);
       });
-    }, 500);
   }
 
   public isStepComplete(id: number): boolean
@@ -94,12 +105,33 @@ export class RegisterTrainingService {
 
   //#region component checks
 
-  preWeightInput() {
-    const onlyNumbers = StringHelper.hasOnlyNumbers(this.before_training_weight);
+  /**Method checking whether the input character from the user is valid or not. */
+  isPreWeightValid(char: string) {
+    return StringHelper.hasOnlyNumbers(char);
+  }
+
+  /* Method to delete the input stringh whether it's not valid. */
+  preWeightInput(): void {
+    const onlyNumbers = 
+      StringHelper.hasOnlyNumbers(this.before_training_weight) && 
+      this.isValidWeight(this.before_training_weight);
     if (!onlyNumbers) {
-      this.before_training_weight = 
-        StringHelper.deleteLastChar(this.before_training_weight);
+      this.before_training_weight = '';
     };
+  }
+
+  /** Method to check id the inputted number is valid. 
+   * (E.C.: 07 is not valid) */
+  isValidWeight(before_training_weight: string): boolean {
+    return this.isFirstNumberValid(before_training_weight)
+  }
+
+  isFirstNumberValid(before_training_weight: string): boolean {
+    const firstNum = before_training_weight[0];
+    return firstNum !== '0'  && 
+            firstNum !== '1' && 
+            firstNum !== '2' &&
+            firstNum !== '3' ;
   }
 
   //#endregion

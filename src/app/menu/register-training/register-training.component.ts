@@ -25,6 +25,8 @@ export class RegisterTrainingComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   stepperPage = 0;
+  preWeightTimes = '';
+  preWeightTime = '';
   //#endregion
 
   constructor(
@@ -55,6 +57,9 @@ export class RegisterTrainingComponent implements OnInit {
     const stepsName = await this.componentService.getStepsName();
     this.stepsName = JSON.parse(stepsName);
 
+    const preWeightTimes = await this.componentService.getPreWeightTimes();
+    this.preWeightTimes = JSON.parse(preWeightTimes);
+
   }
 
   //#region checks
@@ -66,8 +71,22 @@ export class RegisterTrainingComponent implements OnInit {
     this.isTimerEnabled = !this.isTimerEnabled;
   }
 
-  preWeightInput() {
-    this.componentService.preWeightInput()
+  /**Method checking whether the input character is 
+   * a valid one or not. 
+   */
+   isValidPreWeight(event: any) {
+    const char = this.GetCharacter(event);
+    if (!this.componentService.isPreWeightValid(char)) {
+      event.preventDefault();
+    }
+  }
+
+  /**Method returning the key of the event, where
+   * the key is the character pressed on the 
+   * keyboard from the user.
+   */
+  private GetCharacter(event: any) {
+    return event.key;
   }
 
   //#endregion
