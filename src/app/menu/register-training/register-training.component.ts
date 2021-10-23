@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { StringHelper } from 'src/helpers/StringHelper';
 import { RegisterTrainingService } from 'src/services/App/Register Training/register-training.service';
 
 
@@ -26,7 +27,11 @@ export class RegisterTrainingComponent implements OnInit {
   stepperPage = 0;
   //#endregion
 
-  constructor(private componentService: RegisterTrainingService, private _formBuilder: FormBuilder) { 
+  constructor(
+    private componentService: RegisterTrainingService, 
+    private _formBuilder: FormBuilder
+    ) 
+  { 
     this.asyncConstructor();
   }
   
@@ -60,6 +65,11 @@ export class RegisterTrainingComponent implements OnInit {
   startTimeClicked() {
     this.isTimerEnabled = !this.isTimerEnabled;
   }
+
+  preWeightInput() {
+    this.componentService.preWeightInput()
+  }
+
   //#endregion
 
   //#region listeners

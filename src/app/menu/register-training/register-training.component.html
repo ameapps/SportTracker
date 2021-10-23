@@ -44,7 +44,13 @@
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>{{stepsName[0]}}</ng-template>
         <mat-form-field>
-          <input matInput [(ngModel)]="this.componentService.before_training_weight" placeholder="Before training weight" formControlName="firstCtrl" required>
+          <input 
+            (keyup)="this.preWeightInput($event)"
+            matInput 
+            [(ngModel)]="this.componentService.before_training_weight" 
+            placeholder="Before training weight" 
+            formControlName="firstCtrl" 
+            required>
         </mat-form-field>
         <div class="stepper-navigators-position"  *ngIf="this.componentService.stepsComplete[0]">
           <button mat-button matStepperNext>Next</button>

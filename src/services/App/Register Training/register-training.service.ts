@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { StringHelper } from 'src/helpers/StringHelper';
 import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 
 @Injectable({
@@ -51,8 +52,6 @@ export class RegisterTrainingService {
     this.stepCheck = setInterval(() => {
       this.stepsComplete.forEach((element, index) => {
         this.isStepComplete(index);
-        
-        console.log(this.before_training_weight)
       });
     }, 500);
   }
@@ -78,7 +77,7 @@ export class RegisterTrainingService {
 
   /** Method checking if the step 3 is complete */
   isStepOneComplete() {
-    return false;
+    return this.before_training_weight != "";
   }
 
   /** Method checking if the step 2 is complete */
@@ -89,6 +88,18 @@ export class RegisterTrainingService {
   /** Method checking if the step 1 is complete */
   isStepThreeComplete() {
     return false;
+  }
+
+  //#endregion
+
+  //#region component checks
+
+  preWeightInput() {
+    const onlyNumbers = StringHelper.hasOnlyNumbers(this.before_training_weight);
+    if (!onlyNumbers) {
+      this.before_training_weight = 
+        StringHelper.deleteLastChar(this.before_training_weight);
+    };
   }
 
   //#endregion
