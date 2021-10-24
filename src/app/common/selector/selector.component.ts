@@ -10,7 +10,7 @@ export class SelectorComponent implements OnInit, OnChanges {
   
 
   @Input() selections: object[];
-  @Input() selectionNumber: number[];
+  @Input() allowedSelectionNumber: number;
 
   clicked: boolean[] = [];
 
@@ -22,22 +22,9 @@ export class SelectorComponent implements OnInit, OnChanges {
       this.clicked = this.initClicked();
     }
     if (changes["selectionNumber"]) {
-      this.selectionNumber = changes["selectionNumber"].currentValue;
+      this.allowedSelectionNumber = changes["selectionNumber"].currentValue;
     }
     
-  }
-
-  /**
-   * Method setting the clicked array, creating
-   * a boolean array representing the click state
-   * of each strument. By default, they will be set
-   * as unclicked.
-   */
-  initClicked(): boolean[] {
-    this.selections.forEach(strument => {
-      this.clicked.push(false);
-    });
-    return this.clicked;
   }
 
   ngOnInit() {}
@@ -48,7 +35,10 @@ export class SelectorComponent implements OnInit, OnChanges {
    * @param index 
    */
   strumentSelected(index: number) {
-    this.clicked[index] = !this.clicked[index];
+    this.clicked[index] = 
+        this.clickedNumber() < this.allowedSelectionNumber || this.isClicked(index) ? 
+          !this.clicked[index] : 
+          this.clicked[index];
   }
 
   /**
@@ -60,5 +50,28 @@ export class SelectorComponent implements OnInit, OnChanges {
   isClicked(index: number) {
     return this.clicked[index];
   }
+
+  //#region tools
+
+  /**
+   * Method setting the clicked array, creating
+   * a boolean array representing the click state
+   * of each strument. By default, they will be set
+   * as unclicked.
+   */
+   initClicked(): boolean[] {
+    this.selections.forEach(strument => {
+      this.clicked.push(false);
+    });
+    return this.clicked;
+  }
+
+  /* Mthod getting the number of clicked selectons */
+  clickedNumber() : number {
+    const clicked = this.clicked.filter( el => el === true);
+    return clicked.length;
+  }
+
+  //#endregion
 
 }
