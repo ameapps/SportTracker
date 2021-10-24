@@ -82,16 +82,23 @@
           (selectedItems)="saveSelectedItems($event)" 
         ></app-selector>
 
+        <!-- Loading a custom menu according to the selected strument -->
         <app-custom-training 
           [trainingTypes]="this.trainings" 
-          [trainingType]="this.selectedTraining">
+          [trainingType]="this.componentService.selectedTrainings[0]">
         </app-custom-training>
 
         <div class="stepper-navigators" *ngIf="this.componentService.stepsComplete[1]">
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </div>
-        <app-chrono-time-picker (definedTime)="definedTime($event)" [chronoType]="'input-clock'"></app-chrono-time-picker>
+        <!-- Far apparire solo dopo la compilazione 
+        del custom menu dello strumento scelto dal 
+        componente selctor -->
+        <app-chrono-time-picker 
+          (definedTime)="definedTime($event)" 
+          [chronoType]="'input-clock'">
+        </app-chrono-time-picker>
       </form>
     </mat-step>
     <!-- Terzo step -->

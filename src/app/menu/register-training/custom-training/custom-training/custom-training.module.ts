@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CustomTrainingRoutingModule } from './custom-training-routing.module';
 import { CustomTrainingComponent } from './custom-training.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({

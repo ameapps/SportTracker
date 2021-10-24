@@ -16,7 +16,6 @@ export class RegisterTrainingComponent implements OnInit {
   trainings: string[] = [];
   struments: string[] = [];
   stepsName: string[] = [];
-  selectedTraining: number[] = [];
 
   isTimerEnabled = false; 
   
@@ -103,9 +102,10 @@ export class RegisterTrainingComponent implements OnInit {
     console.log('register-trainig defined time')
   }
 
+  /** Method to get the emitted index of the selected items in selector component */
   saveSelectedItems(event) {
-    console.log('fire');
-    console.log(event);
+    console.log(event)
+    this.componentService.selectedTrainings = event;
   }
   //#endregion
 }

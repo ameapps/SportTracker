@@ -20,7 +20,6 @@ export class TimerComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["leftTime"]) {
-      console.log('fire')
       if (changes["leftTime"].currentValue != null) {
         console.log('leftTime: ' + this.leftTime)
         this.setViewTimer();

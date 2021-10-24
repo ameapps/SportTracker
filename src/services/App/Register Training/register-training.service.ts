@@ -13,6 +13,8 @@ export class RegisterTrainingService {
   stepsComplete = [false, false, false];
 
   repeat: unknown; /* Timeout */
+  
+  selectedTrainings: number[] = [];
 
   //#region component fields
 

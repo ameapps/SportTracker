@@ -11,7 +11,7 @@ export class CustomTrainingComponent implements OnInit, OnChanges {
   @Input() trainingTypes: string[];
   
 
-  @Input() trainingType: string;
+  @Input() trainingType: number;
   //#endregion
 
   constructor() { }
@@ -19,8 +19,11 @@ export class CustomTrainingComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["trainingTypes"]) {
-      console.log('fire');
       console.log(changes["trainingTypes"].currentValue)
+    }
+
+    if (changes["trainingType"]) {
+      console.log(changes["trainingType"].currentValue)
     }
   }
 
