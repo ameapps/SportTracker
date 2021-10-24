@@ -65,7 +65,6 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-
         <div class="stepper-navigators-position"  *ngIf="this.componentService.stepsComplete[0]">
           <button mat-button matStepperNext>Next</button>
         </div>
@@ -77,12 +76,13 @@
         <ng-template matStepLabel>{{stepsName[1]}}</ng-template>
         <p>Select your training! </p>
         <!-- Selection of the training to do -->
-        <app-selector [selections]="this.struments"></app-selector>
+        <app-selector [selections]="this.struments" [selectionNumber]="1"></app-selector>
 
         <div class="stepper-navigators" *ngIf="this.componentService.stepsComplete[1]">
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </div>
+        <app-chrono-time-picker (definedTime)="definedTime($event)" [chronoType]="'input-clock'"></app-chrono-time-picker>
       </form>
     </mat-step>
     <!-- Terzo step -->

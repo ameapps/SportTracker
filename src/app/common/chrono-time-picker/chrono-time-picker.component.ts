@@ -23,7 +23,6 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges {
    
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["chronoType"]) {
-      console.log('thrown')
       this.chronoType = changes["chronoType"].currentValue;
     }
   }

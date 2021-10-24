@@ -10,6 +10,8 @@ export class SelectorComponent implements OnInit, OnChanges {
   
 
   @Input() selections: object[];
+  @Input() selectionNumber: number[];
+
   clicked: boolean[] = [];
 
   constructor() { }
@@ -18,8 +20,11 @@ export class SelectorComponent implements OnInit, OnChanges {
     if (changes["selections"]) {
       this.selections = changes["selections"].currentValue;
       this.clicked = this.initClicked();
-      console.log(this.selections)
     }
+    if (changes["selectionNumber"]) {
+      this.selectionNumber = changes["selectionNumber"].currentValue;
+    }
+    
   }
 
   /**

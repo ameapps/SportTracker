@@ -8,7 +8,7 @@ import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 export class RegisterTrainingService {
 
   //#region fields
-  definedTime = '';
+  definedTime = '05:00';
 
   stepsComplete = [false, false, false];
 

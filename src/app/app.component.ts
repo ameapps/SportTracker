@@ -27,7 +27,6 @@ export class AppComponent {
 
     const menuSer = await this.config.getMenuItems();
     const menu = JSON.parse(menuSer);
-    console.log(menu);
 
     menu.forEach(element => {
       const page = new AppPages(element.name, element.url, 'mail');
