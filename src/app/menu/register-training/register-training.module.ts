@@ -12,6 +12,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TimerModule } from 'src/app/common/timer/timer.module';
 import {MatStepperModule} from '@angular/material/stepper';
 import { SelectorModule } from 'src/app/common/selector/selector.module';
+import { CustomTrainingModule } from './custom-training/custom-training/custom-training.module';
 
 
 
@@ -27,7 +28,8 @@ import { SelectorModule } from 'src/app/common/selector/selector.module';
     MatCheckboxModule,
     TimerModule,
     MatStepperModule,
-    SelectorModule
+    SelectorModule,
+    CustomTrainingModule
   ]
 })
 export class RegisterTrainingModule { }

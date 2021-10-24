@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, SimpleChanges, EventEmitter } from '@angular/core';
+import {  } from 'stream';
 
 @Component({
   selector: 'app-selector',
@@ -7,10 +8,9 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 })
 export class SelectorComponent implements OnInit, OnChanges {
 
-  
-
   @Input() selections: object[];
   @Input() allowedSelectionNumber: number;
+  @Output() selectedItems = new EventEmitter<number[]>();
 
   clicked: boolean[] = [];
 
@@ -39,6 +39,15 @@ export class SelectorComponent implements OnInit, OnChanges {
         this.clickedNumber() < this.allowedSelectionNumber || this.isClicked(index) ? 
           !this.clicked[index] : 
           this.clicked[index];
+
+    this.selectedItems.emit(this.emitSelectedItems(index));
+  }
+
+  /** Method emitting the selected items indexes */
+  emitSelectedItems(index: number): number[] {
+    const indexes = this.getSelectedIndexes(index);
+    // Insert some other info if necessary
+    return indexes;
   }
 
   /**
@@ -72,6 +81,19 @@ export class SelectorComponent implements OnInit, OnChanges {
     return clicked.length;
   }
 
+  /** Method geting the indexes of selected items */
+  getSelectedIndexes(index: number): number[] {
+    let indexes = [];
+    this.clicked.forEach((element, index) => {
+      if (element === true) {
+        indexes.push(index);
+      }
+    });
+    return indexes;
+  }
+
   //#endregion
 
 }
+
+

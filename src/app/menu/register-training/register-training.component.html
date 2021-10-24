@@ -76,9 +76,16 @@
         <ng-template matStepLabel>{{stepsName[1]}}</ng-template>
         <p>Select your training! </p>
         <!-- Selection of the training to do -->
-        <app-selector [selections]="this.struments" [allowedSelectionNumber]="1"></app-selector>
+        <app-selector 
+          [selections]="this.struments" 
+          [allowedSelectionNumber]="1"
+          (selectedItems)="saveSelectedItems($event)" 
+        ></app-selector>
 
-        <app-custom-training></app-custom-training>
+        <app-custom-training 
+          [trainingTypes]="this.trainings" 
+          [trainingType]="this.selectedTraining">
+        </app-custom-training>
 
         <div class="stepper-navigators" *ngIf="this.componentService.stepsComplete[1]">
           <button mat-button matStepperPrevious>Back</button>

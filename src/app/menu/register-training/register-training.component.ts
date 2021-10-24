@@ -16,8 +16,10 @@ export class RegisterTrainingComponent implements OnInit {
   trainings: string[] = [];
   struments: string[] = [];
   stepsName: string[] = [];
+  selectedTraining: number[] = [];
 
   isTimerEnabled = false; 
+  
 
 
   //#region stepper
@@ -101,5 +103,9 @@ export class RegisterTrainingComponent implements OnInit {
     console.log('register-trainig defined time')
   }
 
+  saveSelectedItems(event) {
+    console.log('fire');
+    console.log(event);
+  }
   //#endregion
 }
