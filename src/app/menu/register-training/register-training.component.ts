@@ -26,7 +26,6 @@ export class RegisterTrainingComponent implements OnInit {
   secondFormGroup: FormGroup;
   stepperPage = 0;
   preWeightTimes = '';
-  preWeightTime = '';
   //#endregion
 
   constructor(

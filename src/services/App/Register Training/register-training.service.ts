@@ -17,6 +17,8 @@ export class RegisterTrainingService {
   //#region component fields
 
   before_training_weight: string = "";
+  preWeightTime = '';
+  
 
   //#endregion
 
@@ -88,7 +90,7 @@ export class RegisterTrainingService {
 
   /** Method checking if the step 3 is complete */
   isStepOneComplete() {
-    return this.before_training_weight != "";
+    return this.before_training_weight != '' && this.preWeightTime !== '';
   }
 
   /** Method checking if the step 2 is complete */

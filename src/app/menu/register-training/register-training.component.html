@@ -56,8 +56,11 @@
         </mat-form-field>
         <!-- Select for the time of preweight measurement -->
         <mat-form-field>
-          <mat-select placeholder="Pre weight measurement time">
-            <mat-option *ngFor="let time of preWeightTimes" [value]="preWeightTime">
+          <mat-select [(value)]="this.componentService.preWeightTime" placeholder="Pre weight measurement time">
+            <mat-option 
+              *ngFor="let time of preWeightTimes"
+              [value]="time"
+              >
               {{ time }}
             </mat-option>
           </mat-select>
