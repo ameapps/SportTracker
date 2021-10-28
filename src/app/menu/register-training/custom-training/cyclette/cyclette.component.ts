@@ -9,6 +9,10 @@ import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 export class CycletteComponent implements OnInit {
 
   resistances: object[];
+  legsPositions: object[];
+
+  choosenResistance: string;
+  choosenPosition: string;
 
   constructor(private assets: AssetsService) { 
     this.asyncConstructor()
@@ -18,6 +22,7 @@ export class CycletteComponent implements OnInit {
   async asyncConstructor() {
     const tapis = await this.getStrumentsMenu();
     this.resistances = JSON.parse(tapis).resistance;
+    this.legsPositions = JSON.parse(tapis).legsPosition;
   }
 
 
@@ -25,6 +30,10 @@ export class CycletteComponent implements OnInit {
     const struments = await this.assets.getFile('assets/struments-menu-cyclette.json');
     console.log(struments);
     return JSON.stringify(struments);
+  }
+
+  optionClick() {
+    console.log(this.choosenResistance)
   }
 
   ngOnInit() {}

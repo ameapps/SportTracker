@@ -1,13 +1,22 @@
-<div id="container">
+<div id="container" class="44444">
+
+  
+  <!-- Resistance choice -->
   <mat-form-field class="element">
-    <mat-select [(value)]="choosenSpeed" placeholder="Tapis roulant speed">
-      <mat-option 
-        (click)="optionClick()"
-        *ngFor="let res of this.resistances"
-        [value]="res"
-        >
+    <mat-select [(value)]="choosenResistance" placeholder="Cyclette resistance">
+      <mat-option (click)="optionClick()" *ngFor="let res of this.resistances" [value]="res">
         {{ res }}
       </mat-option>
     </mat-select>
-  </mat-form-field>  
+  </mat-form-field>
+
+  <!-- seat height choice-->
+  <mat-form-field class="element">
+  <mat-select [(value)]="choosenPosition" placeholder="Legs Position">
+    <mat-option (click)="optionClick()" *ngFor="let pos of this.legsPosition" [value]="pos">
+      {{ pos }}
+    </mat-option>
+  </mat-select>
+  </mat-form-field>
+
 </div>

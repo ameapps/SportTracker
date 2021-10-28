@@ -1,11 +1,13 @@
 /* The father of all elements is kept 1rem far from left,
 so that all inner elements are kept there too. */
 #container {
-    margin-left: 1rem;
+    display: flex;
+    flex-direction: row;
 }
 
 /* Each element is going to have this width.
    Class to use everywhere in the code.  */
-   .element {
-    width: 12rem;
+.element {
+    min-width: 30vw;
+    padding: 1rem;
 }

@@ -8,5 +8,10 @@
         "(6) High",
         "(7) Hard",
         "(8) Tough"
+    ],
+    "legsPosition" : [
+        "bent legs",
+        "normal",
+        "stretched out legs"
     ]
 }
