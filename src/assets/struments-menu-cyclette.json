@@ -1,0 +1,12 @@
+{
+    "resistance" : [
+        "(1) No resistance",
+        "(2) Light",
+        "(3) Low",
+        "(4) Medium",
+        "(5) intense",
+        "(6) High",
+        "(7) Hard",
+        "(8) Tough"
+    ]
+}

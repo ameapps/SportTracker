@@ -1,3 +1,13 @@
-<p>
-  cyclette works!
-</p>
+<div id="container">
+  <mat-form-field class="element">
+    <mat-select [(value)]="choosenSpeed" placeholder="Tapis roulant speed">
+      <mat-option 
+        (click)="optionClick()"
+        *ngFor="let res of this.resistances"
+        [value]="res"
+        >
+        {{ res }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>  
+</div>

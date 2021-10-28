@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 
 @Component({
   selector: 'app-cyclette',
@@ -7,7 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CycletteComponent implements OnInit {
 
-  constructor() { }
+  resistances: object[];
+
+  constructor(private assets: AssetsService) { 
+    this.asyncConstructor()
+  }
+
+  
+  async asyncConstructor() {
+    const tapis = await this.getStrumentsMenu();
+    this.resistances = JSON.parse(tapis).resistance;
+  }
+
+
+  async getStrumentsMenu() : Promise<string> {
+    const struments = await this.assets.getFile('assets/struments-menu-cyclette.json');
+    console.log(struments);
+    return JSON.stringify(struments);
+  }
 
   ngOnInit() {}
 
