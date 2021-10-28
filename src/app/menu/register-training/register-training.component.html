@@ -96,6 +96,7 @@
         del custom menu dello strumento scelto dal 
         componente selctor -->
         <app-chrono-time-picker 
+          *ngIf="this.isMenuComplete"
           (definedTime)="definedTime($event)" 
           [chronoType]="'input-clock'">
         </app-chrono-time-picker>

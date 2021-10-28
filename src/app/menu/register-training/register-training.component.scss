@@ -24,6 +24,11 @@ mat-checkbox {
     margin-left: 2%;
 }
 
+/* The stepper container is full scree height */
+::ng-deep .mat-horizontal-content-container {
+    height: inherit;
+}
+
 /** The user can't navigate thought the steps by clicking on them! */
 ::ng-deep .mat-horizontal-stepper-header {
     pointer-events: none !important;

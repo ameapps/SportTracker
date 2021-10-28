@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CustomTrainingRoutingModule } from './custom-training-routing.module';
 import { CustomTrainingComponent } from './custom-training.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TapisRoulantModule } from './Tapis roulant/tapis-roulant.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   exports: [CustomTrainingComponent],
   imports: [
     CommonModule,
-    CustomTrainingRoutingModule
+    CustomTrainingRoutingModule,
+    TapisRoulantModule
   ]
 })
 export class CustomTrainingModule { }

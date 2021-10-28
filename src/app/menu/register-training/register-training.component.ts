@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { StringHelper } from 'src/helpers/StringHelper';
+import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
 import { RegisterTrainingService } from 'src/services/App/Register Training/register-training.service';
 
 
@@ -31,6 +32,7 @@ export class RegisterTrainingComponent implements OnInit {
 
   constructor(
     private componentService: RegisterTrainingService, 
+    private customTrainingService: CustomTrainingService,
     private _formBuilder: FormBuilder
     ) 
   { 
@@ -104,7 +106,6 @@ export class RegisterTrainingComponent implements OnInit {
 
   /** Method to get the emitted index of the selected items in selector component */
   saveSelectedItems(event) {
-    console.log(event)
     this.componentService.selectedTrainings = event;
   }
   //#endregion

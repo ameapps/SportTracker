@@ -1,0 +1,14 @@
+<div id="container">
+  <mat-form-field class="element">
+    <mat-select [(value)]="choosenSpeed" placeholder="Tapis roulant speed">
+      <mat-option 
+        (click)="optionClick()"
+        *ngFor="let speed of this.speeds"
+        [value]="speed"
+        >
+        {{ speed }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>  
+</div>
+

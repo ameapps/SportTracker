@@ -21,6 +21,8 @@ export class RegisterTrainingService {
   before_training_weight: string = "";
   preWeightTime = '';
   
+  /* field representing the custom menu complete status */
+  isMenuComplete = false;
 
   //#endregion
 
