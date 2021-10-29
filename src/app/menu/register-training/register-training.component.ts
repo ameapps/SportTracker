@@ -108,5 +108,6 @@ export class RegisterTrainingComponent implements OnInit {
   saveSelectedItems(event) {
     this.componentService.selectedTrainings = event;
   }
+  
   //#endregion
 }

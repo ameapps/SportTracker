@@ -39,7 +39,6 @@ export class CycletteComponent implements OnInit {
 
   async getSubmenu() : Promise<string> {
     const struments = await this.assets.getFile('assets/struments-menu-cyclette.json');
-    console.log(struments);
     return JSON.stringify(struments);
   }
   //#endregion
@@ -56,6 +55,8 @@ export class CycletteComponent implements OnInit {
       this.componentService.customTrainingsComplete
         .filter(x => x['training'] === 'Cyclette')[0];
     val['isComplete'] = true;
+    console.log('fire')
+    console.log(this.componentService.customTrainingsComplete)
   }
 
   //#region checks

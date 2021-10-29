@@ -21,9 +21,6 @@ export class CustomTrainingComponent implements OnInit, OnChanges {
   }
 
   async asyncConstructor() {
-    setInterval(() => {
-      // console.log( `custom-training: ${this.isMenuComplete}` )
-    }, 1000)
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -31,6 +28,8 @@ export class CustomTrainingComponent implements OnInit, OnChanges {
     }
 
     if (changes["trainingType"]) {
+      this.componentService.trainingType = this.trainingType;
+      console.log(this.componentService.trainingType);
     }
   }
 

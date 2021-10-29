@@ -8,6 +8,7 @@ import { RegisterTrainingService } from '../Register Training/register-training.
 export class CustomTrainingService extends RegisterTrainingService {
   
   customTrainingsComplete: object[] = [];
+  trainingType: number;
 
   constructor(assets: AssetsService) { 
     super(assets); 

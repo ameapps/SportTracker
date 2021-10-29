@@ -95,12 +95,16 @@
         
         <!-- Far apparire solo dopo la compilazione 
         del custom menu dello strumento scelto dal 
-        componente selctor -->
-        <app-chrono-time-picker 
-          *ngIf="this.isMenuComplete"
-          (definedTime)="definedTime($event)" 
-          [chronoType]="'input-clock'">
-        </app-chrono-time-picker>
+        componente selctor --> 
+        <!-- *ngIf="this.isMenuComplete" -->
+        <!-- this.customTrainingService.customTrainingsComplete[this.customTrainingService.trainingType].isComplete -->
+        <div *ngIf="this.customTrainingService.trainingType != null">            
+          <app-chrono-time-picker 
+            *ngIf="this.customTrainingService.customTrainingsComplete[this.customTrainingService.trainingType].isComplete"
+            (definedTime)="definedTime($event)" 
+            [chronoType]="'input-clock'">
+          </app-chrono-time-picker>
+        </div>
       </form>
     </mat-step>
     <!-- Terzo step -->
