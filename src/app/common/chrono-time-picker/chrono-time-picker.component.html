@@ -1,4 +1,4 @@
-<div style="display:flex; justify-content: left;">
+<div style="display:flex; justify-content: left; margin: 1rem;">
   <!-- Basic Timepicker -->
   <mat-form-field *ngIf="this.isBasic()" class="example-full-width">
     <input mat-timepicker matInput type="time" placeholder="Click to get the time" value="10:55 AM">
@@ -12,17 +12,21 @@
 
   <!-- Timepicker with clock 24H close to an input -->
   <div *ngIf="this.isInputClock()" class="input-timepicker">
-    <input (click)="InputClockClicked()" disabled id="in-input-timepicker" placeholder="Click here to set the time">
-    <ngx-timepicker-field 
-      [format]="24" 
-      [defaultTime]="'23:11'" 
-      (timeSet)="timeSet()"
-      (opened)="opened()"
-      (closed)="closed()"
-      (hourSelected)="hourSelected()"
-      (timeChanged)="timeChanged($event)"
-      >
-    </ngx-timepicker-field>
+
+    <!-- LA INPUT NON VA D'ACCORDO COL TIMEPICKER. LO METTO IN UN DIV. -->
+    <div (click)="InputClockClicked()" >
+      <p id="Timepicker-text">Click to open timepicker!</p>
+      <ngx-timepicker-field
+        [format]="24" 
+        [defaultTime]="'23:11'" 
+        (timeSet)="timeSet()"
+        (opened)="opened()"
+        (closed)="closed()"
+        (hourSelected)="hourSelected()"
+        (timeChanged)="timeChanged($event)"
+        >
+      </ngx-timepicker-field>
+    </div>
   </div>
 
 </div>

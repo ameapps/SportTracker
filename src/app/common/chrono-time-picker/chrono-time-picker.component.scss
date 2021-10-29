@@ -12,8 +12,20 @@
 
 /* the clock is displayed inside the input */
 ::ng-deep ngx-material-timepicker-toggle.ngx-timepicker__toggle.ng-star-inserted {
-    margin-top: -78px;
-    margin-left: -14vw;
+    position: absolute;
+    left: 0;
+    margin-top: 1pc;
+}
+
+/* View che permette l'accio del Timepicker a forma di orologio */
+::ng-deep ngx-material-timepicker-toggle {
+    border-radius: 0;
+    background-color: var(--input-disabled); // #BCBCBC ; // rgb(186,186,186)
+    width: 93%;
+    margin: 2rem;
+    border: 3px solid #303030;
+    -webkit-box-shadow: 1px 1px 5px 1px #303030; 
+    box-shadow: 1px 1px 5px 1px #303030;
 }
 
 /* the clock's button is as large as the input */
@@ -37,3 +49,6 @@
     width: 100%;
 }
 
+/* Timepicker div text */
+#Timepicker-text {
+}
