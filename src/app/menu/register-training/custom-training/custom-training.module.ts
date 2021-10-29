@@ -6,6 +6,7 @@ import { CustomTrainingComponent } from './custom-training.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TapisRoulantModule } from './Tapis roulant/tapis-roulant.module';
 import { CycletteModule } from './cyclette/cyclette.module';
+import { RunModule } from './run/run.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { CycletteModule } from './cyclette/cyclette.module';
     CommonModule,
     CustomTrainingRoutingModule,
     TapisRoulantModule,
-    CycletteModule
+    CycletteModule,
+    RunModule
   ]
 })
 export class CustomTrainingModule { }
