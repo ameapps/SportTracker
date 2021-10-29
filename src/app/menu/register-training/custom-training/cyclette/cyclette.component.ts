@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
 import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 
 @Component({
@@ -14,27 +15,54 @@ export class CycletteComponent implements OnInit {
   choosenResistance: string;
   choosenPosition: string;
 
-  constructor(private assets: AssetsService) { 
+  constructor(private assets: AssetsService, 
+    private componentService: CustomTrainingService) { 
     this.asyncConstructor()
   }
 
   
   async asyncConstructor() {
-    const tapis = await this.getStrumentsMenu();
-    this.resistances = JSON.parse(tapis).resistance;
-    this.legsPositions = JSON.parse(tapis).legsPosition;
+    const cyclette = await this.getStrumentsMenu();
+    this.resistances = this.getResistances(cyclette);
+    this.legsPositions = this.getLegPositions(cyclette);
   }
 
+  //#region getters
+
+  private getLegPositions(cyclette: string): object[] {
+    return JSON.parse(cyclette).legsPosition;
+  }
+
+  private getResistances(cyclette: string): object[] {
+    return JSON.parse(cyclette).resistance;
+  }
 
   async getStrumentsMenu() : Promise<string> {
     const struments = await this.assets.getFile('assets/struments-menu-cyclette.json');
     console.log(struments);
     return JSON.stringify(struments);
   }
+  //#endregion
 
   optionClick() {
-    console.log(this.choosenResistance)
+    if (this.isSubmenuComplete()) {
+      this.setCyclette();
+    }
   }
+
+  /**Method setting the tapis roulant submenu completeness status */
+  setCyclette() {
+    let val = 
+      this.componentService.customTrainingsComplete
+        .filter(x => x['training'] === 'Cyclette')[0];
+    val['isComplete'] = true;
+  }
+
+  //#region checks
+  isSubmenuComplete(): boolean {
+    return this.choosenResistance != null && this.choosenPosition != null; 
+  }
+  //#endregion
 
   ngOnInit() {}
 

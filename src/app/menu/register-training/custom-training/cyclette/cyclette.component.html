@@ -13,7 +13,7 @@
   <!-- seat height choice-->
   <mat-form-field class="element">
   <mat-select [(value)]="choosenPosition" placeholder="Legs Position">
-    <mat-option (click)="optionClick()" *ngFor="let pos of this.legsPosition" [value]="pos">
+    <mat-option (click)="optionClick()" *ngFor="let pos of this.legsPositions" [value]="pos">
       {{ pos }}
     </mat-option>
   </mat-select>

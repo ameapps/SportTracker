@@ -23,24 +23,35 @@ export class TapisRoulantComponent implements OnInit {
     this.speeds = JSON.parse(tapis).speeds;
   }
 
+  //#region getters
 
   async getStrumentsMenu() : Promise<string> {
     const struments = await this.assets.getFile('assets/struments-menu-tapisRoulant.json');
     return JSON.stringify(struments);
   }
+  
+  //#endregion
+
 
   ngOnInit() {}
 
   optionClick() {
-    this.setCyclette();
+    if (this.isSubmenuComplete()) {
+      this.setTapisroulant();
+    }
   }
 
   /**Method setting the tapis roulant submenu completeness status */
-  setCyclette() {
+  setTapisroulant() {
     let val = 
       this.componentService.customTrainingsComplete
         .filter(x => x['training'] === 'Tapis roulant')[0];
     val['isComplete'] = true;
   }
 
+  //#region checks
+  isSubmenuComplete() {
+    return this.choosenSpeed != null;
+  }
+  //#endregion
 }
