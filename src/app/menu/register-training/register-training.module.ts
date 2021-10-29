@@ -13,7 +13,7 @@ import { TimerModule } from 'src/app/common/timer/timer.module';
 import {MatStepperModule} from '@angular/material/stepper';
 import { SelectorModule } from 'src/app/common/selector/selector.module';
 import { CustomTrainingModule } from './custom-training/custom-training.module';
-
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -29,7 +29,8 @@ import { CustomTrainingModule } from './custom-training/custom-training.module';
     TimerModule,
     MatStepperModule,
     SelectorModule,
-    CustomTrainingModule
+    CustomTrainingModule,
+    MatButtonModule
   ]
 })
 export class RegisterTrainingModule { }

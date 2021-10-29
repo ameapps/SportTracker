@@ -15,7 +15,7 @@ export class RunComponent implements OnInit {
     }
     
   asyncConstructor() {
-    throw new Error('Method not implemented.');
+    console.log('to be implemented')
   }
 
 

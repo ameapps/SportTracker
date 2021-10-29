@@ -34,6 +34,11 @@ mat-checkbox {
     pointer-events: none !important;
 }
 
+/* Customizing the material button color */
+button.mat-focus-indicator.mat-stepper-next.mat-button.mat-button-base {
+    background-color: var(--ion-color-primary);
+}
+
 /* Bottons to navigate the steppers are set to the bottom of the screen */
 .stepper-navigators-position {
     position: absolute;
