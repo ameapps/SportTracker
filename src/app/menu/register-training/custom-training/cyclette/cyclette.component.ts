@@ -22,7 +22,7 @@ export class CycletteComponent implements OnInit {
 
   
   async asyncConstructor() {
-    const cyclette = await this.getStrumentsMenu();
+    const cyclette = await this.getSubmenu();
     this.resistances = this.getResistances(cyclette);
     this.legsPositions = this.getLegPositions(cyclette);
   }
@@ -37,7 +37,7 @@ export class CycletteComponent implements OnInit {
     return JSON.parse(cyclette).resistance;
   }
 
-  async getStrumentsMenu() : Promise<string> {
+  async getSubmenu() : Promise<string> {
     const struments = await this.assets.getFile('assets/struments-menu-cyclette.json');
     console.log(struments);
     return JSON.stringify(struments);

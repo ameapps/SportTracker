@@ -10,7 +10,14 @@ import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 export class RunComponent implements OnInit {
 
   constructor(private assets: AssetsService, 
-    private componentService: CustomTrainingService) { }
+    private componentService: CustomTrainingService) { 
+      this.asyncConstructor();
+    }
+    
+  asyncConstructor() {
+    throw new Error('Method not implemented.');
+  }
+
 
   ngOnInit() {}
 

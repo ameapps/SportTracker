@@ -19,17 +19,17 @@ export class TapisRoulantComponent implements OnInit {
 
 
   async asyncConstructor() {
-    const tapis = await this.getStrumentsMenu();
+    const tapis = await this.getSubmenu();
     this.speeds = JSON.parse(tapis).speeds;
   }
 
   //#region getters
 
-  async getStrumentsMenu() : Promise<string> {
+  async getSubmenu() : Promise<string> {
     const struments = await this.assets.getFile('assets/struments-menu-tapisRoulant.json');
     return JSON.stringify(struments);
   }
-  
+
   //#endregion
 
 
