@@ -53,4 +53,7 @@
 #Timepicker-text {
     position: absolute;
     z-index: 1;
+    color: var(--grey-text);
+    /* Text can't be selected and allows to trigger timepicker */
+    pointer-events: none;
 }
