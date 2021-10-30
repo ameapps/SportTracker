@@ -109,5 +109,10 @@ export class RegisterTrainingComponent implements OnInit {
     this.componentService.selectedTrainings = event;
   }
   
+  AnotherTraining() {
+    /**
+     * IMPLEMENTARE UN ALTRO ALLENAMENTO!
+     */
+  }
   //#endregion
 }

@@ -96,14 +96,18 @@
         <!-- Far apparire solo dopo la compilazione 
         del custom menu dello strumento scelto dal 
         componente selctor --> 
-        <!-- *ngIf="this.isMenuComplete" -->
-        <!-- this.customTrainingService.customTrainingsComplete[this.customTrainingService.trainingType].isComplete -->
         <div *ngIf="this.customTrainingService.trainingType != null">            
           <app-chrono-time-picker 
             *ngIf="this.customTrainingService.customTrainingsComplete[this.customTrainingService.trainingType].isComplete"
             (definedTime)="definedTime($event)" 
             [chronoType]="'input-clock'">
           </app-chrono-time-picker>
+        </div>
+
+        <!-- Bottoni che chiedono se si vuole fare un altro training -->
+        <div>
+          <button mat-button (click)="AnotherTraining()" >Another training</button>
+          <button mat-button matStepperNext>Done</button>
         </div>
       </form>
     </mat-step>
