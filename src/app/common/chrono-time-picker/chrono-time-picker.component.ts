@@ -8,6 +8,7 @@ import { Component, Input, OnChanges, EventEmitter, OnInit, Output, SimpleChange
 export class ChronoTimePickerComponent implements OnInit, OnChanges {
 
   //#region fields
+  timepickerText: string = "Click to open timepicker!";
 
   inputClockClick = false;
 
@@ -77,9 +78,31 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges {
   timeChanged(value) {
     this.time = value;
     this.definedTime.emit(value);
+
+    const timetext = this.getTimeText(value);
+    this.timepickerText = timetext;
+  }
+
+  /**Method getting the string to show when the user selects a time from the timepicker */
+  getTimeText(value: any): string {
+    const hour = this.fixHour(value);
+    const minutes = value.split(':')[1];
+    const hourword = parseInt(hour) > 1 ? 'hours' : 'hour';
+    const minutesword = parseInt(hour) > 1 ? 'minutes' : 'minute';
+    let timetext = `You have selected ${hour} ${hourword} and ${minutes} ${minutesword}`;
+    return timetext;
   }
 
 
+  /**Method to remove the '0' if its the first char */
+  private fixHour(value: string) {
+    let hour = value.split(':')[0];
+    const isFirstZero = value.charAt(0) === '0';
+    if (isFirstZero) {
+      hour = hour.replace('0', '');
+    }
+    return hour;
+  }
   //#endregion
 
 

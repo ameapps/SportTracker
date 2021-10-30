@@ -15,7 +15,7 @@
 
     <!-- LA INPUT NON VA D'ACCORDO COL TIMEPICKER. LO METTO IN UN DIV. -->
     <div (click)="InputClockClicked()" >
-      <p id="Timepicker-text">Click to open timepicker!</p>
+      <p id="Timepicker-text">{{this.timepickerText}}</p>
       <ngx-timepicker-field
         [format]="24" 
         [defaultTime]="'23:11'" 
