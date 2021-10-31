@@ -17,6 +17,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 
   @Output() definedTime = new EventEmitter();
   @Output() actualTime = new EventEmitter<string>();
+  @Output() timeExpired = new EventEmitter<object>();
 
   //#endregion
 
@@ -114,10 +115,19 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
         this.actualTime.emit(this.getTime(hour, minutes, seconds));
       } else {
         this.timepickerText = `Time expired!`;
+        this.timeExpired.emit(this.getTimeExpired(time))
         clearInterval(this.intervalTimer);
       }
 
     }, 1000);
+  }
+
+  /**Method making an object containing the expired emitted time */
+  getTimeExpired(time: string): object {
+    const obj = {
+      time: time
+    };
+    return obj;
   }
 
   /**Method getting a coplete time by concatenating

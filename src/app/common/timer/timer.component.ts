@@ -18,6 +18,7 @@ export class TimerComponent implements OnInit, OnChanges {
   @Input() hours: number | string = '00';
   @Input() minutes: number | string = '00';
   @Input() seconds: number | string = '00';
+  canShowTimer: boolean = false; 
 
 
   constructor(private customTrainingService: CustomTrainingService) { 
@@ -36,12 +37,19 @@ export class TimerComponent implements OnInit, OnChanges {
     this.definedTime.emit(event);
   }
 
-  onActualTime(time: string) {
+  onTimeDefined(time: string) {
     this.hours = this.setHours(time);
     this.minutes = this.setMinutes(time);
     this.seconds = this.setSeconds(time);
 
+    console.log('tempo definito')
+    this.canShowTimer = true;
+
     this.actualTime.emit(time);
+  }
+
+  onTimeExpired(event) {
+    this.canShowTimer = false;
   }
 
 
