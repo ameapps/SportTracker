@@ -11,4 +11,8 @@ componente selctor -->
   </app-chrono-time-picker>
 </div>
 
-<app-digital-clock [hours]="22" [minutes]="43" [seconds]="32"></app-digital-clock>
+<app-digital-clock 
+  [hours]="this.hours" 
+  [minutes]="this.minutes" 
+  [seconds]="this.seconds">
+</app-digital-clock>

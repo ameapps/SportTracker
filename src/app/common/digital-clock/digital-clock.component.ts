@@ -15,15 +15,12 @@ export class DigitalClockComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['hours']) {
-      console.log('fire');
       this.hours = this.fixHour(changes["hours"].currentValue + '')
     }
     if (changes['minutes']) {
-      console.log('fire');
       this.minutes = this.fixMinutes(changes['minutes'].currentValue + '')
     }
     if (changes['seconds']) {
-      console.log('fire');
       this.seconds = this.fixSeconds(changes['seconds'].currentValue + '')
     }
   }

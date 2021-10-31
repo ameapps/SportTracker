@@ -104,8 +104,6 @@ export class RegisterTrainingComponent implements OnInit {
   }
 
   actualTime(time: string){
-    console.log('fire')
-    console.log(time)
   }
 
   /** Method to get the emitted index of the selected items in selector component */

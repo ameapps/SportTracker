@@ -111,7 +111,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
         minutes = this.fixMinutes(buildtime.split(':')[1]);
         seconds = this.fixMinutes(buildtime.split(':')[2]);
         this.timepickerText = this.getTimeText(hour, minutes, seconds);
-        this.actualTime.emit(this.timepickerText);
+        this.actualTime.emit(this.getTime(hour, minutes, seconds));
       } else {
         this.timepickerText = `Time expired!`;
         clearInterval(this.intervalTimer);
@@ -120,6 +120,11 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
     }, 1000);
   }
 
+  /**Method getting a coplete time by concatenating
+   *  the seconds to the HH:MM time format. */
+  private getTime(hour: string, minutes: string, seconds: string): string {
+    return `${hour}:${minutes}:${seconds}`;
+  }
 
   private decreaseTimer(millisec: number) {
     millisec -= 1000;

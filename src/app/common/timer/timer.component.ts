@@ -15,9 +15,9 @@ export class TimerComponent implements OnInit, OnChanges {
   @Output() actualTime = new EventEmitter<string>();
 
   // DIGITAL CLICK COMPONENT
-  @Input() hours: number | string;
-  @Input() minutes: number | string;
-  @Input() seconds: number | string;
+  @Input() hours: number | string = '00';
+  @Input() minutes: number | string = '00';
+  @Input() seconds: number | string = '00';
 
 
   constructor(private customTrainingService: CustomTrainingService) { 
@@ -36,8 +36,25 @@ export class TimerComponent implements OnInit, OnChanges {
     this.definedTime.emit(event);
   }
 
-  onActualTime(event) {
-    this.actualTime.emit(event);
+  onActualTime(time: string) {
+    this.hours = this.setHours(time);
+    this.minutes = this.setMinutes(time);
+    this.seconds = this.setSeconds(time);
+
+    this.actualTime.emit(time);
+  }
+
+
+  setSeconds(time: string): string | number {
+    return time.split(':')[2];
+  }
+
+  setMinutes(time: string): string | number {
+    return time.split(':')[1];
+  }
+
+  setHours(time: string): string | number {
+    return time.split(':')[0];
   }
 
 
