@@ -101,7 +101,11 @@ export class RegisterTrainingComponent implements OnInit {
    */
   definedTime(event) {
     this.componentService.definedTime = event;
-    console.log('register-trainig defined time')
+  }
+
+  actualTime(time: string){
+    console.log('fire')
+    console.log(time)
   }
 
   /** Method to get the emitted index of the selected items in selector component */
