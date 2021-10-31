@@ -19,45 +19,12 @@ export class TimerComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["leftTime"]) {
-      if (changes["leftTime"].currentValue != null) {
-        console.log('leftTime: ' + this.leftTime)
-        this.setViewTimer();
-      }
-    }
+
   }
 
   ngOnInit() {
   }
 
-  /**
-   * Method to set the timer when an input stir
-   */
-  setViewTimer() {
-    if (this.isValidTime()) {
-      this.mapInputWord();    
-    }
-  }
-
-//#region to move in service
-
-  /**
-   * Method checking whether the
-   *  input string is a valid time or not.
-   */
-   isValidTime(): boolean {
-    return true;
-  }
-
-  /**
-   * Method getting the info from the input
-   * string and setting the timer varables.
-   */
-  mapInputWord(){
-    const tokens = this.leftTime.split(':');
-  }
-
-  //#endregion 
 
 
 }

@@ -87,6 +87,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
   timeChanged(value) {
     this.time = value;
     this.definedTime.emit(value);
+    this.clearTimer();
 
     const hour = this.fixHour(value.split(':')[0]);
     const minutes = this.fixHour(value.split(':')[1]);
@@ -171,6 +172,14 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
   }
   //#endregion
 
+  /**Method clearing the timer when the user selects another time
+   * from timepicker
+   */
+  clearTimer() {
+    if (this.intervalTimer != null) {
+      clearInterval(this.intervalTimer);
+    }
+  }
 
   
   //#endregion
