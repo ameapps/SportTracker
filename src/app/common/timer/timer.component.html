@@ -1,3 +1,14 @@
-<span>
-  {{hours}} : {{minutes}} : {{seconds}} : {{tenths}} 
-</span>
+
+<!-- Far apparire solo dopo la compilazione 
+del custom menu dello strumento scelto dal 
+componente selctor --> 
+<div *ngIf="this.customTrainingService.trainingType != null">            
+  <app-chrono-time-picker 
+    *ngIf="this.customTrainingService.customTrainingsComplete[this.customTrainingService.trainingType].isComplete"
+    (definedTime)="onDefinedTime($event)" 
+    (actualTime)="onActualTime($event)"
+    [chronoType]="'input-clock'">
+  </app-chrono-time-picker>
+</div>
+
+<app-digital-clock [hours]="22" [minutes]="43" [seconds]="32"></app-digital-clock>
