@@ -119,25 +119,10 @@ export class RegisterTrainingService {
   /* Method to delete the input stringh whether it's not valid. */
   preWeightInput(): void {
     const onlyNumbers = 
-      StringHelper.hasOnlyNumbers(this.before_training_weight) && 
-      this.isValidWeight(this.before_training_weight);
+      StringHelper.hasOnlyNumbers(this.before_training_weight);
     if (!onlyNumbers) {
       this.before_training_weight = '';
     };
-  }
-
-  /** Method to check id the inputted number is valid. 
-   * (E.C.: 07 is not valid) */
-  isValidWeight(before_training_weight: string): boolean {
-    return this.isFirstNumberValid(before_training_weight)
-  }
-
-  isFirstNumberValid(before_training_weight: string): boolean {
-    const firstNum = before_training_weight[0];
-    return firstNum !== '0'  && 
-            firstNum !== '1' && 
-            firstNum !== '2' &&
-            firstNum !== '3' ;
   }
 
   //#endregion
