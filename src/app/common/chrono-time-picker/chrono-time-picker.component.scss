@@ -31,7 +31,7 @@
 /* the clock's button is as large as the input */
 ::ng-deep button.ngx-material-timepicker-toggle {
     background: blue;
-    width: 100vw; 
+    width: 100%; 
 }
 
 /* clock icon disappears from the button */
@@ -42,6 +42,11 @@
 /* the components arrow disappear */
 ::ng-deep span.ngx-timepicker-control__arrow {
     visibility: collapse;
+}
+
+/* button inside the time picker component is not bigger than container anymore */
+::ng-deep .ngx-material-timepicker-toggle[_ngcontent-xwl-c177] {
+    width: 100%;
 }
 
 /* The input of the input time picker expands to full screen  */

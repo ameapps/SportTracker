@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, EventEmitter, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChronoTimePickerService } from 'src/services/App/Time transforming/chrono-time-picker.service';
 
 @Component({
   selector: 'app-chrono-time-picker',
@@ -20,7 +21,9 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges {
 
   @Input() chronoType: string = "";
 
-  constructor() {}
+  intervalTimer: any;
+
+  constructor(private timeService: ChronoTimePickerService) {}
    
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["chronoType"]) {
@@ -80,25 +83,67 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges {
     this.time = value;
     this.definedTime.emit(value);
 
-    const timetext = this.getTimeText(value);
-    this.timepickerText = timetext;
+    const hour = this.fixHour(value.split(':')[0]);
+    const minutes = this.fixHour(value.split(':')[1]);
+    this.timepickerText = this.getTimeText(hour, minutes, null);
 
+    this.startTimer(value);
   }
 
+  /* Method to start the timer. */
+  startTimer(time: string): void {
+    let hour = this.fixHour(time.split(':')[0]);
+    let minutes = this.fixMinutes(time.split(':')[1]);
+    let seconds = null;
+
+    let millisec: number = this.timeService.calcMillisec(parseInt(hour), parseInt(minutes));
+    this.intervalTimer = setInterval(() => {
+      millisec = this.decreaseTimer(millisec);
+      if (millisec > 0) {
+        const buildtime = this.timeService.millisecAsTime(millisec);
+        hour = this.fixHour(buildtime.split(':')[0]);
+        minutes = this.fixMinutes(buildtime.split(':')[1]);
+        seconds = this.fixMinutes(buildtime.split(':')[2]);
+        this.timepickerText = this.getTimeText(hour, minutes, seconds);
+      } else {
+        this.timepickerText = `Time expired!`;
+        clearInterval(this.intervalTimer);
+      }
+
+    }, 1000);
+  }
+
+
+  private decreaseTimer(millisec: number) {
+    millisec -= 1000;
+    return millisec;
+  }
+
+  //#endregion
+
+  //#region timer
 
   //#endregion
 
   //#region time selected as string
 
   /**Method getting the string to show when the user selects a time from the timepicker */
-  getTimeText(value: any): string {
-    const hour = this.fixHour(value.split(':')[0]);
-    const minutes = this.fixMinutes(value.split(':')[1]);
+  getTimeText(hour: any, minutes: string, seconds: string): string {
     const hourword = parseInt(hour) > 1 ? 'hours' : 'hour';
     const minutesword = parseInt(minutes) > 1 ? 'minutes' : 'minute';
-    let timetext = `You have selected ${hour} ${hourword} and ${minutes} ${minutesword}`;
+    let timetext = null;
+
+    if (seconds== null) {
+      timetext = `You have selected ${hour} ${hourword} and ${minutes} ${minutesword}`;
+    } else {
+      const secondsword = parseInt(seconds) > 1 ? 'seconds' : 'second';
+      timetext = `Countdown now is ${hour} ${hourword} : ${minutes} ${minutesword} : ${seconds} ${secondsword}`;
+    }
+
     return timetext;
   }
+
+  //#region fix times
 
   /**Method to remove the '0' if its the first char */
   private fixHour(hour: string) {
@@ -118,7 +163,10 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges {
     }
     return minutes;
   }
+  //#endregion
 
+
+  
   //#endregion
 
   //#endregion
