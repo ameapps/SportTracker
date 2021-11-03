@@ -7,7 +7,9 @@ import { AssetsService } from 'src/services/Helpers/assets/assets.service';
   templateUrl: './tapis-roulant.component.html',
   styleUrls: ['./tapis-roulant.component.scss'],
 })
-export class TapisRoulantComponent implements OnInit {
+export class TapisRoulantComponent implements OnInit, OnChanges {
+
+  @Input() expiredTime;
 
   speeds: string[] = [];
   choosenSpeed = '';
@@ -15,6 +17,15 @@ export class TapisRoulantComponent implements OnInit {
   constructor(private assets: AssetsService, 
     private componentService: CustomTrainingService) { 
     this.asyncConstructor();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes["expiredTime"]) {
+      const expiredTime = changes["expiredTime"].currentValue;
+      if (expiredTime != null) {
+        console.log(`FIRE TAPPETO TEMPO SCADUTO:  ${expiredTime}`);
+      }
+    }
   }
 
 

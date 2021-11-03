@@ -84,6 +84,7 @@
 
         <!-- Loading a custom menu according to the selected strument -->
         <app-custom-training 
+          [expiredTime]="this.expiredTime"
           [trainingTypes]="this.trainings" 
           [trainingType]="this.componentService.selectedTrainings[0]">
         </app-custom-training>
@@ -97,6 +98,7 @@
         <app-timer        
           (definedTime)="definedTime($event)" 
           (actualTime)="actualTime($event)"
+          (timeExpired)="onExpiredTimer($event)"
           [chronoType]="'input-clock'"
         ></app-timer>
 

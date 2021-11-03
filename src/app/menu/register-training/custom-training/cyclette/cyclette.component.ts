@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
 import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 
@@ -7,7 +7,7 @@ import { AssetsService } from 'src/services/Helpers/assets/assets.service';
   templateUrl: './cyclette.component.html',
   styleUrls: ['./cyclette.component.scss'],
 })
-export class CycletteComponent implements OnInit {
+export class CycletteComponent implements OnInit, OnChanges {
 
   resistances: object[];
   legsPositions: object[];
@@ -15,10 +15,48 @@ export class CycletteComponent implements OnInit {
   choosenResistance: string;
   choosenPosition: string;
 
+  consumedKcal: number = 0;
+  canConsumeKcalShow = false;
+
+  @Input() expiredTime;
+
   constructor(private assets: AssetsService, 
     private componentService: CustomTrainingService) { 
     this.asyncConstructor()
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes["expiredTime"]) {
+      const expiredTime = changes["expiredTime"].currentValue;
+      if (expiredTime != null) {
+        this.canConsumeKcalShow = true;
+        const millisec = this.getTrainingMillisec(expiredTime);
+        this.consumedKcal = this.estimateKcalConsume(millisec);
+      }
+    }
+  }
+
+  /* Algorithm estimating the kcal consume after training for the specfied time */
+  estimateKcalConsume(millisec: number): number {
+    const HOUR_CALORIES = 672;
+    const secondCalories = HOUR_CALORIES / 3600; // 0.186666
+    const kcal = secondCalories * (millisec / 1000);
+    return kcal;
+  }
+
+  getTrainingMillisec(expiredTime: object): number {
+    const time = Object.assign(expiredTime).timeExpired;
+    const tokens = time.split(':');
+    console.log('fire')
+    const minutes = this.getMillisecs(tokens[0], tokens[1], tokens[2] );
+    return minutes;
+  }
+
+  getMillisecs(hours: string, minutes: string, seconds: string):number {
+    const millisecsCalc = (parseInt(hours)*1000*60*60) + (parseInt(minutes) * 1000*60) +  (parseInt(seconds) * 1000);
+    return millisecsCalc;
+  }
+
 
   
   async asyncConstructor() {

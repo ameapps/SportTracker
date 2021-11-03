@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CycletteRoutingModule } from './cyclette-routing.module';
 import { CycletteComponent } from './cyclette.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatInput, MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
   imports: [
     CommonModule,
     CycletteRoutingModule,
-    MatSelectModule
+    MatSelectModule,
+    MatInputModule
   ]
 })
 export class CycletteModule { }

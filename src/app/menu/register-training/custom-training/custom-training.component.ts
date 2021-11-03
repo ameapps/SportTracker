@@ -11,7 +11,9 @@ export class CustomTrainingComponent implements OnInit, OnChanges {
   //#region fields
   @Input() trainingTypes: string[];
   
-  @Input() trainingType: number;
+  @Input() trainingType: number; 
+
+  @Input() expiredTime: object; 
 
   strumentsMenu: string[] = [];
   //#endregion

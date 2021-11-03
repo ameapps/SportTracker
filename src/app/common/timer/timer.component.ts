@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { dateInputsHaveChanged } from '@angular/material/datepicker/datepicker-input-base';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
 import { threadId } from 'worker_threads';
 
@@ -18,7 +19,11 @@ export class TimerComponent implements OnInit, OnChanges {
   @Input() hours: number | string = '00';
   @Input() minutes: number | string = '00';
   @Input() seconds: number | string = '00';
-  canShowTimer: boolean = false; 
+
+  // THIS COMPONENT
+  canShowTimer: boolean = false;
+  @Output() timeExpired = new EventEmitter<object>();
+
 
 
   constructor(private customTrainingService: CustomTrainingService) { 
@@ -42,7 +47,6 @@ export class TimerComponent implements OnInit, OnChanges {
     this.minutes = this.setMinutes(time);
     this.seconds = this.setSeconds(time);
 
-    console.log('tempo definito')
     this.canShowTimer = true;
 
     this.actualTime.emit(time);
@@ -50,6 +54,13 @@ export class TimerComponent implements OnInit, OnChanges {
 
   onTimeExpired(event) {
     this.canShowTimer = false;
+    /* Emitting expired time */
+    const obj = {
+      timeExpired : `${this.hours}:${this.minutes}:${this.seconds}`,
+      atTime: new Date()
+    };
+    console.log('fire time exored for some reason')
+    this.timeExpired.emit(obj)
   }
 
 

@@ -20,3 +20,8 @@
   </mat-form-field>
 
 </div>
+
+  <!-- Input for kcal insertion after cyclette training -->
+  <mat-form-field id="kcal-input" *ngIf="this.canConsumeKcalShow">
+    <input matInput placeholder="Consumed kcal post training" [value]="this.consumedKcal">
+  </mat-form-field>

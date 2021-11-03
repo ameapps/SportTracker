@@ -30,6 +30,9 @@ export class RegisterTrainingComponent implements OnInit {
   preWeightTimes = '';
   //#endregion
 
+  
+  expiredTime: object;
+
   constructor(
     private componentService: RegisterTrainingService, 
     private customTrainingService: CustomTrainingService,
@@ -109,6 +112,11 @@ export class RegisterTrainingComponent implements OnInit {
   /** Method to get the emitted index of the selected items in selector component */
   saveSelectedItems(event) {
     this.componentService.selectedTrainings = event;
+  }
+
+  /**Method managing what happen when the timer is expired */ 
+  onExpiredTimer(event) {
+    this.expiredTime = event;
   }
   
   AnotherTraining() {
