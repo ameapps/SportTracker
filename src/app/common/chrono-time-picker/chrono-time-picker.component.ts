@@ -23,6 +23,11 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() chronoType: string = "";
 
+  hour = '0';
+  minutes = '0';
+  seconds = '0';
+  totalTime = '0';
+
   intervalTimer: any;
 
   constructor(private timeService: ChronoTimePickerService) {}
@@ -99,33 +104,40 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 
   /* Method to start the timer. */
   startTimer(time: string): void {
-    let hour = this.fixHour(time.split(':')[0]);
-    let minutes = this.fixMinutes(time.split(':')[1]);
-    let seconds = null;
+    this.hour = this.fixHour(time.split(':')[0]);
+    this.minutes = this.fixMinutes(time.split(':')[1]);
+    this.totalTime = this.setTotalTime();
 
-    let millisec: number = this.timeService.calcMillisec(parseInt(hour), parseInt(minutes));
+    let millisec: number = this.timeService.calcMillisec(parseInt(this.hour), parseInt(this.minutes));
     this.intervalTimer = setInterval(() => {
       millisec = this.decreaseTimer(millisec);
       if (millisec > 0) {
         const buildtime = this.timeService.millisecAsTime(millisec);
-        hour = this.fixHour(buildtime.split(':')[0]);
-        minutes = this.fixMinutes(buildtime.split(':')[1]);
-        seconds = this.fixMinutes(buildtime.split(':')[2]);
-        this.timepickerText = this.getTimeText(hour, minutes, seconds);
-        this.actualTime.emit(this.getTime(hour, minutes, seconds));
+        this.hour = this.fixHour(buildtime.split(':')[0]);
+        this.minutes = this.fixMinutes(buildtime.split(':')[1]);
+        this.seconds = this.fixMinutes(buildtime.split(':')[2]);
+        this.timepickerText = this.getTimeText(this.hour, this.minutes, this.seconds);
+        this.actualTime.emit(this.getTime(this.hour, this.minutes, this.seconds));
       } else {
         this.timepickerText = `Time expired!`;
-        this.timeExpired.emit(this.getTimeExpired(time))
+        console.log('fire')
+        console.log(`time: ${time}`)
+        this.timeExpired.emit(this.getTimeExpired(time));
         clearInterval(this.intervalTimer);
       }
 
     }, 1000);
   }
 
+
+  setTotalTime(): string {
+    return `${this.hour}:${this.minutes}:${this.seconds}`
+  }
+
   /**Method making an object containing the expired emitted time */
   getTimeExpired(time: string): object {
     const obj = {
-      time: time
+      time: this.totalTime
     };
     return obj;
   }

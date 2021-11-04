@@ -36,8 +36,11 @@ export class CycletteComponent implements OnInit, OnChanges {
     }
   }
 
+  //#region kcal consume
+  
   /* Algorithm estimating the kcal consume after training for the specfied time */
   estimateKcalConsume(millisec: number): number {
+    console.log('fire');
     const HOUR_CALORIES = 672;
     const secondCalories = HOUR_CALORIES / 3600; // 0.186666
     const kcal = secondCalories * (millisec / 1000);
@@ -47,7 +50,6 @@ export class CycletteComponent implements OnInit, OnChanges {
   getTrainingMillisec(expiredTime: object): number {
     const time = Object.assign(expiredTime).timeExpired;
     const tokens = time.split(':');
-    console.log('fire')
     const minutes = this.getMillisecs(tokens[0], tokens[1], tokens[2] );
     return minutes;
   }
@@ -57,8 +59,9 @@ export class CycletteComponent implements OnInit, OnChanges {
     return millisecsCalc;
   }
 
+  //#endregion
 
-  
+
   async asyncConstructor() {
     const cyclette = await this.getSubmenu();
     this.resistances = this.getResistances(cyclette);

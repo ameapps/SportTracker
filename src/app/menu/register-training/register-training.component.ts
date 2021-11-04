@@ -32,6 +32,7 @@ export class RegisterTrainingComponent implements OnInit {
 
   
   expiredTime: object;
+  canShowNextTrain = false;
 
   constructor(
     private componentService: RegisterTrainingService, 
@@ -117,6 +118,7 @@ export class RegisterTrainingComponent implements OnInit {
   /**Method managing what happen when the timer is expired */ 
   onExpiredTimer(event) {
     this.expiredTime = event;
+    this.canShowNextTrain = true;
   }
   
   AnotherTraining() {

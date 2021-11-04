@@ -12,7 +12,10 @@
     width: 100% !important;
 }
 
-
+#next-training {
+    position:absolute;
+    bottom: 1rem;
+}
 
 /* The select width is full screen */
 mat-form-field {

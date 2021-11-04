@@ -103,7 +103,7 @@
         ></app-timer>
 
         <!-- Bottoni che chiedono se si vuole fare un altro training -->
-        <div>
+        <div id="next-training" *ngIf="this.canShowNextTrain">
           <button mat-button (click)="AnotherTraining()" >Another training</button>
           <button mat-button matStepperNext>Done</button>
         </div>

@@ -56,7 +56,7 @@ export class TimerComponent implements OnInit, OnChanges {
     this.canShowTimer = false;
     /* Emitting expired time */
     const obj = {
-      timeExpired : `${this.hours}:${this.minutes}:${this.seconds}`,
+      timeExpired : event.time,
       atTime: new Date()
     };
     console.log('fire time exored for some reason')
