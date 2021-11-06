@@ -15,6 +15,7 @@ import { SelectorModule } from 'src/app/common/selector/selector.module';
 import { CustomTrainingModule } from './custom-training/custom-training.module';
 import {MatButtonModule} from '@angular/material/button';
 import { DigitalClockModule } from 'src/app/common/digital-clock/digital-clock.module';
+import { RtStep3Module } from './stepper/step 3/register-step3/rt-step3/rt-step3.module';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { DigitalClockModule } from 'src/app/common/digital-clock/digital-clock.m
     SelectorModule,
     CustomTrainingModule,
     MatButtonModule,
-    DigitalClockModule
+    DigitalClockModule,
+    RtStep3Module
   ]
 })
 export class RegisterTrainingModule { }
