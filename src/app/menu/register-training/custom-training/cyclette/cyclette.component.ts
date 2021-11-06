@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
 import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 
@@ -7,7 +7,7 @@ import { AssetsService } from 'src/services/Helpers/assets/assets.service';
   templateUrl: './cyclette.component.html',
   styleUrls: ['./cyclette.component.scss'],
 })
-export class CycletteComponent implements OnInit, OnChanges {
+export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
 
   resistances: object[];
   legsPositions: object[];
@@ -23,6 +23,11 @@ export class CycletteComponent implements OnInit, OnChanges {
   constructor(private assets: AssetsService, 
     private componentService: CustomTrainingService) { 
     this.asyncConstructor()
+  }
+
+
+  ngOnDestroy(): void {
+    console.log('cyclette destroyed');
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { dateInputsHaveChanged } from '@angular/material/datepicker/datepicker-input-base';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
 import { threadId } from 'worker_threads';
@@ -8,7 +8,7 @@ import { threadId } from 'worker_threads';
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.scss'],
 })
-export class TimerComponent implements OnInit, OnChanges {
+export class TimerComponent implements OnInit, OnChanges, OnDestroy {
    
   // CHRONO TIME PICKER
   @Input() chronoType: string = "";
@@ -28,6 +28,10 @@ export class TimerComponent implements OnInit, OnChanges {
 
   constructor(private customTrainingService: CustomTrainingService) { 
 
+  }
+
+  ngOnDestroy(): void {
+    console.log('timer destroyed')
   }
 
   ngOnChanges(changes: SimpleChanges): void {
