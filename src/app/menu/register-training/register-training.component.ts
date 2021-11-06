@@ -128,6 +128,13 @@ export class RegisterTrainingComponent implements OnInit {
   AnotherTraining() {
     this.saveTraining();
     this.resetSelectedMenu();
+    this.resetExpiredTime();
+  }
+
+  /**Method allowing the after time items in the custom menus
+   * not to appear after pressing "another training" button*/
+  private resetExpiredTime() {
+    this.expiredTime = null;
   }
 
   saveTraining() {
