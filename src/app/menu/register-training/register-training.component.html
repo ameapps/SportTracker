@@ -9,35 +9,6 @@
 
 <ion-content [fullscreen]="true">
 
-  <!-- #region OLD -->
-
-  <!-- Material select for traninig selection -->
-  <!-- <mat-form-field appearance="fill">
-    <mat-label class="select-training color-text">training types</mat-label>
-    <mat-select class="select-training width">
-      <mat-option *ngFor="let training of trainings" class="select-training color-sel" [value]="training">
-        {{training}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field> -->
-
-  <!-- Material input for morning weight insertion -->
-  <!-- <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Pre training morning weight" value="70kg">
-    </mat-form-field>
-  </form> -->
-
-  <!-- Getting the training time  -->
-  <!-- <app-chrono-time-picker (definedTime)="definedTime($event)" [chronoType]="'input-clock'"></app-chrono-time-picker>
-
-  <mat-checkbox (click)="startTimeClicked()" [checked]="isTimerEnabled">Start timer?</mat-checkbox>
-
-  <app-timer [leftTime]="this.componentService.definedTime"></app-timer> -->
-
-  <!-- #endregion -->
-
-
   <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper" style="height: 100%;">
     <!-- Primo step -->
     <mat-step [stepControl]="firstFormGroup">
@@ -85,6 +56,7 @@
 
         <!-- Loading a custom menu according to the selected strument -->
         <app-custom-training 
+          (timeExpired)="onTimeExpired($event)"
           [expiredTime]="this.expiredTime"
           [trainingTypes]="this.trainings" 
           [trainingType]="this.componentService.selectedTrainings[0]">
@@ -95,14 +67,6 @@
           <button matStepperNext>Next</button>
         </div>
         
-        <!-- Componente timer per la definizione, misura e visualizzazione del tempo -->
-        <app-timer        
-          (definedTime)="definedTime($event)" 
-          (actualTime)="actualTime($event)"
-          (timeExpired)="onExpiredTimer($event)"
-          [chronoType]="'input-clock'"
-        ></app-timer>
-
         <!-- Bottoni che chiedono se si vuole fare un altro training -->
         <div id="next-training" *ngIf="this.canShowNextTrain">
           <button mat-button (click)="AnotherTraining()" >Another training</button>

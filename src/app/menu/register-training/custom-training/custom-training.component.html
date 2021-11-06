@@ -1,11 +1,18 @@
 <div style="width: 10vw; height: 10vh;">
   <div *ngIf="trainingType === 0">
-    <app-tapis-roulant [expiredTime]="this.expiredTime"></app-tapis-roulant>
+    <app-tapis-roulant 
+      [expiredTime]="this.expiredTime">
+    </app-tapis-roulant>
   </div>
   <div *ngIf="trainingType === 1">
-    <app-cyclette  [expiredTime]="this.expiredTime"></app-cyclette>
+    <app-cyclette 
+      (timeExpired)="onTimeExpired($event)"  
+      [expiredTime]="this.expiredTime">
+    </app-cyclette>
   </div>
   <div *ngIf="trainingType === 2">
-    <app-run  [expiredTime]="this.expiredTime"></app-run>
+    <app-run  
+      [expiredTime]="this.expiredTime">
+    </app-run>
   </div>
 </div>

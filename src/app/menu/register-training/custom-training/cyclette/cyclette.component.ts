@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
 import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 
@@ -19,6 +19,9 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
   canConsumeKcalShow = false;
 
   @Input() expiredTime;
+  canShowNextTrain: boolean = false;
+
+  @Output() timeExpired = new EventEmitter();
 
   constructor(private assets: AssetsService, 
     private componentService: CustomTrainingService) { 
@@ -31,14 +34,6 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes["expiredTime"]) {
-      const expiredTime = changes["expiredTime"].currentValue;
-      if (expiredTime != null) {
-        this.canConsumeKcalShow = true;
-        const millisec = this.getTrainingMillisec(expiredTime);
-        this.consumedKcal = this.estimateKcalConsume(millisec);
-      }
-    }
   }
 
   //#region kcal consume
@@ -52,9 +47,8 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
     return kcal;
   }
 
-  getTrainingMillisec(expiredTime: object): number {
-    const time = Object.assign(expiredTime).timeExpired;
-    const tokens = time.split(':');
+  getTrainingMillisec(expiredTime: string): number {
+    const tokens = expiredTime.split(':');
     const minutes = this.getMillisecs(tokens[0], tokens[1], tokens[2] );
     return minutes;
   }
@@ -109,6 +103,36 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
   isSubmenuComplete(): boolean {
     return this.choosenResistance != null && this.choosenPosition != null; 
   }
+  //#endregion
+
+  //#region timer component
+
+  /**
+   * Listener for time events from chrono-timer component
+   * @param event stirng representing the time emitted 
+   */
+   definedTime(event) {
+    this.componentService.definedTime = event;
+  }
+
+  actualTime(time: string){
+  }
+
+  
+  /**Method managing what happen when the timer is expired */ 
+  onExpiredTimer(event) {
+    this.expiredTime = event;
+
+    this.canConsumeKcalShow = true;
+    this.canShowNextTrain = true;
+    this.componentService.definedTime = event.timeExpired;
+
+    const millisec = this.getTrainingMillisec(this.componentService.definedTime);
+    this.consumedKcal = this.estimateKcalConsume(millisec);
+
+    this.timeExpired.emit(event);
+  }
+
   //#endregion
 
   ngOnInit() {}

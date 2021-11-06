@@ -21,6 +21,14 @@
 
 </div>
 
+  <!-- Componente timer per la definizione, misura e visualizzazione del tempo -->
+  <app-timer        
+    (definedTime)="definedTime($event)" 
+    (actualTime)="actualTime($event)"
+    (timeExpired)="onExpiredTimer($event)"
+    [chronoType]="'input-clock'"
+  ></app-timer>
+
   <!-- Input for kcal insertion after cyclette training -->
   <mat-form-field id="kcal-input" *ngIf="this.canConsumeKcalShow">
     <input matInput placeholder="Consumed kcal post training" [value]="this.consumedKcal">

@@ -70,14 +70,11 @@ export class RegisterTrainingComponent implements OnInit {
 
   }
 
-  //#region checks
-
-  /**
-   * Method to set as clicked/unclicked the checkbox
-   */
-  startTimeClicked() {
-    this.isTimerEnabled = !this.isTimerEnabled;
+  onTimeExpired(event) {
+    this.canShowNextTrain = true;
   }
+
+  //#region checks
 
   /**Method checking whether the input character is 
    * a valid one or not. 
@@ -101,27 +98,13 @@ export class RegisterTrainingComponent implements OnInit {
 
   //#region listeners
 
-  /**
-   * Listener for time events from chrono-timer component
-   * @param event stirng representing the time emitted 
-   */
-  definedTime(event) {
-    this.componentService.definedTime = event;
-  }
 
-  actualTime(time: string){
-  }
 
   /** Method to get the emitted index of the selected items in selector component */
   saveSelectedItems(event) {
     this.componentService.selectedTrainings = event;
   }
 
-  /**Method managing what happen when the timer is expired */ 
-  onExpiredTimer(event) {
-    this.expiredTime = event;
-    this.canShowNextTrain = true;
-  }
   
   //#region another training
 
@@ -139,8 +122,8 @@ export class RegisterTrainingComponent implements OnInit {
 
   private hideTimerInput() {
     let el = this.customTrainingService.customTrainingsComplete.filter(x => x["training"] === 'Cyclette')[0];
-    const yy = Object.assign(el);
-    yy.isComplete = false;
+    const asObj = Object.assign(el);
+    asObj.isComplete = false;
   }
 
   /**Method allowing the after time items in the custom menus

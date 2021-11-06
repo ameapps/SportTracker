@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
 
 @Component({
@@ -14,6 +14,8 @@ export class CustomTrainingComponent implements OnInit, OnChanges {
   @Input() trainingType: number; 
 
   @Input() expiredTime: object; 
+
+  @Output() timeExpired = new EventEmitter();
 
   strumentsMenu: string[] = [];
   //#endregion
@@ -33,6 +35,10 @@ export class CustomTrainingComponent implements OnInit, OnChanges {
       this.componentService.trainingType = this.trainingType;
       console.log(this.componentService.trainingType);
     }
+  }
+
+  onTimeExpired(event) {
+    this.timeExpired.emit(event);
   }
 
   ngOnInit() {}
