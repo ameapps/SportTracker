@@ -129,6 +129,14 @@ export class RegisterTrainingComponent implements OnInit {
     this.saveTraining();
     this.resetSelectedMenu();
     this.resetExpiredTime();
+    this.hideTimerInput();
+
+  }
+
+  private hideTimerInput() {
+    let el = this.customTrainingService.customTrainingsComplete.filter(x => x["training"] === 'Cyclette')[0];
+    const yy = Object.assign(el);
+    yy.isComplete = false;
   }
 
   /**Method allowing the after time items in the custom menus
