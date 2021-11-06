@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
+import { CycletteService } from 'src/services/App/Custom training/cyclette/cyclette.service';
 import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 
 @Component({
@@ -17,14 +18,15 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
 
   consumedKcal: number = 0;
   canConsumeKcalShow = false;
-
-  @Input() expiredTime;
   canShowNextTrain: boolean = false;
 
+  @Input() expiredTime;
   @Output() timeExpired = new EventEmitter();
 
-  constructor(private assets: AssetsService, 
-    private componentService: CustomTrainingService) { 
+  // CycletteService
+
+  constructor(private componentService: CycletteService,
+    private customTrainingService: CustomTrainingService) { 
     this.asyncConstructor()
   }
 
@@ -36,52 +38,14 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges): void {
   }
 
-  //#region kcal consume
-  
-  /* Algorithm estimating the kcal consume after training for the specfied time */
-  estimateKcalConsume(millisec: number): number {
-    console.log('fire');
-    const HOUR_CALORIES = 672;
-    const secondCalories = HOUR_CALORIES / 3600; // 0.186666
-    const kcal = secondCalories * (millisec / 1000);
-    return kcal;
-  }
-
-  getTrainingMillisec(expiredTime: string): number {
-    const tokens = expiredTime.split(':');
-    const minutes = this.getMillisecs(tokens[0], tokens[1], tokens[2] );
-    return minutes;
-  }
-
-  getMillisecs(hours: string, minutes: string, seconds: string):number {
-    const millisecsCalc = (parseInt(hours)*1000*60*60) + (parseInt(minutes) * 1000*60) +  (parseInt(seconds) * 1000);
-    return millisecsCalc;
-  }
-
-  //#endregion
 
 
   async asyncConstructor() {
-    const cyclette = await this.getSubmenu();
-    this.resistances = this.getResistances(cyclette);
-    this.legsPositions = this.getLegPositions(cyclette);
+    const cyclette = await this.componentService.getSubmenu();
+    this.resistances = this.componentService.getResistances(cyclette);
+    this.legsPositions = this.componentService.getLegPositions(cyclette);
   }
 
-  //#region getters
-
-  private getLegPositions(cyclette: string): object[] {
-    return JSON.parse(cyclette).legsPosition;
-  }
-
-  private getResistances(cyclette: string): object[] {
-    return JSON.parse(cyclette).resistance;
-  }
-
-  async getSubmenu() : Promise<string> {
-    const struments = await this.assets.getFile('assets/struments-menu-cyclette.json');
-    return JSON.stringify(struments);
-  }
-  //#endregion
 
   optionClick() {
     if (this.isSubmenuComplete()) {
@@ -92,11 +56,11 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
   /**Method setting the tapis roulant submenu completeness status */
   setCyclette() {
     let val = 
-      this.componentService.customTrainingsComplete
+      this.customTrainingService.customTrainingsComplete
         .filter(x => x['training'] === 'Cyclette')[0];
     val['isComplete'] = true;
     console.log('fire')
-    console.log(this.componentService.customTrainingsComplete)
+    console.log(this.customTrainingService.customTrainingsComplete)
   }
 
   //#region checks
@@ -112,7 +76,7 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
    * @param event stirng representing the time emitted 
    */
    definedTime(event) {
-    this.componentService.definedTime = event;
+    this.customTrainingService.definedTime = event;
   }
 
   actualTime(time: string){
@@ -125,11 +89,10 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
 
     this.canConsumeKcalShow = true;
     this.canShowNextTrain = true;
-    this.componentService.definedTime = event.timeExpired;
+    this.customTrainingService.definedTime = event.timeExpired;
 
-    const millisec = this.getTrainingMillisec(this.componentService.definedTime);
-    this.consumedKcal = this.estimateKcalConsume(millisec);
-
+    const millisec = this.componentService.getTrainingMillisec(this.customTrainingService.definedTime);
+    this.consumedKcal = this.componentService.estimateKcalConsume(millisec);
     this.timeExpired.emit(event);
   }
 
