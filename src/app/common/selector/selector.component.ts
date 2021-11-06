@@ -12,7 +12,8 @@ export class SelectorComponent implements OnInit, OnChanges {
   @Input() allowedSelectionNumber: number;
   @Output() selectedItems = new EventEmitter<number[]>();
 
-  clicked: boolean[] = [];
+  // clicked: boolean[] = [];
+  @Input() clicked: boolean[] = [];
 
   constructor() { }
 

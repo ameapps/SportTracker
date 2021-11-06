@@ -19,6 +19,8 @@ export class RegisterTrainingComponent implements OnInit {
   stepsName: string[] = [];
 
   isTimerEnabled = false; 
+
+  clicked: boolean[] = [];
   
 
 
@@ -121,10 +123,25 @@ export class RegisterTrainingComponent implements OnInit {
     this.canShowNextTrain = true;
   }
   
+  //#region another training
+
   AnotherTraining() {
-    /**
-     * IMPLEMENTARE UN ALTRO ALLENAMENTO!
-     */
+    this.saveTraining();
+    this.resetSelectedMenu();
   }
+
+  saveTraining() {
+    /* TODO */
+    
+  }
+
+  private resetSelectedMenu() {
+    this.componentService.selectedTrainings = [];
+    this.clicked = [];
+  }
+  //#endregion
+
+
+
   //#endregion
 }

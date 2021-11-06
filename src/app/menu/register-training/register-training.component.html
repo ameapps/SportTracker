@@ -78,8 +78,9 @@
         <!-- Selection of the training to do -->
         <app-selector 
           [selections]="this.struments" 
-          [allowedSelectionNumber]="1"
-          (selectedItems)="saveSelectedItems($event)" 
+          [allowedSelectionNumber]="1" 
+          [clicked] = "this.clicked"
+          (selectedItems)="saveSelectedItems($event)"
         ></app-selector>
 
         <!-- Loading a custom menu according to the selected strument -->
