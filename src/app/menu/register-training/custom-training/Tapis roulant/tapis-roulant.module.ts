@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { TapisRoulantRoutingModule } from './tapis-roulant-routing.module';
 import { TapisRoulantComponent } from './tapis-roulant.component';
 import { MatSelectModule } from '@angular/material/select';
+import { TimerModule } from 'src/app/common/timer/timer.module';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
   imports: [
     CommonModule,
     TapisRoulantRoutingModule,
+    TimerModule,
     MatSelectModule
   ]
 })

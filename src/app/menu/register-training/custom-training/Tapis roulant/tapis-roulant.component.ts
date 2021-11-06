@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
 import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 
@@ -10,17 +10,18 @@ import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 export class TapisRoulantComponent implements OnInit, OnChanges {
 
   @Input() expiredTime;
+  @Output() timeExpired = new EventEmitter();
 
   speeds: string[] = [];
   choosenSpeed = '';
-  
-  constructor(private assets: AssetsService, 
-    private componentService: CustomTrainingService) { 
+
+  constructor(private assets: AssetsService,
+    private customTrainingService: CustomTrainingService) {
     this.asyncConstructor();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes["expiredTime"]) {
+    if (changes["expiredTime"]) {
       const expiredTime = changes["expiredTime"].currentValue;
       if (expiredTime != null) {
         console.log(`FIRE TAPPETO TEMPO SCADUTO:  ${expiredTime}`);
@@ -36,7 +37,7 @@ export class TapisRoulantComponent implements OnInit, OnChanges {
 
   //#region getters
 
-  async getSubmenu() : Promise<string> {
+  async getSubmenu(): Promise<string> {
     const struments = await this.assets.getFile('assets/struments-menu-tapisRoulant.json');
     return JSON.stringify(struments);
   }
@@ -44,7 +45,7 @@ export class TapisRoulantComponent implements OnInit, OnChanges {
   //#endregion
 
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   optionClick() {
     if (this.isSubmenuComplete()) {
@@ -54,8 +55,8 @@ export class TapisRoulantComponent implements OnInit, OnChanges {
 
   /**Method setting the tapis roulant submenu completeness status */
   setTapisroulant() {
-    let val = 
-      this.componentService.customTrainingsComplete
+    let val =
+      this.customTrainingService.customTrainingsComplete
         .filter(x => x['training'] === 'Tapis roulant')[0];
     val['isComplete'] = true;
   }
@@ -65,4 +66,28 @@ export class TapisRoulantComponent implements OnInit, OnChanges {
     return this.choosenSpeed != null;
   }
   //#endregion
+
+  //#region timer component
+
+  /**
+   * Listener for time events from chrono-timer component
+   * @param event stirng representing the time emitted 
+   */
+  definedTime(event) {
+    this.customTrainingService.definedTime = event;
+  }
+
+  actualTime(time: string) {
+  }
+
+
+  /**Method managing what happen when the timer is expired */
+  onExpiredTimer(event) {
+    this.expiredTime = event;
+
+    this.timeExpired.emit(event);
+  }
+
+  //#endregion
+
 }
