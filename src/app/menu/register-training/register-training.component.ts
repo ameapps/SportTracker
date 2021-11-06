@@ -130,7 +130,11 @@ export class RegisterTrainingComponent implements OnInit {
     this.resetSelectedMenu();
     this.resetExpiredTime();
     this.hideTimerInput();
+    this.hideButtons();
+  }
 
+  private hideButtons() {
+    this.canShowNextTrain = false;
   }
 
   private hideTimerInput() {
