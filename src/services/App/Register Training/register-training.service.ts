@@ -99,12 +99,12 @@ export class RegisterTrainingService {
 
   /** Method checking if the step 2 is complete */
   isStepTwoComplete() {
-    return false;
+    return this.stepsComplete[1];
   }
   
-  /** Method checking if the step 1 is complete */
+  /** Method checking if the step 3 is complete */
   isStepThreeComplete() {
-    return false;
+    return this.stepsComplete[2];
   }
 
   //#endregion

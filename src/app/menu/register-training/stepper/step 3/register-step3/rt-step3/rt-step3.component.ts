@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Photo } from '@capacitor/camera';
+import { RegisterTrainingService } from 'src/services/App/Register Training/register-training.service';
 import { PhotoService } from 'src/services/Helpers/camera/photo.service';
 
 @Component({
@@ -11,7 +12,8 @@ export class RtStep3Component implements OnInit {
 
   gallery: object[] = [];
 
-  constructor(private photoService: PhotoService) { }
+  constructor(private photoService: PhotoService, 
+    private registerTrainingService: RegisterTrainingService) { }
 
   asyncConstructor() {
     
@@ -25,6 +27,7 @@ export class RtStep3Component implements OnInit {
     this.photoService.savePhoto();
     const photos = await this.photoService.loadSaved();
     console.log(photos);
+    this.registerTrainingService.stepsComplete[2] = true; 
   }
 
 }

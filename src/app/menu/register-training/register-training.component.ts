@@ -38,7 +38,6 @@ export class RegisterTrainingComponent implements OnInit {
 
 
   expiredTime: object;
-  canShowNextTrain = false;
 
 
   savedTrainings: object[] = [];  
@@ -92,7 +91,7 @@ export class RegisterTrainingComponent implements OnInit {
   }
 
   onTimeExpired(event) {
-    this.canShowNextTrain = true;
+    this.componentService.stepsComplete[1] = true;
   }
 
   //#region checks
@@ -138,7 +137,7 @@ export class RegisterTrainingComponent implements OnInit {
   }
 
   private hideButtons() {
-    this.canShowNextTrain = false;
+    this.componentService.stepsComplete[1] = false;
   }
 
   private hideTimerInput() {
