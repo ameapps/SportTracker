@@ -35,9 +35,12 @@ export class RegisterTrainingComponent implements OnInit {
   preWeightTimes = '';
   //#endregion
 
-  
+
   expiredTime: object;
   canShowNextTrain = false;
+
+
+  savedTrainings: object[] = [];
 
   constructor(
     private componentService: RegisterTrainingService, 
@@ -114,7 +117,7 @@ export class RegisterTrainingComponent implements OnInit {
   //#region another training
 
   AnotherTraining(event) {
-    this.saveTraining(event);
+    this.saveTraining();
     this.hideTimerInput();
     this.resetSelectedMenu();
     this.resetExpiredTime();
@@ -145,11 +148,25 @@ export class RegisterTrainingComponent implements OnInit {
     this.expiredTime = null;
   }
 
-  saveTraining(event: any) {
-    /* TODO */
+  /**Method to save all the user input associated to the 
+   * selected custom training to the database
+   */
+  saveTraining() {
     const id = this.getSelectedTraining();
     const data = this.getTrainingData(id);
-    console.log(`Data: ${data}`) 
+    console.log(`Data: ${data}`);
+    const obj = {
+      id: id,
+      type: this.getTraining(id),
+      data: data
+    };
+    this.savedTrainings.push(obj);
+
+  }
+
+  /**Method getting the training type form the specified training id */
+  getTraining(id: number): string {
+    return this.trainings[id-1];
   }
 
   /**Method to get the custom training data according the specified 
