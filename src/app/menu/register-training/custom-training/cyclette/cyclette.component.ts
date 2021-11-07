@@ -25,9 +25,7 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
 
 
   ngOnDestroy(): void {
-
     this.componentService.resetValues();
-
     console.log('cyclette destroyed');
   }
 

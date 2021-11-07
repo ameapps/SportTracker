@@ -1,6 +1,6 @@
 <div id="container">
   <mat-form-field class="element">
-    <mat-select [(value)]="choosenSpeed" placeholder="Tapis roulant speed">
+    <mat-select [(value)]="this.componentService.choosenSpeed" placeholder="Tapis roulant speed">
       <mat-option 
         (click)="optionClick()"
         *ngFor="let speed of this.speeds"

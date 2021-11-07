@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
+import { TapisroulantService } from 'src/services/App/Custom training/tapis roulant/tapisroulant.service';
 import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 
 @Component({
@@ -7,15 +8,16 @@ import { AssetsService } from 'src/services/Helpers/assets/assets.service';
   templateUrl: './tapis-roulant.component.html',
   styleUrls: ['./tapis-roulant.component.scss'],
 })
-export class TapisRoulantComponent implements OnInit, OnChanges {
+export class TapisRoulantComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() expiredTime;
   @Output() timeExpired = new EventEmitter();
 
   speeds: string[] = [];
-  choosenSpeed = '';
+  
 
   constructor(private assets: AssetsService,
+    private componentService: TapisroulantService,
     private customTrainingService: CustomTrainingService) {
     this.asyncConstructor();
   }
@@ -29,11 +31,16 @@ export class TapisRoulantComponent implements OnInit, OnChanges {
     }
   }
 
-
   async asyncConstructor() {
     const tapis = await this.getSubmenu();
     this.speeds = JSON.parse(tapis).speeds;
   }
+
+  ngOnDestroy(): void {
+    this.componentService.resetValues();
+    console.log('tapisroulant destroyed');
+  }
+
 
   //#region getters
 
@@ -63,7 +70,7 @@ export class TapisRoulantComponent implements OnInit, OnChanges {
 
   //#region checks
   isSubmenuComplete() {
-    return this.choosenSpeed != null;
+    return this.componentService.choosenSpeed != null;
   }
   //#endregion
 

@@ -5,10 +5,18 @@ import { Injectable } from '@angular/core';
 })
 export class TapisroulantService {
 
+  choosenSpeed = '';
+
   constructor() { }
 
   getData(): any {
     return null;
+  }
+  
+  /**Method prevening this component from showing 
+    the last training inserted values.  */ 
+  resetValues() {
+    this.choosenSpeed = null;
   }
 
 }
