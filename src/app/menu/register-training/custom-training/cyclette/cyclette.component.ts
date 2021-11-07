@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
 import { CycletteService } from 'src/services/App/Custom training/cyclette/cyclette.service';
+import { RegisterTrainingService } from 'src/services/App/Register Training/register-training.service';
 import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
   // CycletteService
 
   constructor(private componentService: CycletteService,
+    private registerTrainingService: RegisterTrainingService,
     private customTrainingService: CustomTrainingService) { 
     this.asyncConstructor()
   }
@@ -59,8 +61,15 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
 
   //#region checks
   isSubmenuComplete(): boolean {
+    // this.enableSepperButtons();
     return this.componentService.choosenResistance != null && this.componentService.choosenPosition != null; 
   }
+
+  /**Method to enable the stepper navigator buttons. */
+  private enableSepperButtons() {
+    this.registerTrainingService.stepsComplete[1] = true;
+  }
+
   //#endregion
 
   //#region timer component

@@ -42,7 +42,7 @@
       </form>
     </mat-step>
     <!-- Secondo step -->
-    <mat-step [stepControl]="secondFormGroup">
+    <mat-step [stepControl]="secondFormGroup" [completed]="this.canShowNextTrain">
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>{{stepsName[1]}}</ng-template>
         <p>Select your training! </p>
@@ -62,15 +62,15 @@
           [trainingType]="this.componentService.selectedTrainings[0]">
         </app-custom-training>
 
-        <div class="stepper-navigators" *ngIf="this.componentService.stepsComplete[1]">
+        <!-- <div class="stepper-navigators" *ngIf="this.componentService.stepsComplete[1]">
           <button matStepperPrevious>Back</button>
           <button matStepperNext>Next</button>
-        </div>
+        </div> -->
         
         <!-- Bottoni che chiedono se si vuole fare un altro training -->
         <div id="next-training" *ngIf="this.canShowNextTrain">
           <button mat-button (click)="AnotherTraining($event)" >Another training</button>
-          <button mat-button matStepperNext>Done</button>
+          <button mat-button matStepperNext (click)="complete()">Done</button>
         </div>
       </form>
     </mat-step>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatHorizontalStepper, MatStepper } from '@angular/material/stepper';
 import { StringHelper } from 'src/helpers/StringHelper';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
 import { CycletteService } from 'src/services/App/Custom training/cyclette/cyclette.service';
@@ -40,7 +41,19 @@ export class RegisterTrainingComponent implements OnInit {
   canShowNextTrain = false;
 
 
-  savedTrainings: object[] = [];
+  savedTrainings: object[] = [];  
+  
+  @ViewChild(MatStepper) stepper: MatStepper ;
+
+  /**Method setting the actual step as complete.
+   * NOT WORKING */
+  complete() {
+      this.stepper.selected.completed = true;
+      this.stepper.selected.editable = false;
+      console.log('completed fired')
+      console.log(this.stepper)
+      this.stepper.next();
+  }
 
   constructor(
     private componentService: RegisterTrainingService, 
