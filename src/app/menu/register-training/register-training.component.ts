@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { StringHelper } from 'src/helpers/StringHelper';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
+import { CycletteService } from 'src/services/App/Custom training/cyclette/cyclette.service';
+import { TapisroulantService } from 'src/services/App/Custom training/tapis roulant/tapisroulant.service';
 import { RegisterTrainingService } from 'src/services/App/Register Training/register-training.service';
 
 
@@ -40,6 +42,8 @@ export class RegisterTrainingComponent implements OnInit {
   constructor(
     private componentService: RegisterTrainingService, 
     private customTrainingService: CustomTrainingService,
+    private tapisroulantService: TapisroulantService, 
+    private cycletteService: CycletteService, 
     private _formBuilder: FormBuilder
     ) 
   { 
@@ -122,7 +126,6 @@ export class RegisterTrainingComponent implements OnInit {
   }
 
   private hideTimerInput() {
-    // let el = this.customTrainingService.customTrainingsComplete.filter(x => x["training"] === 'Cyclette')[0];
     let el = this.LastCustomTraining();
     const asObj = Object.assign(el);
     asObj.isComplete = false;
@@ -144,10 +147,37 @@ export class RegisterTrainingComponent implements OnInit {
 
   saveTraining() {
     /* TODO */
-    console.log('ciaoo')
-    const id = this.componentService.selectedTrainings[0];
-    // const data = this.customTrainingService.getData(id);
-    // const data = this.customTrainingService.
+    const id = this.getSelectedTraining();
+    const data = this.getTrainingData(id);
+    console.log(`Data: ${data}`) 
+  }
+
+  /**Method to get the custom training data according the specified 
+   * custom tranining id. 
+   * @param id: custom training id
+   */
+  private getTrainingData(id: number): object {
+    let data = null;
+    switch (id) {
+      case 1:
+        data = this.tapisroulantService.getData();
+        break;
+      case 2:
+        data = this.cycletteService.getData();
+        break;
+      case 3:
+
+        break;
+
+      default:
+        break;
+    }
+    return data;
+  }
+
+  /**Method getting the training now selected from the selector  */
+  private getSelectedTraining() {
+    return this.customTrainingService.trainingType+1;
   }
 
   private resetSelectedMenu() {

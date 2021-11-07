@@ -17,6 +17,14 @@ export class CycletteService {
   constructor(private assets: AssetsService, 
     private customTrainingService: CustomTrainingService) { }
 
+
+  /**Method prevening this component from showing 
+    the last training inserted values.  */ 
+  resetValues() {
+    this.choosenResistance = null;
+    this.choosenPosition = null;
+  }
+
   //#region getters
 
   getLegPositions(cyclette: string): object[] {

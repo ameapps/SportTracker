@@ -6,4 +6,9 @@ import { Injectable } from '@angular/core';
 export class TapisroulantService {
 
   constructor() { }
+
+  getData(): any {
+    return null;
+  }
+
 }
