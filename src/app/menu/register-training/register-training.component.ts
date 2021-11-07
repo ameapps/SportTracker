@@ -114,8 +114,8 @@ export class RegisterTrainingComponent implements OnInit {
   //#region another training
 
   AnotherTraining(event) {
+    this.saveTraining(event);
     this.hideTimerInput();
-    this.saveTraining();
     this.resetSelectedMenu();
     this.resetExpiredTime();
     this.hideButtons();
@@ -145,7 +145,7 @@ export class RegisterTrainingComponent implements OnInit {
     this.expiredTime = null;
   }
 
-  saveTraining() {
+  saveTraining(event: any) {
     /* TODO */
     const id = this.getSelectedTraining();
     const data = this.getTrainingData(id);
