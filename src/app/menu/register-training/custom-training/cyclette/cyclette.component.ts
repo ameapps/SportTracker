@@ -13,13 +13,6 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
   resistances: object[];
   legsPositions: object[];
 
-  choosenResistance: string;
-  choosenPosition: string;
-
-  consumedKcal: number = 0;
-  canConsumeKcalShow = false;
-  canShowNextTrain: boolean = false;
-
   @Input() expiredTime;
   @Output() timeExpired = new EventEmitter();
 
@@ -59,13 +52,13 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
       this.customTrainingService.customTrainingsComplete
         .filter(x => x['training'] === 'Cyclette')[0];
     val['isComplete'] = true;
-    console.log('fire')
+    console.log('fire custom training')
     console.log(this.customTrainingService.customTrainingsComplete)
   }
 
   //#region checks
   isSubmenuComplete(): boolean {
-    return this.choosenResistance != null && this.choosenPosition != null; 
+    return this.componentService.choosenResistance != null && this.componentService.choosenPosition != null; 
   }
   //#endregion
 
@@ -87,12 +80,13 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
   onExpiredTimer(event) {
     this.expiredTime = event;
 
-    this.canConsumeKcalShow = true;
-    this.canShowNextTrain = true;
+    this.componentService.canConsumeKcalShow = true;
+    this.componentService.canShowNextTrain = true;
     this.customTrainingService.definedTime = event.timeExpired;
 
     const millisec = this.componentService.getTrainingMillisec(this.customTrainingService.definedTime);
-    this.consumedKcal = this.componentService.estimateKcalConsume(millisec);
+    this.componentService.consumedKcal = this.componentService.estimateKcalConsume(millisec);
+
     this.timeExpired.emit(event);
   }
 

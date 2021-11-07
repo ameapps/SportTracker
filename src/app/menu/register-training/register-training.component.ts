@@ -22,6 +22,7 @@ export class RegisterTrainingComponent implements OnInit {
 
   clicked: boolean[] = [];
   
+  completedTrainings: object[] = [];
 
 
   //#region stepper
@@ -108,11 +109,11 @@ export class RegisterTrainingComponent implements OnInit {
   
   //#region another training
 
-  AnotherTraining() {
+  AnotherTraining(event) {
+    this.hideTimerInput();
     this.saveTraining();
     this.resetSelectedMenu();
     this.resetExpiredTime();
-    this.hideTimerInput();
     this.hideButtons();
   }
 
@@ -121,9 +122,18 @@ export class RegisterTrainingComponent implements OnInit {
   }
 
   private hideTimerInput() {
-    let el = this.customTrainingService.customTrainingsComplete.filter(x => x["training"] === 'Cyclette')[0];
+    // let el = this.customTrainingService.customTrainingsComplete.filter(x => x["training"] === 'Cyclette')[0];
+    let el = this.LastCustomTraining();
     const asObj = Object.assign(el);
     asObj.isComplete = false;
+  }
+
+  /**Method to get the last custom training from the custom trainings list */
+  private LastCustomTraining() {
+    const length = this.componentService.selectedTrainings.length;
+    const strument = this.componentService.selectedTrainings[length - 1];
+    let el = this.customTrainingService.customTrainingsComplete[strument];
+    return el;
   }
 
   /**Method allowing the after time items in the custom menus
@@ -134,7 +144,10 @@ export class RegisterTrainingComponent implements OnInit {
 
   saveTraining() {
     /* TODO */
-    
+    console.log('ciaoo')
+    const id = this.componentService.selectedTrainings[0];
+    // const data = this.customTrainingService.getData(id);
+    // const data = this.customTrainingService.
   }
 
   private resetSelectedMenu() {

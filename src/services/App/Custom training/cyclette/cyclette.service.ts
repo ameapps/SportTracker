@@ -1,12 +1,21 @@
 import { Injectable } from '@angular/core';
 import { AssetsService } from 'src/services/Helpers/assets/assets.service';
+import { CustomTrainingService } from '../custom-training.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CycletteService {
 
-  constructor(private assets: AssetsService) { }
+  choosenResistance: string;
+  choosenPosition: string;
+
+  consumedKcal: number = 0;
+  canConsumeKcalShow = false;
+  canShowNextTrain: boolean = false;
+
+  constructor(private assets: AssetsService, 
+    private customTrainingService: CustomTrainingService) { }
 
   //#region getters
 
@@ -44,6 +53,17 @@ export class CycletteService {
   getMillisecs(hours: string, minutes: string, seconds: string):number {
     const millisecsCalc = (parseInt(hours)*1000*60*60) + (parseInt(minutes) * 1000*60) +  (parseInt(seconds) * 1000);
     return millisecsCalc;
+  }
+
+  /**Method collecting all the data this component could get from the user */ 
+  getData() {
+    const obj = {
+      choosenResistance: this.choosenResistance,
+      choosenPosition: this.choosenPosition,
+      consumedKcal: this.consumedKcal,
+      definedTime: this.customTrainingService.definedTime
+    }
+    return obj;
   }
 
   //#endregion

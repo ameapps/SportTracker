@@ -3,7 +3,7 @@
 
   <!-- Resistance choice -->
   <mat-form-field class="element">
-    <mat-select [(value)]="choosenResistance" placeholder="Cyclette resistance">
+    <mat-select [(value)]="this.componentService.choosenResistance" placeholder="Cyclette resistance">
       <mat-option (click)="optionClick()" *ngFor="let res of this.resistances" [value]="res">
         {{ res }}
       </mat-option>
@@ -12,7 +12,7 @@
 
   <!-- seat height choice-->
   <mat-form-field class="element">
-    <mat-select [(value)]="choosenPosition" placeholder="Legs Position">
+    <mat-select [(value)]="this.componentService.choosenPosition" placeholder="Legs Position">
       <mat-option (click)="optionClick()" *ngFor="let pos of this.legsPositions" [value]="pos">
         {{ pos }}
       </mat-option>
