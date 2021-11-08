@@ -6,7 +6,7 @@
     },
     {
         "name" : "Report",
-        "url" : "",
+        "url" : "menu/report",
         "component": null
     },
     {
@@ -16,7 +16,7 @@
     },
     {
         "name" : "Gallery",
-        "url" : "",
+        "url" : "menu/gallery",
         "component": null
     }  
 ]

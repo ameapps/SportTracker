@@ -33,6 +33,8 @@ export class AppComponent {
       this.appPages.push(page)        
     });
 
+    console.log('fire app pages');
+    console.log(this.appPages);
 
   }
 
