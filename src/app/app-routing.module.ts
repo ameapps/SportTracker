@@ -14,8 +14,18 @@ const routes: Routes = [
   {
     path: 'menu/register-training',
     loadChildren: () => import('./menu/register-training/register-training.module').then( m => m.RegisterTrainingModule)
+  },
+  {
+    path: 'menu/gallery',
+    loadChildren: () => import('./menu/gallery/gallery.module').then( m => m.GalleryModule)
+  },
+  {
+    path: 'menu/report',
+    loadChildren: () => import('./menu/report/report.module').then( m => m.ReportModule)
   }
 ];
+
+// GalleryComponent ReportModule
 
 @NgModule({
   imports: [

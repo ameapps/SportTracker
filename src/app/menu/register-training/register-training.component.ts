@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatHorizontalStepper, MatStepper } from '@angular/material/stepper';
+import { Router } from '@angular/router';
 import { StringHelper } from 'src/helpers/StringHelper';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
 import { CycletteService } from 'src/services/App/Custom training/cyclette/cyclette.service';
@@ -59,7 +60,8 @@ export class RegisterTrainingComponent implements OnInit {
     private customTrainingService: CustomTrainingService,
     private tapisroulantService: TapisroulantService, 
     private cycletteService: CycletteService, 
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private router: Router
     ) 
   { 
     this.asyncConstructor();
@@ -118,7 +120,21 @@ export class RegisterTrainingComponent implements OnInit {
 
   //#region listeners
 
+  /**Method rooting to the "Gallery" page */
+  goToGallery() {
+    // location.href = "menu/gallery";
+    this.router.navigate(['/menu/gallery']).then(() => {
+      window.location.reload();
+    });;
+  }
 
+  /**Method rooting to the "Report" page */
+  goToReport() {
+    // location.href = "menu/report";
+    this.router.navigate(['/menu/report']).then(() => {
+      window.location.reload();
+    });;
+  }
 
   /** Method to get the emitted index of the selected items in selector component */
   saveSelectedItems(event) {
@@ -214,8 +230,6 @@ export class RegisterTrainingComponent implements OnInit {
     this.clicked = [];
   }
   //#endregion
-
-
 
   //#endregion
 }
