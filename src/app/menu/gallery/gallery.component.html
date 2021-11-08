@@ -1,3 +1,21 @@
-<p>
-  gallery works!
-</p>
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ folder }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <p>CIAO MONDO</p>
+
+    <!-- NON SI VEDE -->
+  <div id="gallery" *ngFor="let photo of this.componentService.photos">
+    <img [src]="photo.webviewPath" />
+  </div>
+
+  <!-- <img src="https://www.latestatamagazine.it/wp-content/uploads/2021/11/Di-Palma-Eternals-e-il-peggior-film-Marvel-di-sempre.-No-non-lo-e-e-vi-spiego-il-perche.jpg"/> -->
+
+</ion-content>
