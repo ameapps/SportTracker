@@ -13,12 +13,13 @@ export class IonicStorageService implements IDatabase {
 
   /**Prototype to get all elements associated to the specified entity */
   async GetAllItems(datatype: DbDataType): Promise<object[]> {
-    let items = null;
+    let items: object[] = [];
     switch (datatype) {
       case DbDataType.GALLERY:
         console.log('fire')
         const key: string = DbEntities[DbEntities.PHOTO_STORAGE];
-        items = await this.storage.get(key);
+        const el = await this.storage.get(key);
+        items.push(el);
         break;
       default:
         break;

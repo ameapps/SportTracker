@@ -16,6 +16,8 @@ export class GalleryService {
 
   async asyncConstructor() {
     this.photos = await this.getGalleryPhotos();
+    console.log('photos')
+    console.log(this.photos)
   }
 
   public async getGalleryPhotos(): Promise<object[]> {
