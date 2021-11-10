@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Camera, CameraPhoto, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Storage } from '@capacitor/storage';
+import { DbEntities } from 'src/services/Enums/DbEntitities';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PhotoService {
   public photos: Photo[] = [];
-  private PHOTO_STORAGE: string = "photos";
+  private PHOTO_STORAGE: string = DbEntities[DbEntities.PHOTO_STORAGE];
 
   constructor() { }
 
@@ -54,9 +55,13 @@ export class PhotoService {
       directory: Directory.Data
     });
 
+    /* RECUPERO L'IMMAGINE IN FORMATO FILE BLOB DAL SUO URL */
+    let blob: Blob = await fetch(cameraPhoto.webPath).then(r => r.blob());
+    
     // Use webPath to display the new image instead of base64 since it's
     // already loaded into memory
     return {
+      blobBase64: base64Data,
       filepath: fileName,
       webviewPath: cameraPhoto.webPath
     };
@@ -107,5 +112,12 @@ export class PhotoService {
   }
   //#endregion
 
+  blobToBase64(blob) {
+    return new Promise((resolve, _) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(blob);
+    });
+  }
 
 }

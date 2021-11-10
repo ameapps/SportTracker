@@ -13,6 +13,7 @@
 
     <!-- NON SI VEDE -->
   <div id="gallery" *ngFor="let photo of this.componentService.photos">
+    <!-- <img src="blob:http://localhost:8100/8c243f90-e715-4c16-b022-41445d57106b" /> -->
     <img [src]="photo.webviewPath" />
   </div>
 

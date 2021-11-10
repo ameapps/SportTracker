@@ -26,8 +26,10 @@ export class RtStep3Component implements OnInit {
     const savedImageFile = await this.photoService.savePicture(photo);
     this.photoService.savePhoto();
     const photos = await this.photoService.loadSaved();
+    console.log('photos gyh');
     console.log(photos);
     this.registerTrainingService.stepsComplete[2] = true; 
   }
+
 
 }
