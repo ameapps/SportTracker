@@ -31,13 +31,19 @@ export class PhotoService {
 
   /**Method saving the shotted pictures to the ionic storage.
      Method to be called after addNewToGallery method. */
-  public savePhoto() {
+  public async savePhoto(savedImageFile: object, key: string) {
+    
+    const db =  (await Storage.get({key: key})).value; 
+    const parsed = JSON.parse(db);
+    parsed.push(savedImageFile);
+
     const obj = {
-      key: this.PHOTO_STORAGE,
-      value: JSON.stringify(this.photos)
+      key: key,
+      value: JSON.stringify(parsed)
     }
     Storage.set(obj);
-    return obj;
+
+    return true;
   }
 
   //#region save picture on device
