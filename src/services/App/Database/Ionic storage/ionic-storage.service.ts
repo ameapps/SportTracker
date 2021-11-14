@@ -5,6 +5,7 @@ import { StorageService } from 'src/services/Helpers/storage/storage.service';
 import { IDatabase } from 'src/services/Interfaces/Database';
 
 import { DomSanitizer } from '@angular/platform-browser';
+import { IndexedDbHelper } from 'src/helpers/IndexedDbHelper';
 
 
 @Injectable({
@@ -24,6 +25,15 @@ export class IonicStorageService implements IDatabase {
         const el = await this.storage.get(key);
         let arr = JSON.parse(el.value);
         items = arr;
+
+        /* VERSIONE PROMISE */
+        let gottenkeys = [];
+        const indexesDb = await IndexedDbHelper.openDb(key) as any;
+        let saved = null;
+        const keys = await IndexedDbHelper.getDbKeys(indexesDb);
+        var trans = indexesDb.transaction(['folder'], "readwrite");
+        var store = trans.objectStore(key);
+        console.log('indexDB test');
 
         for (let index = 0; index < arr.length; index++) {
           let element = arr[index];
