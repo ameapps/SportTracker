@@ -7,6 +7,8 @@ import { IDatabase } from 'src/services/Interfaces/Database';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IndexedDbHelper } from 'src/helpers/IndexedDbHelper';
 import { Router } from '@angular/router';
+import { BlobHelper } from 'src/helpers/BlobHelper';
+import { ProjectHelper } from 'src/helpers/ProjectHelper';
 
 
 @Injectable({
@@ -14,33 +16,17 @@ import { Router } from '@angular/router';
 })
 export class IonicStorageService implements IDatabase {
 
-  constructor(private storage: StorageService, 
+  constructor(private storage: StorageService,
     private sanitizer: DomSanitizer,
     private router: Router
-    ) { }
+  ) { }
 
   /**Prototype to get all elements associated to the specified entity */
   async GetAllItems(datatype: DbDataType): Promise<object[]> {
     let items: object[] = [];
     switch (datatype) {
       case DbDataType.GALLERY:
-        console.log('fire GetAllItems')
-        
-        let allPhotos = await this.getPhotoes();
-
-        let arr: any = allPhotos;
-        items = arr;
-
-        let gottenkeys = [];
-        for (let index = 0; index < allPhotos.length; index++) {
-          let element = allPhotos[index];
-          const blob = this.convertBase64ToBlob(element.blobBase64 as string);
-          let objectURLa = URL.createObjectURL(blob);
-          const imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURLa);
-          allPhotos[index].webviewPath = imageUrl;
-        }
-
-
+        items = await this.getGalleryItems(items);
         break;
       default:
         break;
@@ -48,48 +34,43 @@ export class IonicStorageService implements IDatabase {
     return items;
   }
 
+  //#region getting images from database
 
+  /**Method getting the photoes from the gallery using both
+   * ionic storage and indexedDb. */
+  private async getGalleryItems(items: object[]) {
+    let allPhotos = await this.getPhotoes();
+    let arr: any = allPhotos;
+    items = arr;
+    let gottenkeys = [];
+    for (let index = 0; index < allPhotos.length; index++) {
+      let element = allPhotos[index];
+      const blob = BlobHelper.convertBase64ToBlob(element.blobBase64 as string);
+      let objectURLa = URL.createObjectURL(blob);
+      const imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURLa);
+      allPhotos[index].webviewPath = imageUrl;
+    }
+    return items;
+  }
+
+  /**Method getting the photoes from ionic storage or indexed db depending 
+   * where the webisite is executing. 
+   * Localhost = ionic storage; 
+   * Online = indexed Db */
   private async getPhotoes() {
     let photoes = null;
-    if (this.isRunningOnlocalhost()) {
+    if (ProjectHelper.isRunningOnlocalhost()) {
       photoes = await this.imagesFromStorage();
     }
     else {
-      photoes = await this.IndexedDbAllPhotoes(); 
-      // MODIFICARE I CAMPI PER UNIFORMARLI A QUELLI DI STORAGE.
-      // content -> blobBase64
-      const keys = Object.keys(photoes[0]);
-      var formatted = this.asFromStorae(photoes, keys);
-      photoes = formatted;
+      photoes = await this.imagesFromIndexedDb(photoes);
     }
     return photoes;
   }
 
-  /**Method chainging the specified object fielts renaming them
-   * making the object similiar to a storage object. */
-  private asFromStorae(photoes: any, keys: string[]) {
-    const buildedObjs: object[] = [];
-    let builded = new Object(); 
-    for (let index = 0; index < photoes.length; index++) {
-      const photo = photoes[index];
-      keys.forEach(key => {
-        switch (key) {
-          case 'content':
-            builded['blobBase64'] = `data:image/png;base64,${photo[key]}`;
-            break;
-          default:
-            builded[key] = photo[key];
-            break;
-        }
-      });
-      buildedObjs.push(builded);
-      builded = new Object(); 
-    }
+  //#region photoes from ionic storage
 
-
-    return buildedObjs;
-  }
-
+  /**Method getting the images from the ionic storage ar the specified key. */
   private async imagesFromStorage() {
     const key: string = DbEntities[DbEntities.PHOTO_STORAGE];
     const el = await this.storage.get(key);
@@ -97,16 +78,18 @@ export class IonicStorageService implements IDatabase {
     return arr;
   }
 
-  private isRunningOnlocalhost() {
-    let isLocalhost = false;
-    if (this.getUrl().includes('localhost')) {
-      isLocalhost = true;
-    }
-    return isLocalhost;
-  }
+  //#endregion
 
-  private getUrl(): string {
-    return window.location.href;
+
+  //#region photoes from indexed db
+
+  /**Method getting the images from the indexed db. */
+  private async imagesFromIndexedDb(photoes: any) {
+    photoes = await this.IndexedDbAllPhotoes();
+    const keys = Object.keys(photoes[0]);
+    var formatted = this.asBlobBase64(photoes, keys);
+    photoes = formatted;
+    return photoes;
   }
 
   /**Method getting all the pictures from the indexedDb 
@@ -117,41 +100,38 @@ export class IonicStorageService implements IDatabase {
     return pictures;
   }
 
-  dataURLToBlob(dataurl) {
-    let arr = dataurl.split(',');
-    let mime = arr[0].match(/:(.*?);/)[1];
-    let bstr = atob(arr[1]);
-    let n = bstr.length;
-    let u8arr = new Uint8Array(n);
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new Blob([u8arr], { type: mime });
-  }
+  //#endregion
 
-  /**
- * Convert BASE64 to BLOB
- * @param base64Image Pass Base64 image data to convert into the BLOB
- */
-  private convertBase64ToBlob(base64Image: string) {
-    // Split into two parts
-    const parts = base64Image.split(';base64,');
+  //#endregion
 
-    // Hold the content type
-    const imageType = parts[0].split(':')[1];
 
-    // Decode Base64 string
-    const decodedData = window.atob(parts[1]);
-
-    // Create UNIT8ARRAY of size same as row data length
-    const uInt8Array = new Uint8Array(decodedData.length);
-
-    // Insert all character code into uInt8Array
-    for (let i = 0; i < decodedData.length; ++i) {
-      uInt8Array[i] = decodedData.charCodeAt(i);
+  /**Method chainging the specified object fielts renaming them
+   * making the object similiar to a storage object. 
+   * EXAMPLE: 
+   *    photoes = [{content: "bhkbfjhsbfd", "name": "a.jpg"}, {...}]
+   *    keys = ["pic", "name"];
+   *    var result = [{blobBase64: "data:image/png;base64,bhkbfjhsbfd", "name": "a.jpg"}, {...}]
+   * */
+  private asBlobBase64(photoes: any, keys: string[]) {
+    const buildedObjs: object[] = [];
+    let builded = new Object();
+    for (let index = 0; index < photoes.length; index++) {
+      const photo = photoes[index];
+      keys.forEach(key => {
+        switch (key) {
+          case 'content':
+            builded['blobBase64'] = BlobHelper.asBlob64Format(photo[key]);
+            break;
+          default:
+            builded[key] = photo[key];
+            break;
+        }
+      });
+      buildedObjs.push(builded);
+      builded = new Object();
     }
 
-    // Return BLOB image after conversion
-    return new Blob([uInt8Array], { type: imageType });
+    return buildedObjs;
   }
+
 }

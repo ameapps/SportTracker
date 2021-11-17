@@ -12,7 +12,7 @@ export class IndexedDbHelper {
         }
 
         /* request type is IDBOpenDBRequest */
-        var request = window.indexedDB.open(name, 3); 
+        var request = window.indexedDB.open(name, 1); 
 
         let el = null;
         const myPromise = new Promise((resolve, reject) => { 
