@@ -3,7 +3,7 @@
  */
 export class AppPages {
     title: string;
-     url: string;
+    url: string;
     icon: string;
 
     constructor(title: string, url: string, icon: string)

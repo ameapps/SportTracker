@@ -104,6 +104,7 @@ export class IonicStorageService implements IDatabase {
 
   //#endregion
 
+  //#region utils
 
   /**Method chainging the specified object fielts renaming them
    * making the object similiar to a storage object. 
@@ -133,5 +134,9 @@ export class IonicStorageService implements IDatabase {
 
     return buildedObjs;
   }
+
+  //#endregion
+
+
 
 }

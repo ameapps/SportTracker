@@ -10,7 +10,7 @@ export class GalleryService {
 
   photos: object[] = [];
 
-  constructor(private databaseService: DatabaseService) { 
+  constructor(private databaseService: DatabaseService) {
     this.asyncConstructor();
   }
 
@@ -22,9 +22,14 @@ export class GalleryService {
 
   public async getGalleryPhotos(): Promise<object[]> {
     const photos = await this.databaseService.GetAllItems(
-              DbType.IONIC_STORAGE, 
-              DbDataType.GALLERY
-        ); 
-      return photos;
+      DbType.IONIC_STORAGE,
+      DbDataType.GALLERY
+    );
+
+    const test = await this.databaseService.GetAllItems(
+      DbType.FIREBASE,
+      DbDataType.GALLERY
+    );
+    return photos;
   }
 }
