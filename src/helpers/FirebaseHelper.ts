@@ -1,12 +1,15 @@
 
-import { FirebaseOptions, initializeApp } from 'firebase/app';
-import { getDatabase, ref, onValue, set, Database } from "firebase/database";
+import { FirebaseApp, FirebaseOptions, initializeApp } from 'firebase/app';
+import { getDatabase, ref, onValue, set, Database, push, child, update } from "firebase/database";
+import { ObjectHelper } from './ObjectHelper';
 
 /**
  * Class allowing to access firebase database. 
  * It permits to read and write data into it.
  */
 export class FirebaseHelper {
+
+    //#region get data from firebase database object
 
     /**
      * https://firebase.google.com/docs/database/web/read-and-write?authuser=0
@@ -31,20 +34,26 @@ export class FirebaseHelper {
      * @returns the element located in the firebase database.
      */
     static async getData(credentials, path) {
-        const app = initializeApp(credentials as FirebaseOptions);
-        const db = getDatabase(app);
+        const app: FirebaseApp = initializeApp(credentials as FirebaseOptions);
+        const db: Database = getDatabase(app);
+        return await FirebaseHelper.getDbData(db, path);
+
+    }
+
+    private static async getDbData(db: Database, path: any) {
         const starCountRef = ref(db, path);
 
         const prom = new Promise((resolve, reject) => {
             onValue(starCountRef, (snapshot) => {
                 const data = snapshot.val();
-                console.log(data)
+                console.log(data);
                 resolve(data);
             });
         });
         return prom;
-
     }
+
+    //#endregion
 
     /**
      * https://firebase.google.com/docs/database/web/read-and-write?authuser=0
@@ -61,7 +70,7 @@ export class FirebaseHelper {
      * @param path string representing the desired path name.
      */
     static writeUserData(objToUpload, credentials, path) {
-        console.log('firebase write')
+        console.log('firebase write new object')
         const app = initializeApp(credentials as FirebaseOptions);
         const db = getDatabase(app);
         set(ref(db, path), objToUpload);
@@ -72,6 +81,60 @@ export class FirebaseHelper {
      * senza dover scaricare tutto l'array, aggiungerlo li
      * e farne ancora l'upload con l'elemento aggiunto
      */
+
+    /**
+     * Method allowind to add an element to a firebase realtime database
+     * object. This method precisely allows to push an element 
+     * avoiding to have to rewrite a new object. 
+     * Firebase does NOT allow to use an array but just object.
+     * Arrays must so be implemented as dictionaries.
+     * @param savedImageFile 
+     * @param credentials 
+     * @param key 
+     * @returns 
+     */
+    static async pushToChild(savedImageFile: object, credentials: any, key: string) {
+        console.log('firebase update child (array) with a new object')
+        const app = initializeApp(credentials as FirebaseOptions);
+        const db = getDatabase(app);
+
+        // Get a key for a new Post.
+        const newPostKey = await FirebaseHelper.getPostKey(db, 'NUMBER', key);
+        // Write the new post's data simultaneously in the posts list and the user's post list.
+        const updates = {};
+        updates[key + '/' + newPostKey] = savedImageFile;
+
+        return update(ref(db), updates);
+    }
+
+    //#region get object key
+    private static async getPostKey(db: Database, postKeyType: string, key: string) {
+        let postKey: string = '';
+
+        switch (postKeyType) {
+            case 'NUMBER':
+                postKey = await this.getNumber(db, key);
+                break;
+            case 'RANDOM':
+                postKey = push(child(ref(db), key)).key
+                break;
+        
+            default:
+                break;
+        }
+
+        return postKey;
+    }
+
+    static async getNumber(db: Database, key: string): Promise<string> {
+        const dbObj = await FirebaseHelper.getDbData(db, key);
+        const fieldNumber = ObjectHelper.objectFieldsNumber(dbObj) +1;
+        console.log('getNumber()')
+        return fieldNumber + '';
+    }
+
+    //#endregion
+
 
     /**
      * TODO: fare l'aggiornamento di un oggetto sul database.

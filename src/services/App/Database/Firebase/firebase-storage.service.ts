@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FirebaseHelper } from 'src/helpers/FirebaseHelper';
 import { DbDataType } from 'src/services/Enums/DbDataType';
+import { DbEntities } from 'src/services/Enums/DbEntitities';
 import { AssetsService } from 'src/services/Helpers/assets/assets.service';
 import { IDatabase } from 'src/services/Interfaces/Database';
 
@@ -8,9 +9,6 @@ import { IDatabase } from 'src/services/Interfaces/Database';
   providedIn: 'root'
 })
 export class FirebaseStorageService implements IDatabase {
-  saveElement(key: string, savedImageFile: object): object[] | PromiseLike<object[]> {
-    throw new Error('Method not implemented.');
-  }
 
   constructor(private assets: AssetsService) {
   }
@@ -21,7 +19,7 @@ export class FirebaseStorageService implements IDatabase {
 
     let items: object[] = [];
     switch (datatype) {
-      case DbDataType.GALLERY:
+      case DbDataType.GALLERY:     
         items = await this.getGalleryItems(credentials);
         break;
       default:
@@ -30,10 +28,27 @@ export class FirebaseStorageService implements IDatabase {
     return items;
   }
 
+  /**
+   * Method saving the soecified element on firebase
+   * at the specified object key. 
+   * @param key 
+   * @param savedImageFile 
+   * @returns 
+   */
+  async saveElement(key: string, savedImageFile: object) {
+    console.log('firebase photo saving')
+    const credentials = await this.getCredentials();
+    let data = await FirebaseHelper.getData(credentials, key) as object[];
+    data = data != null ? data : [];
+
+    FirebaseHelper.pushToChild(savedImageFile, credentials, key);
+  }
+
   /**Method getting the photoes from the gallery using 
    * the firebase realtime database. */
   async getGalleryItems(credentials: object): Promise<object[]> {
-    const data = await FirebaseHelper.getData(credentials, 'photoes') as object[];
+    const key = DbEntities[DbEntities.PHOTO_STORAGE];   
+    const data = await FirebaseHelper.getData(credentials, key) as object[];
     return data;
   }
 

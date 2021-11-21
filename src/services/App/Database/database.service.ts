@@ -43,7 +43,7 @@ export class DatabaseService {
         await this.ionicStorageService.saveElement(key, savedImageFile);
         break;
       case DbType.FIREBASE:
-        datas = await this.firebaseStorageService.saveElement(key, savedImageFile);
+        await this.firebaseStorageService.saveElement(key, savedImageFile);
         break;
       default:
         break;

@@ -35,6 +35,7 @@ export class PhotoService {
     // await this.ionicStorageService.saveElement(key, savedImageFile);
 
     await this.databaseService.savePhoto(DbType.IONIC_STORAGE, key, savedImageFile);
+    await this.databaseService.savePhoto(DbType.FIREBASE, key, savedImageFile);
 
     return true;
   }

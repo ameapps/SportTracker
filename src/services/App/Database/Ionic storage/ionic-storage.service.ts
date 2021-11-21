@@ -42,14 +42,35 @@ export class IonicStorageService implements IDatabase {
   /**
    * Method saving an element at the specified key 
    * on the ionic storage.
-   * @param key 
-   * @param element 
+   * EXAMPLE: 
+   *    await this.ionicStorageService.saveElement(key, savedImageFile);
+   *    WHERE: 
+   *      key = "PHOTO_STORAGE"
+   *      element = {"key": "value"}
+   *    RESULT= [{..}, {..}, {..}, {"key": "value"}]
+   * @param key to use for saving the object. It allows to get it back. 
+   * @param element element to save. 
    */
   async saveElement(key: string, element: object) {
     const db = (await Storage.get({ key: key })).value;
     const parsed = db != null ? JSON.parse(db) : [];
     parsed.push(element);
-    await this.storage.set(key, parsed);
+    await this.setStorage(key, parsed);
+  }
+
+  /**
+   * Method setting the storage with the specified object at the 
+   * specified key. It manages the exception 
+   * 'Setting the value of 'dataURL' exceeded the quota'
+   * @param key 
+   * @param parsed 
+   */
+  private async setStorage(key: string, parsed: any) {
+    try {
+      await this.storage.set(key, parsed);
+    } catch (error) {
+      console.log('error');
+    }
   }
 
   //#region getting images from database
