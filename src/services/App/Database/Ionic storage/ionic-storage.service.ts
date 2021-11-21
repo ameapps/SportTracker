@@ -11,6 +11,11 @@ import { BlobHelper } from 'src/helpers/BlobHelper';
 import { ProjectHelper } from 'src/helpers/ProjectHelper';
 
 
+import { Storage } from '@capacitor/storage';
+import { isArray } from 'util';
+import { TypeofExpr } from '@angular/compiler';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,6 +39,26 @@ export class IonicStorageService implements IDatabase {
     return items;
   }
 
+  /**
+   * Method saving an element at the specified key 
+   * on the ionic storage.
+   * @param key 
+   * @param element 
+   */
+  async saveElement(key: string, element: object) {
+    const db = (await Storage.get({ key: key })).value;
+    const parsed = db != null ? JSON.parse(db) : [];
+    parsed.push(element);
+
+    // await this.storage.set(key, element);
+
+    const obj = {
+      key: key,
+      value: JSON.stringify(parsed)
+    }
+    Storage.set(obj);
+  }
+
   //#region getting images from database
 
   /**Method getting the photoes from the gallery using both
@@ -43,6 +68,7 @@ export class IonicStorageService implements IDatabase {
     let arr: any = allPhotos;
     items = arr;
     let gottenkeys = [];
+    console.log('getting photoes')
     if (allPhotos != null) {
       for (let index = 0; index < allPhotos.length; index++) {
         let element = allPhotos[index];
@@ -77,6 +103,10 @@ export class IonicStorageService implements IDatabase {
     const key: string = DbEntities[DbEntities.PHOTO_STORAGE];
     const el = await this.storage.get(key);
     let arr = JSON.parse(el.value);
+    const isArray = Array.isArray(arr);
+    if (!isArray) {
+      arr = [arr];
+    }
     return arr;
   }
 

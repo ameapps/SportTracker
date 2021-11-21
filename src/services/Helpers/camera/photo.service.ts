@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Camera, CameraPhoto, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Storage } from '@capacitor/storage';
+import { IonicStorageService } from 'src/services/App/Database/Ionic storage/ionic-storage.service';
 import { DbEntities } from 'src/services/Enums/DbEntitities';
 
 @Injectable({
@@ -11,10 +12,10 @@ export class PhotoService {
   public photos: Photo[] = [];
   private PHOTO_STORAGE: string = DbEntities[DbEntities.PHOTO_STORAGE];
 
-  constructor() { }
+  constructor(private ionicStorageService: IonicStorageService) { }
 
   /**Method to open camera and shotting a picture */
-  public async addNewToGallery() {
+  public async shotPhoto() {
     // Take a photo
     const capturedPhoto = await Camera.getPhoto({
       resultType: CameraResultType.Uri,
@@ -22,20 +23,19 @@ export class PhotoService {
       quality: 100
     });
 
-    // Save the picture and add it to photo collection
-    const savedImageFile = await this.savePicture(capturedPhoto);
-    this.photos.unshift(Object.assign(savedImageFile));
-
     return capturedPhoto;
   }
 
   /**Method saving the shotted pictures to the ionic storage.
      Method to be called after addNewToGallery method. */
   public async savePhoto(savedImageFile: object, key: string) {
-    
-    console.log('savephoto')
-    const db =  (await Storage.get({key: key})).value; 
+    console.log('saving photo')
+    const db = (await Storage.get({ key: key })).value;
+
+    // to fix 
     const parsed = db != null ? JSON.parse(db) : [];
+    // const parsed = this.fixDb(db)
+
     parsed.push(savedImageFile);
 
     const obj = {
@@ -44,7 +44,20 @@ export class PhotoService {
     }
     Storage.set(obj);
 
+    console.log('saving photo')
+    // await this.ionicStorageService.saveElement(key, savedImageFile);
+
     return true;
+  }
+
+  
+  fixDb(db: any): object[] {
+    if (db != null) {
+      if (!Array.isArray(db)) {
+        return [db];
+      }
+    }
+    return db;
   }
 
   //#region save picture on device
@@ -56,15 +69,17 @@ export class PhotoService {
 
     // Write the file to the data directory
     const fileName = new Date().getTime() + '.jpeg';
-    const savedFile = await Filesystem.writeFile({
+    const builded = {
       path: fileName,
       data: base64Data,
       directory: Directory.Data
-    });
+    };
+
+    const savedFile = await Filesystem.writeFile(builded);
 
     /* RECUPERO L'IMMAGINE IN FORMATO FILE BLOB DAL SUO URL */
     let blob: Blob = await fetch(cameraPhoto.webPath).then(r => r.blob());
-    
+
     // Use webPath to display the new image instead of base64 since it's
     // already loaded into memory
     return {
