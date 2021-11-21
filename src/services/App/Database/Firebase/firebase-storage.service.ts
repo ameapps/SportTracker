@@ -8,6 +8,9 @@ import { IDatabase } from 'src/services/Interfaces/Database';
   providedIn: 'root'
 })
 export class FirebaseStorageService implements IDatabase {
+  saveElement(key: string, savedImageFile: object): object[] | PromiseLike<object[]> {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(private assets: AssetsService) {
   }

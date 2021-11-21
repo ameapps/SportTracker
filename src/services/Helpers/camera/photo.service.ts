@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { Camera, CameraPhoto, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Storage } from '@capacitor/storage';
+import { DatabaseService } from 'src/services/App/Database/database.service';
 import { IonicStorageService } from 'src/services/App/Database/Ionic storage/ionic-storage.service';
 import { DbEntities } from 'src/services/Enums/DbEntitities';
+import { DbType } from 'src/services/Enums/DbType';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class PhotoService {
   public photos: Photo[] = [];
   private PHOTO_STORAGE: string = DbEntities[DbEntities.PHOTO_STORAGE];
 
-  constructor(private ionicStorageService: IonicStorageService) { }
+  constructor(private databaseService: DatabaseService) { }
 
   /**Method to open camera and shotting a picture */
   public async shotPhoto() {
@@ -30,7 +32,9 @@ export class PhotoService {
      Method to be called after addNewToGallery method. */
   public async savePhoto(savedImageFile: object, key: string) {
     console.log('saving photo')
-    await this.ionicStorageService.saveElement(key, savedImageFile);
+    // await this.ionicStorageService.saveElement(key, savedImageFile);
+
+    await this.databaseService.savePhoto(DbType.IONIC_STORAGE, key, savedImageFile);
 
     return true;
   }

@@ -12,9 +12,9 @@ export class DatabaseService {
 
   constructor(private ionicStorageService: IonicStorageService,
     private firebaseStorageService: FirebaseStorageService
-    ) { }
+  ) { }
 
-  
+
   /**Prototype to get all elements associated to the specified entity */
   async GetAllItems(dbType: DbType, datatype: DbDataType): Promise<object[]> {
     let datas: object[] = [];
@@ -31,4 +31,26 @@ export class DatabaseService {
 
     return datas;
   }
+
+  /**Method saving the shotted pictures to the ionic storage.
+   Method to be called after addNewToGallery method. */
+  public async savePhoto(dbType: DbType, key: string, savedImageFile: object) {
+    console.log('saving photo by dbservice')
+
+    let datas: object[] = [];
+    switch (dbType) {
+      case DbType.IONIC_STORAGE:
+        await this.ionicStorageService.saveElement(key, savedImageFile);
+        break;
+      case DbType.FIREBASE:
+        datas = await this.firebaseStorageService.saveElement(key, savedImageFile);
+        break;
+      default:
+        break;
+    }
+
+    return true;
+  }
+
+
 }
