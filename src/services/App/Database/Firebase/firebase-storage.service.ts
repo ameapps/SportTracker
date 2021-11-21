@@ -30,9 +30,8 @@ export class FirebaseStorageService implements IDatabase {
   /**Method getting the photoes from the gallery using 
    * the firebase realtime database. */
   async getGalleryItems(credentials: object): Promise<object[]> {
-    const data = await FirebaseHelper.getData(credentials, 'photoes');
-    const item = data[0];
-    return item;
+    const data = await FirebaseHelper.getData(credentials, 'photoes') as object[];
+    return data;
   }
 
   //#region getters

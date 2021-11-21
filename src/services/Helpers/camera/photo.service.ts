@@ -33,8 +33,9 @@ export class PhotoService {
      Method to be called after addNewToGallery method. */
   public async savePhoto(savedImageFile: object, key: string) {
     
+    console.log('savephoto')
     const db =  (await Storage.get({key: key})).value; 
-    const parsed = JSON.parse(db);
+    const parsed = db != null ? JSON.parse(db) : [];
     parsed.push(savedImageFile);
 
     const obj = {

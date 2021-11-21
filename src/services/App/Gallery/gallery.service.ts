@@ -21,15 +21,16 @@ export class GalleryService {
   }
 
   public async getGalleryPhotos(): Promise<object[]> {
-    // const dbPhotos = await this.databaseService.GetAllItems(
-    //   DbType.IONIC_STORAGE,
-    //   DbDataType.GALLERY
-    // );
-
-    const firebasePhotos = await this.databaseService.GetAllItems(
-      DbType.FIREBASE,
+    const dbPhotos = await this.databaseService.GetAllItems(
+      DbType.IONIC_STORAGE,
       DbDataType.GALLERY
     );
-    return firebasePhotos;
+    return dbPhotos;
+
+    // const firebasePhotos = await this.databaseService.GetAllItems(
+    //   DbType.FIREBASE,
+    //   DbDataType.GALLERY
+    // );
+    // return firebasePhotos;
   }
 }

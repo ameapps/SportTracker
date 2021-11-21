@@ -43,12 +43,14 @@ export class IonicStorageService implements IDatabase {
     let arr: any = allPhotos;
     items = arr;
     let gottenkeys = [];
-    for (let index = 0; index < allPhotos.length; index++) {
-      let element = allPhotos[index];
-      const blob = BlobHelper.convertBase64ToBlob(element.blobBase64 as string);
-      let objectURLa = URL.createObjectURL(blob);
-      const imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURLa);
-      allPhotos[index].webviewPath = imageUrl;
+    if (allPhotos != null) {
+      for (let index = 0; index < allPhotos.length; index++) {
+        let element = allPhotos[index];
+        const blob = BlobHelper.convertBase64ToBlob(element.blobBase64 as string);
+        let objectURLa = URL.createObjectURL(blob);
+        const imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURLa);
+        allPhotos[index].webviewPath = imageUrl;
+      }
     }
     return items;
   }
