@@ -49,14 +49,7 @@ export class IonicStorageService implements IDatabase {
     const db = (await Storage.get({ key: key })).value;
     const parsed = db != null ? JSON.parse(db) : [];
     parsed.push(element);
-
-    // await this.storage.set(key, element);
-
-    const obj = {
-      key: key,
-      value: JSON.stringify(parsed)
-    }
-    Storage.set(obj);
+    await this.storage.set(key, parsed);
   }
 
   //#region getting images from database

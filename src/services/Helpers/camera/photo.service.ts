@@ -30,34 +30,9 @@ export class PhotoService {
      Method to be called after addNewToGallery method. */
   public async savePhoto(savedImageFile: object, key: string) {
     console.log('saving photo')
-    const db = (await Storage.get({ key: key })).value;
-
-    // to fix 
-    const parsed = db != null ? JSON.parse(db) : [];
-    // const parsed = this.fixDb(db)
-
-    parsed.push(savedImageFile);
-
-    const obj = {
-      key: key,
-      value: JSON.stringify(parsed)
-    }
-    Storage.set(obj);
-
-    console.log('saving photo')
-    // await this.ionicStorageService.saveElement(key, savedImageFile);
+    await this.ionicStorageService.saveElement(key, savedImageFile);
 
     return true;
-  }
-
-  
-  fixDb(db: any): object[] {
-    if (db != null) {
-      if (!Array.isArray(db)) {
-        return [db];
-      }
-    }
-    return db;
   }
 
   //#region save picture on device
