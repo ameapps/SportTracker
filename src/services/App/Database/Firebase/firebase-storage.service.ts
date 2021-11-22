@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { BlobHelper } from 'src/helpers/BlobHelper';
 import { FirebaseHelper } from 'src/helpers/FirebaseHelper';
+import { ObjectHelper } from 'src/helpers/ObjectHelper';
 import { DbDataType } from 'src/services/Enums/DbDataType';
 import { DbEntities } from 'src/services/Enums/DbEntitities';
 import { AssetsService } from 'src/services/Helpers/assets/assets.service';
@@ -10,13 +13,14 @@ import { IDatabase } from 'src/services/Interfaces/Database';
 })
 export class FirebaseStorageService implements IDatabase {
 
-  constructor(private assets: AssetsService) {
+  constructor(
+    private assets: AssetsService,
+    private sanitizer: DomSanitizer,) {
   }
 
   /**Prototype to get all elements associated to the specified entity */
   async GetAllItems(datatype: DbDataType): Promise<object[]> {
     const credentials = await this.getCredentials();
-
     let items: object[] = [];
     switch (datatype) {
       case DbDataType.GALLERY:     
@@ -48,8 +52,34 @@ export class FirebaseStorageService implements IDatabase {
    * the firebase realtime database. */
   async getGalleryItems(credentials: object): Promise<object[]> {
     const key = DbEntities[DbEntities.PHOTO_STORAGE];   
-    const data = await FirebaseHelper.getData(credentials, key) as object[];
-    return data;
+    const allPhotos = await FirebaseHelper.getData(credentials, key) as object[];
+    let fixedData: object[] = [];
+    if (allPhotos != null) {
+      fixedData = this.sanitizePhotoes(allPhotos);
+      console.log(JSON.stringify(fixedData))
+    }
+    return fixedData;
+  }
+
+  /**
+   * Method sinifizing the photoes gotten from firebase.
+   * @param data 
+   */
+  sanitizePhotoes(data: object[]): object[] {
+    let arr: object[] = [];
+    console.log('getting photoes')
+    if (data != null) {
+      data.forEach((element) => {
+        const blob = BlobHelper.convertBase64ToBlob(element['blobBase64'] as string);
+        let objectURLa = URL.createObjectURL(blob);
+        const imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURLa);
+        const index = ObjectHelper.getValueKey(data, element);
+        data[index]["webviewPath"] = imageUrl;
+        arr.push(data[index]);
+      });
+
+    }
+    return arr;
   }
 
   //#region getters

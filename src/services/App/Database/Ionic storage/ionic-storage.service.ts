@@ -14,6 +14,7 @@ import { ProjectHelper } from 'src/helpers/ProjectHelper';
 import { Storage } from '@capacitor/storage';
 import { isArray } from 'util';
 import { TypeofExpr } from '@angular/compiler';
+import { ObjectHelper } from 'src/helpers/ObjectHelper';
 
 
 @Injectable({
@@ -84,16 +85,39 @@ export class IonicStorageService implements IDatabase {
     let gottenkeys = [];
     console.log('getting photoes')
     if (allPhotos != null) {
-      for (let index = 0; index < allPhotos.length; index++) {
-        let element = allPhotos[index];
-        const blob = BlobHelper.convertBase64ToBlob(element.blobBase64 as string);
-        let objectURLa = URL.createObjectURL(blob);
-        const imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURLa);
-        allPhotos[index].webviewPath = imageUrl;
-      }
+      //#region OLD CODE
+      // for (let index = 0; index < allPhotos.length; index++) {
+      //   let element = allPhotos[index];
+      //   const blob = BlobHelper.convertBase64ToBlob(element.blobBase64 as string);
+      //   let objectURLa = URL.createObjectURL(blob);
+      //   const imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURLa);
+      //   allPhotos[index].webviewPath = imageUrl;
+      // }
+      //#endregion  
+      allPhotos = this.sanitizePhotoes(allPhotos);
     }
     return items;
   }
+
+    /**
+   * Method sinifizing the photoes gotten from firebase.
+   * @param data 
+   */
+     sanitizePhotoes(data: object[]): object[] {
+      let arr: object[] = [];
+      console.log('getting photoes')
+      if (data != null) {
+        data.forEach((element) => {
+          const blob = BlobHelper.convertBase64ToBlob(element['blobBase64'] as string);
+          let objectURLa = URL.createObjectURL(blob);
+          const imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURLa);
+          const index = ObjectHelper.getValueKey(data, element);
+          data[index]["webviewPath"] = imageUrl;
+          arr.push(data[index]);
+        });
+      }
+      return arr;
+    }
 
   /**Method getting the photoes from ionic storage or indexed db depending 
    * where the webisite is executing. 

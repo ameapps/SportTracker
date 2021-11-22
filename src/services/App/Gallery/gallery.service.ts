@@ -15,22 +15,38 @@ export class GalleryService {
   }
 
   async asyncConstructor() {
-    this.photos = await this.getGalleryPhotos();
+    this.photos = await this.getGalleryPhotos(DbType.FIREBASE);
     console.log('photos')
     console.log(this.photos)
   }
 
-  public async getGalleryPhotos(): Promise<object[]> {
-    const dbPhotos = await this.databaseService.GetAllItems(
-      DbType.IONIC_STORAGE,
-      DbDataType.GALLERY
-    );
-    return dbPhotos;
-
-    // const firebasePhotos = await this.databaseService.GetAllItems(
-    //   DbType.FIREBASE,
-    //   DbDataType.GALLERY
-    // );
-    // return firebasePhotos;
+  /**
+   * Method getting the photoes to show in gallery.
+   * @returns 
+   */
+  public async getGalleryPhotos(dbType: DbType): Promise<object[]> {
+    console.log('photos from both memories');
+    let photoes = [];
+    switch (dbType) {
+      case DbType.IONIC_STORAGE:
+        photoes = await this.databaseService.GetAllItems(
+          DbType.IONIC_STORAGE,
+          DbDataType.GALLERY
+        );        
+        break;
+      case DbType.FIREBASE:
+        photoes = await this.databaseService.GetAllItems(
+          DbType.FIREBASE,
+          DbDataType.GALLERY
+        );
+        break;
+      default:
+        photoes = await this.databaseService.GetAllItems(
+          DbType.FIREBASE,
+          DbDataType.GALLERY
+        );
+        break;
+    }
+    return photoes;
   }
 }
