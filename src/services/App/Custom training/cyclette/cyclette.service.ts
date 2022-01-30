@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AssetsService } from 'src/services/Helpers/assets/assets.service';
+import { AssetsService } from 'src/services/Services/assets/assets.service';
+import { RegisterTrainingService } from '../../Register Training/register-training.service';
 import { CustomTrainingService } from '../custom-training.service';
 
 @Injectable({
@@ -14,7 +15,9 @@ export class CycletteService {
   canConsumeKcalShow = false;
   canShowNextTrain: boolean = false;
 
-  constructor(private assets: AssetsService, 
+  private registerTrainingService: RegisterTrainingService;
+
+  constructor(private assets: AssetsService,
     private customTrainingService: CustomTrainingService) { }
 
 
@@ -69,11 +72,16 @@ export class CycletteService {
       choosenResistance: this.choosenResistance,
       choosenPosition: this.choosenPosition,
       consumedKcal: this.consumedKcal,
-      definedTime: this.customTrainingService.definedTime
+      definedTime: this.registerTrainingService.definedTime
     }
     return obj;
   }
 
   //#endregion
+
+  public setA(registerTrainingService){
+    this.registerTrainingService = registerTrainingService;
+  }
+
 
 }

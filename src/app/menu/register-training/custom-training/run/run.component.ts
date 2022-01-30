@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
-import { AssetsService } from 'src/services/Helpers/assets/assets.service';
+import { AssetsService } from 'src/services/Services/assets/assets.service';
 
 @Component({
   selector: 'app-run',

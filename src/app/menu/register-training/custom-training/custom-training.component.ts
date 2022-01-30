@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
 
@@ -10,10 +11,10 @@ export class CustomTrainingComponent implements OnInit, OnChanges {
 
   //#region fields
   @Input() trainingTypes: string[];
-  
-  @Input() trainingType: number; 
 
-  @Input() expiredTime: object; 
+  @Input() trainingType: number;
+
+  @Input() expiredTime: object;
 
   @Output() timeExpired = new EventEmitter();
 
@@ -28,10 +29,10 @@ export class CustomTrainingComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["trainingTypes"]) {
+    if (changes['trainingTypes']) {
     }
 
-    if (changes["trainingType"]) {
+    if (changes['trainingType']) {
       this.componentService.trainingType = this.trainingType;
       console.log(this.componentService.trainingType);
     }

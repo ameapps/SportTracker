@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { Injectable } from '@angular/core';
-import { AssetsService } from 'src/services/Helpers/assets/assets.service';
+import { RegisterTrainingComponent } from 'src/app/menu/register-training/register-training.component';
+import { AssetsService } from 'src/services/Services/assets/assets.service';
 import { RegisterTrainingService } from '../Register Training/register-training.service';
 import { CycletteService } from './cyclette/cyclette.service';
 import { TapisroulantService } from './tapis roulant/tapisroulant.service';
@@ -7,26 +9,25 @@ import { TapisroulantService } from './tapis roulant/tapisroulant.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CustomTrainingService extends RegisterTrainingService {
-  
+export class CustomTrainingService {
+
   /* This is to know if at least one custom train has been completed */
   customTrainingsComplete: object[] = [];
   trainingType: number;
 
-  constructor(assets: AssetsService
-    ) { 
-    super(assets); 
+  constructor(private assets: AssetsService,
+  ) {
     this.asyncConstructor();
-  }
 
+  }
   async asyncConstructor() {
     const training = JSON.parse(await this.getTrainigs());
     this.customTrainingsComplete = this.initTrainigsComplete(training);
   }
 
-  /**Method to init "trainingsComplete" */
+  /**Method to init "RegisterTrainingService" */
   initTrainigsComplete(training: any): object[] {
-    let result = [];
+    const result = [];
     training.forEach(element => {
       result.push({
         training: element,
@@ -36,6 +37,20 @@ export class CustomTrainingService extends RegisterTrainingService {
     return result;
   }
 
- 
+
+  /**Method getting the training now selected from the selector  */
+  public getSelectedTraining() {
+    return this.trainingType + 1;
+  }
+
+  //#region async methods
+
+  /* Avoiding cirucular dependency with RegisterTrainingSErvice */
+  async getTrainigs(): Promise<string> {
+    const trainings = await this.assets.getFile('assets/trainings.json');
+    return JSON.stringify(trainings);
+  }
+
+  //#endregion
 
 }

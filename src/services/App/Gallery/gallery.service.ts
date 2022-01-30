@@ -29,19 +29,19 @@ export class GalleryService {
     let photoes = [];
     switch (dbType) {
       case DbType.IONIC_STORAGE:
-        photoes = await this.databaseService.GetAllItems(
+        photoes = await this.databaseService.getAllItems(
           DbType.IONIC_STORAGE,
           DbDataType.GALLERY
         );        
         break;
       case DbType.FIREBASE:
-        photoes = await this.databaseService.GetAllItems(
+        photoes = await this.databaseService.getAllItems(
           DbType.FIREBASE,
           DbDataType.GALLERY
         );
         break;
       default:
-        photoes = await this.databaseService.GetAllItems(
+        photoes = await this.databaseService.getAllItems(
           DbType.FIREBASE,
           DbDataType.GALLERY
         );

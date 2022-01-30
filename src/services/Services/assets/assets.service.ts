@@ -14,7 +14,6 @@ export class AssetsService {
   constructor(private http: HttpClient) { }
 
   /**
-   * 
    * @param path Method getting the content of the file (included into
    * Assets folder ) specified as parameter.
    * <usage>
@@ -24,6 +23,6 @@ export class AssetsService {
    */
   async getFile(path: string): Promise<string> {
     const res = await this.http.get<string>(path).toPromise();
-    return res; 
+    return res;
   }
 }

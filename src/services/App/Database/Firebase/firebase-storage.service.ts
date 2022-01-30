@@ -5,7 +5,7 @@ import { FirebaseHelper } from 'src/helpers/FirebaseHelper';
 import { ObjectHelper } from 'src/helpers/ObjectHelper';
 import { DbDataType } from 'src/services/Enums/DbDataType';
 import { DbEntities } from 'src/services/Enums/DbEntitities';
-import { AssetsService } from 'src/services/Helpers/assets/assets.service';
+import { AssetsService } from 'src/services/Services/assets/assets.service';
 import { IDatabase } from 'src/services/Interfaces/Database';
 
 @Injectable({
@@ -13,13 +13,17 @@ import { IDatabase } from 'src/services/Interfaces/Database';
 })
 export class FirebaseStorageService implements IDatabase {
 
+  saveTrainingData(savedTrainings: object[]): object[] | PromiseLike<object[]> {
+    throw new Error('Method not implemented.');
+  }
+
   constructor(
     private assets: AssetsService,
     private sanitizer: DomSanitizer,) {
   }
 
   /**Prototype to get all elements associated to the specified entity */
-  async GetAllItems(datatype: DbDataType): Promise<object[]> {
+  async getAllItems(datatype: DbDataType): Promise<object[]> {
     const credentials = await this.getCredentials();
     let items: object[] = [];
     switch (datatype) {

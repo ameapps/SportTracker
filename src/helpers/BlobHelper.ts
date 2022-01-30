@@ -42,4 +42,13 @@ export class BlobHelper {
         // Return BLOB image after conversion
         return new Blob([uInt8Array], { type: imageType });
     }
+
+    /**Method to convert a blob object to its binary format. */
+    static async blobToBinary(blob) {
+        const buffer = await blob.arrayBuffer();
+
+        const view = new Int8Array(buffer);
+
+        return [...view].map((n) => n.toString(2)).join(' ');
+    };
 }

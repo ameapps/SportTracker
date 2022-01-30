@@ -17,20 +17,20 @@ export class StorageService {
   /** Method setting the specified key using the specifie value.  */
   async set(key: string, value: any): Promise<void> {
     await Storage.set({
-      key: key,
+      key,
       value: JSON.stringify(value),
     });
   }
 
   /** Method getting the object from the storage having the given key. */
   async get(key: string): Promise<any> {
-    return await Storage.get({ key: key });
+    return await Storage.get({ key });
   }
 
   /** Method deleting the object from the storage having the given key. */
   async remove(key: string): Promise<void> {
     await Storage.remove({
-      key: key,
+      key,
     });
   }
 }

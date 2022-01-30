@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/dot-notation */
+/* eslint-disable @typescript-eslint/prefer-for-of */
+/* eslint-disable @typescript-eslint/ban-types */
 import { Injectable } from '@angular/core';
 import { DbDataType } from 'src/services/Enums/DbDataType';
 import { DbEntities } from 'src/services/Enums/DbEntitities';
-import { StorageService } from 'src/services/Helpers/storage/storage.service';
+import { StorageService } from 'src/services/Services/storage/storage.service';
 import { IDatabase } from 'src/services/Interfaces/Database';
 
 import { DomSanitizer } from '@angular/platform-browser';
@@ -15,6 +18,7 @@ import { Storage } from '@capacitor/storage';
 import { isArray } from 'util';
 import { TypeofExpr } from '@angular/compiler';
 import { ObjectHelper } from 'src/helpers/ObjectHelper';
+import { AlgorithmHelper } from 'src/helpers/AlgorithmHelper';
 
 
 @Injectable({
@@ -28,7 +32,7 @@ export class IonicStorageService implements IDatabase {
   ) { }
 
   /**Prototype to get all elements associated to the specified entity */
-  async GetAllItems(datatype: DbDataType): Promise<object[]> {
+  async getAllItems(datatype: DbDataType): Promise<object[]> {
     let items: object[] = [];
     switch (datatype) {
       case DbDataType.GALLERY:
@@ -43,28 +47,76 @@ export class IonicStorageService implements IDatabase {
   /**
    * Method saving an element at the specified key 
    * on the ionic storage.
-   * EXAMPLE: 
+   * EXAMPLE:
    *    await this.ionicStorageService.saveElement(key, savedImageFile);
-   *    WHERE: 
+   *    WHERE:
    *      key = "PHOTO_STORAGE"
    *      element = {"key": "value"}
    *    RESULT= [{..}, {..}, {..}, {"key": "value"}]
    * @param key to use for saving the object. It allows to get it back. 
-   * @param element element to save. 
+   * @param element element to save.
    */
   async saveElement(key: string, element: object) {
-    const db = (await Storage.get({ key: key })).value;
+    const db = (await Storage.get({ key })).value;
     const parsed = db != null ? JSON.parse(db) : [];
     parsed.push(element);
     await this.setStorage(key, parsed);
   }
 
   /**
-   * Method setting the storage with the specified object at the 
-   * specified key. It manages the exception 
+* Method sinifizing the photoes gotten from firebase.
+* @param data
+*/
+  sanitizePhotoes(data: object[]): object[] {
+    const arr: object[] = [];
+    console.log('getting photoes')
+    if (data != null) {
+      data.forEach((element) => {
+        const blob = BlobHelper.convertBase64ToBlob(element['blobBase64'] as string);
+        const objectURLa = URL.createObjectURL(blob);
+        const imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURLa);
+        const index = ObjectHelper.getValueKey(data, element);
+        data[index]['webviewPath'] = imageUrl;
+        arr.push(data[index]);
+      });
+    }
+    return arr;
+  }
+
+  async saveTrainingData(savedTrainings: object[]) {
+    console.log('saveTrainingData');
+    const key = DbEntities[DbEntities.SAVED_TRAININGS];
+    const data: object = await this.storage.get(key);
+    data['value'] = data['value'] != null ? data['value'] : [];
+    let highestId = AlgorithmHelper.getHighestObjValue(JSON.parse(data['value'])['value'], 'id');
+    highestId = highestId === -1 ? 0 : highestId;
+    savedTrainings = this.updateObjValues(savedTrainings, highestId, 'id');
+    data['value'] = this.addStorageTrainings(savedTrainings, data);
+    await this.storage.set(key, data);
+  }
+
+  updateObjValues(savedTrainings: object[], highestId: number, keyName): object[] {
+    let shortestId = AlgorithmHelper.getShortestObjValue(savedTrainings['value'], keyName);
+    shortestId = shortestId === -1 ? 0 : shortestId;
+    for (const training of savedTrainings) {
+      training['id'] = ++shortestId;
+    }
+    return savedTrainings;
+  }
+
+  private addStorageTrainings(savedTrainings: object[], data: object): object[] {
+    savedTrainings.forEach(savedTraining => {
+      data['value'].push(savedTraining);
+    });
+    return savedTrainings;
+  }
+
+  /**
+   * Method setting the storage with the specified object at the
+   * specified key. It manages the exception
    * 'Setting the value of 'dataURL' exceeded the quota'
-   * @param key 
-   * @param parsed 
+   * @param key
+   * @param parsed
    */
   private async setStorage(key: string, parsed: any) {
     try {
@@ -80,44 +132,15 @@ export class IonicStorageService implements IDatabase {
    * ionic storage and indexedDb. */
   private async getGalleryItems(items: object[]) {
     let allPhotos = await this.getPhotoes();
-    let arr: any = allPhotos;
+    const arr: any = allPhotos;
     items = arr;
-    let gottenkeys = [];
+    const gottenkeys = [];
     console.log('getting photoes')
     if (allPhotos != null) {
-      //#region OLD CODE
-      // for (let index = 0; index < allPhotos.length; index++) {
-      //   let element = allPhotos[index];
-      //   const blob = BlobHelper.convertBase64ToBlob(element.blobBase64 as string);
-      //   let objectURLa = URL.createObjectURL(blob);
-      //   const imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURLa);
-      //   allPhotos[index].webviewPath = imageUrl;
-      // }
-      //#endregion  
       allPhotos = this.sanitizePhotoes(allPhotos);
     }
     return items;
   }
-
-    /**
-   * Method sinifizing the photoes gotten from firebase.
-   * @param data 
-   */
-     sanitizePhotoes(data: object[]): object[] {
-      let arr: object[] = [];
-      console.log('getting photoes')
-      if (data != null) {
-        data.forEach((element) => {
-          const blob = BlobHelper.convertBase64ToBlob(element['blobBase64'] as string);
-          let objectURLa = URL.createObjectURL(blob);
-          const imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURLa);
-          const index = ObjectHelper.getValueKey(data, element);
-          data[index]["webviewPath"] = imageUrl;
-          arr.push(data[index]);
-        });
-      }
-      return arr;
-    }
 
   /**Method getting the photoes from ionic storage or indexed db depending 
    * where the webisite is executing. 
@@ -141,8 +164,7 @@ export class IonicStorageService implements IDatabase {
     const key: string = DbEntities[DbEntities.PHOTO_STORAGE];
     const el = await this.storage.get(key);
     let arr = JSON.parse(el.value);
-    const isArray = Array.isArray(arr);
-    if (!isArray) {
+    if (!Array.isArray(arr)) {
       arr = [arr];
     }
     return arr;
@@ -155,16 +177,16 @@ export class IonicStorageService implements IDatabase {
 
   /**Method getting the images from the indexed db. */
   private async imagesFromIndexedDb(photoes: any) {
-    photoes = await this.IndexedDbAllPhotoes();
+    photoes = await this.indexedDbAllPhotoes();
     const keys = Object.keys(photoes[0]);
-    var formatted = this.asBlobBase64(photoes, keys);
+    const formatted = this.asBlobBase64(photoes, keys);
     photoes = formatted;
     return photoes;
   }
 
-  /**Method getting all the pictures from the indexedDb 
+  /**Method getting all the pictures from the indexedDb
    * when ionic storage can't get them. */
-  private async IndexedDbAllPhotoes() {
+  private async indexedDbAllPhotoes() {
     const indexesDb = await IndexedDbHelper.openDb('Disc') as any;
     const pictures = await IndexedDbHelper.AllObjectstoreElements(indexesDb, ['FileStorage']);
     return pictures;

@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
 import { CycletteService } from 'src/services/App/Custom training/cyclette/cyclette.service';
 import { RegisterTrainingService } from 'src/services/App/Register Training/register-training.service';
-import { AssetsService } from 'src/services/Helpers/assets/assets.service';
+import { AssetsService } from 'src/services/Services/assets/assets.service';
 
 @Component({
   selector: 'app-cyclette',
@@ -21,7 +23,7 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(private componentService: CycletteService,
     private registerTrainingService: RegisterTrainingService,
-    private customTrainingService: CustomTrainingService) { 
+    private customTrainingService: CustomTrainingService) {
     this.asyncConstructor()
   }
 
@@ -51,7 +53,7 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
 
   /**Method setting the tapis roulant submenu completeness status */
   setCyclette() {
-    let val = 
+    const val =
       this.customTrainingService.customTrainingsComplete
         .filter(x => x['training'] === 'Cyclette')[0];
     val['isComplete'] = true;
@@ -62,7 +64,7 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
   //#region checks
   isSubmenuComplete(): boolean {
     // this.enableSepperButtons();
-    return this.componentService.choosenResistance != null && this.componentService.choosenPosition != null; 
+    return this.componentService.choosenResistance != null && this.componentService.choosenPosition != null;
   }
 
   /**Method to enable the stepper navigator buttons. */
@@ -78,23 +80,23 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
    * Listener for time events from chrono-timer component
    * @param event stirng representing the time emitted 
    */
-   definedTime(event) {
-    this.customTrainingService.definedTime = event;
+  definedTime(event) {
+    this.registerTrainingService.definedTime = event;
   }
 
-  actualTime(time: string){
+  actualTime(time: string) {
   }
 
-  
-  /**Method managing what happen when the timer is expired */ 
+
+  /**Method managing what happen when the timer is expired */
   onExpiredTimer(event) {
     this.expiredTime = event;
 
     this.componentService.canConsumeKcalShow = true;
     this.componentService.canShowNextTrain = true;
-    this.customTrainingService.definedTime = event.timeExpired;
+    this.registerTrainingService.definedTime = event.timeExpired;
 
-    const millisec = this.componentService.getTrainingMillisec(this.customTrainingService.definedTime);
+    const millisec = this.componentService.getTrainingMillisec(this.registerTrainingService.definedTime);
     this.componentService.consumedKcal = this.componentService.estimateKcalConsume(millisec);
 
     this.timeExpired.emit(event);
@@ -102,6 +104,6 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
 
   //#endregion
 
-  ngOnInit() {}
+  ngOnInit() { }
 
 }

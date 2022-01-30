@@ -13,14 +13,14 @@
     <!-- Primo step -->
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>{{stepsName[0]}}</ng-template>
+        <ng-template matStepLabel>{{this.componentService.stepsName[0]}}</ng-template>
         <!-- Input for pre training weight -->
         <mat-form-field>
           <input 
             (keypress)="this.isValidPreWeight($event)"
             (keypress)="this.componentService.preWeightInput()"
             matInput 
-            [(ngModel)]="this.componentService.before_training_weight" 
+            [(ngModel)]="this.componentService.beforeTrainingWeight" 
             placeholder="Before training weight (KG)" 
             formControlName="firstCtrl" 
             required>
@@ -44,21 +44,21 @@
     <!-- Secondo step -->
     <mat-step [stepControl]="secondFormGroup" [completed]="this.componentService.stepsComplete[1]">
       <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>{{stepsName[1]}}</ng-template>
+        <ng-template matStepLabel>{{this.componentService.stepsName[1]}}</ng-template>
         <p>Select your training! </p>
         <!-- Selection of the training to do -->
         <app-selector 
-          [selections]="this.struments" 
+          [selections]="this.componentService.struments" 
           [allowedSelectionNumber]="1" 
-          [clicked] = "this.clicked"
+          [clicked] = "this.componentService.clicked"
           (selectedItems)="saveSelectedItems($event)"
         ></app-selector>
 
         <!-- Loading a custom menu according to the selected strument -->
         <app-custom-training 
           (timeExpired)="onTimeExpired($event)"
-          [expiredTime]="this.expiredTime"
-          [trainingTypes]="this.trainings" 
+          [expiredTime]="this.componentService.expiredTime"
+          [trainingTypes]="this.componentService.trainings" 
           [trainingType]="this.componentService.selectedTrainings[0]">
         </app-custom-training>
 
@@ -69,14 +69,14 @@
         
         <!-- Bottoni che chiedono se si vuole fare un altro training -->
         <div id="next-training" *ngIf="this.componentService.stepsComplete[1]">
-          <button mat-button (click)="AnotherTraining($event)" >Another training</button>
+          <button mat-button (click)="anotherTraining($event)" >Another training</button>
           <button mat-button matStepperNext (click)="complete()">Done</button>
         </div>
       </form>
     </mat-step>
     <!-- Terzo step -->
     <mat-step>
-      <ng-template matStepLabel>{{stepsName[2]}}</ng-template>
+      <ng-template matStepLabel>{{this.componentService.stepsName[2]}}</ng-template>
       <app-rt-step3></app-rt-step3>
       You are now done.
       <div class="stepper-navigators"  *ngIf="this.componentService.stepsComplete[2]">

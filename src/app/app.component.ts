@@ -1,9 +1,11 @@
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AppPage } from 'e2e/src/app.po';
+import { ApiHelper } from 'src/helpers/ApiHelper';
 import { AppPages } from 'src/Models/appPages';
 import { InitialConfigurationService } from 'src/services/App/Initial Configuration/initial-configuration.service';
-import { AssetsService } from 'src/services/Helpers/assets/assets.service';
-import { StorageService } from 'src/services/Helpers/storage/storage.service';
+import { AssetsService } from 'src/services/Services/assets/assets.service';
+import { StorageService } from 'src/services/Services/storage/storage.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -14,7 +16,8 @@ export class AppComponent {
   public labels = [];
   constructor(private storage: StorageService, 
     private assets: AssetsService,
-    private config: InitialConfigurationService
+    private config: InitialConfigurationService,
+    private http: HttpClient
     ) 
   {
     this.asyncConstructor();

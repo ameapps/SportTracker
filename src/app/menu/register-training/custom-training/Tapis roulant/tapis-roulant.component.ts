@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
 import { TapisroulantService } from 'src/services/App/Custom training/tapis roulant/tapisroulant.service';
-import { AssetsService } from 'src/services/Helpers/assets/assets.service';
+import { RegisterTrainingService } from 'src/services/App/Register Training/register-training.service';
+import { AssetsService } from 'src/services/Services/assets/assets.service';
 
 @Component({
   selector: 'app-tapis-roulant',
@@ -14,10 +15,10 @@ export class TapisRoulantComponent implements OnInit, OnChanges, OnDestroy {
   @Output() timeExpired = new EventEmitter();
 
   speeds: string[] = [];
-  
 
   constructor(private assets: AssetsService,
     private componentService: TapisroulantService,
+    private registerTrainingService: RegisterTrainingService,
     private customTrainingService: CustomTrainingService) {
     this.asyncConstructor();
   }
@@ -81,7 +82,7 @@ export class TapisRoulantComponent implements OnInit, OnChanges, OnDestroy {
    * @param event stirng representing the time emitted 
    */
   definedTime(event) {
-    this.customTrainingService.definedTime = event;
+    this.registerTrainingService.definedTime = event;
   }
 
   actualTime(time: string) {
