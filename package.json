@@ -36,6 +36,7 @@
     "@ionic/angular": "^5.5.2",
     "@ionic/pwa-elements": "^3.0.2",
     "angular-countdown-timer": "0.0.1",
+    "angularx-social-login": "^4.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "firebase": "^9.5.0",
