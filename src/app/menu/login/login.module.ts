@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
-import { GoogleLoginProvider } from 'angularx-social-login';
+import { GoogleLoginProvider, SocialLoginModule } from 'angularx-social-login';
 import { AuthGuardService } from './auth-guard.service';
 
 
@@ -11,7 +11,8 @@ import { AuthGuardService } from './auth-guard.service';
   declarations: [LoginComponent],
   imports: [
     CommonModule,
-    LoginRoutingModule
+    LoginRoutingModule,
+    SocialLoginModule
   ],
   exports: [LoginComponent],
   providers: [{
