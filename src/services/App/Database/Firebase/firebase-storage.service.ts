@@ -13,10 +13,6 @@ import { IDatabase } from 'src/services/Interfaces/Database';
 })
 export class FirebaseStorageService implements IDatabase {
 
-  saveTrainingData(savedTrainings: object[]): object[] | PromiseLike<object[]> {
-    throw new Error('Method not implemented.');
-  }
-
   constructor(
     private assets: AssetsService,
     private sanitizer: DomSanitizer,) {
@@ -44,7 +40,6 @@ export class FirebaseStorageService implements IDatabase {
    * @returns 
    */
   async saveElement(key: string, savedImageFile: object) {
-    console.log('firebase photo saving')
     const credentials = await this.getCredentials();
     let data = await FirebaseHelper.getData(credentials, key) as object[];
     data = data != null ? data : [];
@@ -60,7 +55,6 @@ export class FirebaseStorageService implements IDatabase {
     let fixedData: object[] = [];
     if (allPhotos != null) {
       fixedData = this.sanitizePhotoes(allPhotos);
-      console.log(JSON.stringify(fixedData))
     }
     return fixedData;
   }
@@ -71,7 +65,6 @@ export class FirebaseStorageService implements IDatabase {
    */
   sanitizePhotoes(data: object[]): object[] {
     let arr: object[] = [];
-    console.log('getting photoes')
     if (data != null) {
       data.forEach((element) => {
         const blob = BlobHelper.convertBase64ToBlob(element['blobBase64'] as string);

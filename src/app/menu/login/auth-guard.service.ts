@@ -13,9 +13,7 @@ export class AuthGuardService implements CanActivate {
               private socialAuthService: SocialAuthService) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    console.log('canActivate');
-    
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {    
     return this.socialAuthService.authState.pipe(
       map((socialUser: SocialUser) => !!socialUser),
       tap((isLoggedIn: boolean) => {

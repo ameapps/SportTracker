@@ -42,8 +42,6 @@ export class RegisterTrainingComponent implements OnInit {
   complete() {
     this.stepper.selected.completed = true;
     this.stepper.selected.editable = false;
-    console.log('completed fired');
-    console.log(this.stepper);
     this.stepper.next();
   }
 
@@ -88,8 +86,7 @@ export class RegisterTrainingComponent implements OnInit {
   //#region checks
 
   /**Method checking whether the input character is
-   * a valid one or not.
-   */
+   * a valid one or not. */
   isValidPreWeight(event: any) {
     const char = this.getCharacter(event);
     if (!this.componentService.isPreWeightValid(char)) {

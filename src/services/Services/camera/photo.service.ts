@@ -31,9 +31,6 @@ export class PhotoService {
   /**Method saving the shotted pictures to the ionic storage.
      Method to be called after addNewToGallery method. */
   public async savePhoto(savedImageFile: object, key: string) {
-    console.log('saving photo')
-    // await this.ionicStorageService.saveElement(key, savedImageFile);
-
     await this.databaseService.savePhoto(DbType.IONIC_STORAGE, key, savedImageFile);
     await this.databaseService.savePhoto(DbType.FIREBASE, key, savedImageFile);
     await this.databaseService.savePhoto(DbType.GPHOTO, key, savedImageFile);

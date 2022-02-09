@@ -30,7 +30,6 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
     this.componentService.resetValues();
-    console.log('cyclette destroyed');
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -57,8 +56,6 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
       this.customTrainingService.customTrainingsComplete
         .filter(x => x['training'] === 'Cyclette')[0];
     val['isComplete'] = true;
-    console.log('fire custom training')
-    console.log(this.customTrainingService.customTrainingsComplete)
   }
 
   //#region checks

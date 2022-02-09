@@ -16,8 +16,6 @@ export class GalleryService {
 
   async asyncConstructor() {
     this.photos = await this.getGalleryPhotos(DbType.FIREBASE);
-    console.log('photos')
-    console.log(this.photos)
   }
 
   /**
@@ -25,7 +23,6 @@ export class GalleryService {
    * @returns 
    */
   public async getGalleryPhotos(dbType: DbType): Promise<object[]> {
-    console.log('photos from both memories');
     let photoes = [];
     switch (dbType) {
       case DbType.IONIC_STORAGE:

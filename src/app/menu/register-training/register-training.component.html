@@ -10,10 +10,12 @@
 <ion-content [fullscreen]="true">
 
   <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper" style="height: 100%;">
+
     <!-- Primo step -->
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>{{this.componentService.stepsName[0]}}</ng-template>
+
         <!-- Input for pre training weight -->
         <mat-form-field>
           <input 
@@ -25,6 +27,7 @@
             formControlName="firstCtrl" 
             required>
         </mat-form-field>
+
         <!-- Select for the time of preweight measurement -->
         <mat-form-field>
           <mat-select [(value)]="this.componentService.preWeightTime" placeholder="Pre weight measurement time">
@@ -62,11 +65,6 @@
           [trainingType]="this.componentService.selectedTrainings[0]">
         </app-custom-training>
 
-        <!-- <div class="stepper-navigators" *ngIf="this.componentService.stepsComplete[1]">
-          <button matStepperPrevious>Back</button>
-          <button matStepperNext>Next</button>
-        </div> -->
-        
         <!-- Bottoni che chiedono se si vuole fare un altro training -->
         <div id="next-training" *ngIf="this.componentService.stepsComplete[1]">
           <button mat-button (click)="anotherTraining($event)" >Another training</button>
@@ -74,14 +72,14 @@
         </div>
       </form>
     </mat-step>
+
     <!-- Terzo step -->
     <mat-step>
       <ng-template matStepLabel>{{this.componentService.stepsName[2]}}</ng-template>
       <app-rt-step3></app-rt-step3>
-      You are now done.
+      <p id="you-are-done">You are now done.</p> 
       <div class="stepper-navigators"  *ngIf="this.componentService.stepsComplete[2]">
         <button mat-button matStepperPrevious>Back</button>
-        <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
         <button mat-button (click)="goToGallery()">Gallery</button>
         <button mat-button (click)="goToReport()">Report</button>
       </div>

@@ -4,17 +4,14 @@
 
 }
 
-// .select-training .color-text {
-//     color: black;
-// }
-
 .select-training .width {
     width: 100% !important;
 }
 
-#next-training {
+#next-training, #you-are-done {
     position:absolute;
-    bottom: 1rem;
+    bottom: 3em;
+    right: 3em;
 }
 
 /* The select width is full screen */
@@ -46,7 +43,8 @@ button.mat-focus-indicator.mat-stepper-next.mat-button.mat-button-base {
 /* Bottons to navigate the steppers are set to the bottom of the screen */
 .stepper-navigators-position {
     position: absolute;
-    bottom: 5%;
+    bottom: 3em;
+    right: 3em;
 }
 
 /* The 'Previous step' button is hidden */
@@ -54,16 +52,17 @@ button.mat-focus-indicator.mat-stepper-next.mat-button.mat-button-base {
     display:none;
 }
 
+p {
+    color: var(--ion-text-color, white);
+}
 
+button {
+    color: var(--ion-text-color, white);
+}
 
 // endregion
 
 // #region page
-
-/* The background color of the page changes */
-// ion-content {
-//     --background: var(--grey-primary)
-// }
 
 // endregion
 

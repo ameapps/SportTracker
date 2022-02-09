@@ -40,13 +40,13 @@ export class FirebaseHelper {
 
     }
 
+    /**Method getting the data available at the specified path using the specified database. */
     private static async getDbData(db: Database, path: any) {
         const starCountRef = ref(db, path);
 
         const prom = new Promise((resolve, reject) => {
             onValue(starCountRef, (snapshot) => {
                 const data = snapshot.val();
-                console.log(data);
                 resolve(data);
             });
         });
@@ -70,7 +70,6 @@ export class FirebaseHelper {
      * @param path string representing the desired path name.
      */
     static writeUserData(objToUpload, credentials, path) {
-        console.log('firebase write new object')
         const app = initializeApp(credentials as FirebaseOptions);
         const db = getDatabase(app);
         set(ref(db, path), objToUpload);
@@ -94,7 +93,6 @@ export class FirebaseHelper {
      * @returns 
      */
     static async pushToChild(savedImageFile: object, credentials: any, key: string) {
-        console.log('firebase update child (array) with a new object')
         const app = initializeApp(credentials as FirebaseOptions);
         const db = getDatabase(app);
 
@@ -129,7 +127,6 @@ export class FirebaseHelper {
     static async getNumber(db: Database, key: string): Promise<string> {
         const dbObj = await FirebaseHelper.getDbData(db, key);
         const fieldNumber = ObjectHelper.objectFieldsNumber(dbObj) +1;
-        console.log('getNumber()')
         return fieldNumber + '';
     }
 

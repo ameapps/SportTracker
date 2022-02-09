@@ -69,7 +69,6 @@ export class IonicStorageService implements IDatabase {
 */
   sanitizePhotoes(data: object[]): object[] {
     const arr: object[] = [];
-    console.log('getting photoes')
     if (data != null) {
       data.forEach((element) => {
         const blob = BlobHelper.convertBase64ToBlob(element['blobBase64'] as string);
@@ -84,7 +83,6 @@ export class IonicStorageService implements IDatabase {
   }
 
   async saveTrainingData(savedTrainings: object[]) {
-    console.log('saveTrainingData');
     const key = DbEntities[DbEntities.SAVED_TRAININGS];
     const data: object = await this.storage.get(key);
     data['value'] = data['value'] != null ? data['value'] : [];
@@ -131,11 +129,15 @@ export class IonicStorageService implements IDatabase {
   /**Method getting the photoes from the gallery using both
    * ionic storage and indexedDb. */
   private async getGalleryItems(items: object[]) {
-    let allPhotos = await this.getPhotoes();
-    const arr: any = allPhotos;
+    let allPhotos = null;
+    try {     
+      allPhotos = await this.getPhotoes();
+    } catch (error) {
+      console.log(error)
+    }
+    const arr: any = allPhotos; 
     items = arr;
     const gottenkeys = [];
-    console.log('getting photoes')
     if (allPhotos != null) {
       allPhotos = this.sanitizePhotoes(allPhotos);
     }

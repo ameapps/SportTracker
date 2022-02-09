@@ -34,7 +34,6 @@ export class CustomTrainingComponent implements OnInit, OnChanges {
 
     if (changes['trainingType']) {
       this.componentService.trainingType = this.trainingType;
-      console.log(this.componentService.trainingType);
     }
   }
 

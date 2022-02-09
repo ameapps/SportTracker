@@ -39,7 +39,6 @@ export class TapisRoulantComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
     this.componentService.resetValues();
-    console.log('tapisroulant destroyed');
   }
 
 

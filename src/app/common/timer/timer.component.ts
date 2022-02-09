@@ -31,7 +31,6 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('timer destroyed')
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -63,7 +62,6 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
       timeExpired : event.time,
       atTime: new Date()
     };
-    console.log('fire time exored for some reason')
     this.timeExpired.emit(obj)
   }
 

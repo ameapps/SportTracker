@@ -35,10 +35,6 @@ export class AppComponent {
       const page = new AppPages(element.name, element.url, 'mail');
       this.appPages.push(page)        
     });
-
-    console.log('fire app pages');
-    console.log(this.appPages);
-
   }
 
 
