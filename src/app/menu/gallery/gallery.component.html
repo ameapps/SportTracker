@@ -8,15 +8,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  <p>CIAO MONDO</p>
-
-    <!-- NON SI VEDE -->
   <div id="gallery" *ngFor="let photo of this.componentService.photos">
-    <!-- <img src="blob:http://localhost:8100/8c243f90-e715-4c16-b022-41445d57106b" /> -->
     <img [src]="photo.webviewPath" />
+    <span>{{photo.filepath}}</span>
   </div>
-
-  <!-- <img src="https://www.latestatamagazine.it/wp-content/uploads/2021/11/Di-Palma-Eternals-e-il-peggior-film-Marvel-di-sempre.-No-non-lo-e-e-vi-spiego-il-perche.jpg"/> -->
-
 </ion-content>

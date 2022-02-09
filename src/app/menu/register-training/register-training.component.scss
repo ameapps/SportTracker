@@ -24,6 +24,15 @@ mat-checkbox {
     margin-left: 2%;
 }
 
+input {
+    color: var(--ion-text-color, white)
+}
+
+#last-buttons {
+    position: absolute;
+    bottom: 3em;
+}
+
 /* The stepper container is full scree height */
 ::ng-deep .mat-horizontal-content-container {
     height: inherit;

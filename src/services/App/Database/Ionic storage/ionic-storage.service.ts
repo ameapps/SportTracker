@@ -179,10 +179,15 @@ export class IonicStorageService implements IDatabase {
 
   /**Method getting the images from the indexed db. */
   private async imagesFromIndexedDb(photoes: any) {
-    photoes = await this.indexedDbAllPhotoes();
-    const keys = Object.keys(photoes[0]);
-    const formatted = this.asBlobBase64(photoes, keys);
-    photoes = formatted;
+    try {
+      photoes = await this.indexedDbAllPhotoes();
+      const keys = Object.keys(photoes[0]);
+      const formatted = this.asBlobBase64(photoes, keys);
+      photoes = formatted;
+    } catch (error) {
+      console.log(`Could not get photoes. Error: ${error} `)
+    }
+
     return photoes;
   }
 

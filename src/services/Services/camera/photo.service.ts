@@ -31,8 +31,8 @@ export class PhotoService {
   /**Method saving the shotted pictures to the ionic storage.
      Method to be called after addNewToGallery method. */
   public async savePhoto(savedImageFile: object, key: string) {
-    await this.databaseService.savePhoto(DbType.IONIC_STORAGE, key, savedImageFile);
     await this.databaseService.savePhoto(DbType.FIREBASE, key, savedImageFile);
+    await this.databaseService.savePhoto(DbType.IONIC_STORAGE, key, savedImageFile);
     await this.databaseService.savePhoto(DbType.GPHOTO, key, savedImageFile);
 
     return true;
@@ -53,7 +53,12 @@ export class PhotoService {
       directory: Directory.Data
     };
 
-    const savedFile = await Filesystem.writeFile(builded);
+    // Nella versione pubblicat a volte non funziona!
+    try {
+      const savedFile = await Filesystem.writeFile(builded); 
+    } catch (error) {
+      console.log(`Couldn't save photo on local indexed Db. ${error}`)
+    }
 
     /* RECUPERO L'IMMAGINE IN FORMATO FILE BLOB DAL SUO URL */
     let blob: Blob = await fetch(cameraPhoto.webPath).then(r => r.blob());

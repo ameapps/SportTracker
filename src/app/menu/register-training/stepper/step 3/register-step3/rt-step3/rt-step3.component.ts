@@ -26,6 +26,7 @@ export class RtStep3Component implements OnInit {
   ngOnInit() {}
 
   async addPhotoToGallery() {
+    console.log('addPhotoToGallery()')
     const photo: Photo = await this.photoService.shotPhoto();
     const savedImageFile = await this.photoService.savePicture(photo);
     const key = DbEntities[DbEntities.PHOTO_STORAGE];
