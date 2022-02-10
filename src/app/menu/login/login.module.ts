@@ -22,25 +22,9 @@ import { MatInputModule } from '@angular/material/input';
     MatCardModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatInputModule,
-    SocialLoginModule
+    MatInputModule
   ],
   exports: [LoginComponent],
-  providers: [{
-    provide: 'SocialAuthServiceConfig',
-    useValue: {
-      autoLogin: true,
-      providers: [
-        {
-          id: GoogleLoginProvider.PROVIDER_ID,
-          // ONLINE: '148517665605-jspahbqleats6lvlag9kasc2c11b5g7o.apps.googleusercontent.com'
-          // MIO: '899314583596-npnuh1nsukq1t23ao4b0u49d1589tgbf.apps.googleusercontent.com'
-          provider: new GoogleLoginProvider('899314583596-npnuh1nsukq1t23ao4b0u49d1589tgbf.apps.googleusercontent.com')
-        }
-      ]
-    }
-  },
-    AuthGuardService
-  ],
+  providers: [],
 })
 export class LoginModule { }

@@ -9,12 +9,7 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private router: Router,
-              private socialAuthService: SocialAuthService) {
+  constructor(private router: Router) {
   }
 
-  loginWithGoogle(): void {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
-      .then(() => this.router.navigate(['mainpage'])  );
-  }
 }
