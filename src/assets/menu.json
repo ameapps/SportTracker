@@ -1,5 +1,10 @@
 [
     {
+        "name" : "Homepage",
+        "url" : "menu/homepage",
+        "component": "homepageComponent"
+    },
+    {
         "name" : "Register training",
         "url" : "menu/register-training",
         "component": "RegisterTrainingComponent"

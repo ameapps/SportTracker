@@ -25,9 +25,6 @@ export class AppComponent {
   }
 
   async asyncConstructor() {
-
-    await this.testIonicStorage();
-
     const menuSer = await this.config.getMenuItems();
     const menu = JSON.parse(menuSer);
 
@@ -35,15 +32,5 @@ export class AppComponent {
       const page = new AppPages(element.name, element.url, 'mail');
       this.appPages.push(page)        
     });
-  }
-
-
-  /**
-   *Metodo che mostra come usare lo storage di ionic.
-   Eliminarlo appena possibile.
-   */
-  private async testIonicStorage() {
-    await this.storage.set('sport', 'ste');
-    const res = await this.storage.get('sport');
   }
 }
