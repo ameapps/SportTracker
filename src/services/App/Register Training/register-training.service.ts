@@ -139,7 +139,7 @@ export class RegisterTrainingService {
   /* Method to delete the input stringh whether it's not valid. */
   preWeightInput(): void {
     const onlyNumbers =
-      StringHelper.hasOnlyNumbers(this.beforeTrainingWeight);
+      StringHelper.hasOnlyNumbers(this.beforeTrainingWeight) || this.beforeTrainingWeight.includes('.');
     if (!onlyNumbers) {
       this.beforeTrainingWeight = '';
     };
