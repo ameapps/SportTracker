@@ -63,7 +63,7 @@ export class DatabaseService {
         await this.ionicStorageService.saveTrainingData(savedTrainings);
         break;
       case DbType.FIREBASE:
-        await this.firebaseStorageService.saveElement('ciao', savedTrainings);
+        await this.firebaseStorageService.saveElement('Trainings', savedTrainings);
         break;
       default:
         break;
