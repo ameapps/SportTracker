@@ -89,12 +89,13 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
   onExpiredTimer(event) {
     this.expiredTime = event;
 
-    this.componentService.canConsumeKcalShow = true;
-    this.componentService.canShowNextTrain = true;
-    this.registerTrainingService.definedTime = event.timeExpired;
-
+    // Calculating milliseconds from time, to estimate the consumed kcal
     const millisec = this.componentService.getTrainingMillisec(this.registerTrainingService.definedTime);
     this.componentService.consumedKcal = this.componentService.estimateKcalConsume(millisec);
+
+    // Allowing the user to access and edit the calculated kcal value
+    this.componentService.canConsumeKcalShow = true;
+    this.componentService.canShowNextTrain = true;
 
     this.timeExpired.emit(event);
   }

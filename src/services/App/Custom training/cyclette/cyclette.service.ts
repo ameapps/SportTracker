@@ -61,8 +61,15 @@ export class CycletteService {
     return minutes;
   }
 
-  getMillisecs(hours: string, minutes: string, seconds: string):number {
-    const millisecsCalc = (parseInt(hours)*1000*60*60) + (parseInt(minutes) * 1000*60) +  (parseInt(seconds) * 1000);
+  getMillisecs(hours?: string, minutes?: string, seconds?: string):number {
+    let millisecsCalc = 0;
+    if (hours == null) return millisecsCalc;
+    millisecsCalc += (parseInt(hours)*1000*60*60);
+    if (minutes == null) return millisecsCalc;
+    millisecsCalc += (parseInt(minutes) * 1000*60);
+    if (seconds == null) return millisecsCalc;
+    millisecsCalc += (parseInt(seconds) * 1000);
+
     return millisecsCalc;
   }
 
