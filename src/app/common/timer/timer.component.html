@@ -8,7 +8,9 @@ componente selctor -->
     (definedTime)="onDefinedTime($event)" 
     (actualTime)="onTimeDefined($event)"
     (timeExpired)="onTimeExpired($event)"
-    [chronoType]="'input-clock'">
+    [chronoType]="'input-clock'"
+    [canCountdownStart]="false"  
+  >
   </app-chrono-time-picker>
 </div>
 

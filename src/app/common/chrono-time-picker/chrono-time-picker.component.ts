@@ -19,6 +19,8 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
   @Output() actualTime = new EventEmitter<string>();
   @Output() timeExpired = new EventEmitter<object>();
 
+  @Input() canCountdownStart = true; 
+
   //#endregion
 
   @Input() chronoType: string = "";
@@ -104,6 +106,10 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 
   /* Method to start the timer. */
   startTimer(time: string): void {
+    if (!this.canCountdownStart) {
+      this.timeExpired.emit(this.getTimeExpired(time));
+      return; 
+    }
     this.hour = this.fixHour(time.split(':')[0]);
     this.minutes = this.fixMinutes(time.split(':')[1]);
     this.totalTime = this.setTotalTime();

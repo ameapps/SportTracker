@@ -19,6 +19,7 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
   @Input() hours: number | string = '00';
   @Input() minutes: number | string = '00';
   @Input() seconds: number | string = '00';
+  @Input() canStartCountdown: boolean = true;
 
   // THIS COMPONENT
   canShowTimer: boolean = false;
