@@ -93,16 +93,20 @@ export class FirebaseHelper {
      * @returns 
      */
     static async pushToChild(savedImageFile: object, credentials: any, key: string) {
-        const app = initializeApp(credentials as FirebaseOptions);
-        const db = getDatabase(app);
-
-        // Get a key for a new Post.
-        const newPostKey = await FirebaseHelper.getPostKey(db, 'NUMBER', key);
-        // Write the new post's data simultaneously in the posts list and the user's post list.
-        const updates = {};
-        updates[key + '/' + newPostKey] = savedImageFile;
-
-        return update(ref(db), updates);
+        try {
+            const app = initializeApp(credentials as FirebaseOptions);
+            const db = getDatabase(app);
+    
+            // Get a key for a new Post.
+            const newPostKey = await FirebaseHelper.getPostKey(db, 'NUMBER', key);
+            // Write the new post's data simultaneously in the posts list and the user's post list.
+            const updates = {};
+            updates[key + '/' + newPostKey] = savedImageFile;
+    
+            return update(ref(db), updates);
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     //#region get object key
