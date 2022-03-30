@@ -13,5 +13,6 @@ import { LoginComponent } from '../login/login.component';
     CommonModule,
     HomepageRoutingModule
   ]
-  export class HomepageModule { }
 })
+
+export class HomepageModule { }
