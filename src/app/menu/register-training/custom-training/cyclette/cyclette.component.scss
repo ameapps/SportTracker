@@ -13,6 +13,7 @@ so that all inner elements are kept there too. */
 
 /* The kcal input is set under the timer with some margin */
 #kcal-input {
-    margin: 1rem;
-    max-width: 25vw;
+    min-width: 30vw;
+    color: white;
+    padding: 1rem;
 }
