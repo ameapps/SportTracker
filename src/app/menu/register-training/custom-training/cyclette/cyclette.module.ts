@@ -6,6 +6,7 @@ import { CycletteComponent } from './cyclette.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { TimerModule } from 'src/app/common/timer/timer.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { TimerModule } from 'src/app/common/timer/timer.module';
   imports: [
     CommonModule,
     TimerModule,
+    FormsModule,
     CycletteRoutingModule,
     MatSelectModule,
     MatInputModule

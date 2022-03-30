@@ -30,5 +30,5 @@
 
 <!-- Input for kcal insertion after cyclette training -->
 <mat-form-field id="kcal-input" *ngIf="this.componentService.canConsumeKcalShow">
-  <input matInput placeholder="Consumed kcal post training" [value]="this.componentService.consumedKcal">
+  <input matInput placeholder="Consumed kcal post training" [(ngModel)]="this.componentService.consumedKcal">
 </mat-form-field>
