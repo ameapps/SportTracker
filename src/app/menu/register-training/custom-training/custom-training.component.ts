@@ -16,7 +16,7 @@ export class CustomTrainingComponent implements OnInit, OnChanges {
 
   @Input() expiredTime: object;
 
-  @Output() timeExpired = new EventEmitter();
+  @Output() timeExpired = new EventEmitter(); 
 
   strumentsMenu: string[] = [];
   //#endregion
