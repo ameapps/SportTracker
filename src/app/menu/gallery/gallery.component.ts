@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { GalleryService } from 'src/services/App/Gallery/gallery.service';
 
 @Component({
@@ -8,8 +9,19 @@ import { GalleryService } from 'src/services/App/Gallery/gallery.service';
 })
 export class GalleryComponent implements OnInit {
 
-  constructor(private componentService: GalleryService) { }
+  constructor(private router: Router,
+    private componentService: GalleryService) { }
 
   ngOnInit() {}
+
+  // #region methods
+
+  /**Method to scroll the page at the specified element in the page */
+  smoothScroll(id: number) {
+    const el: HTMLElement = document.getElementById(`gallery-photo-${id}`)
+    el.scrollIntoView({behavior: 'smooth'}); 
+  }
+
+  // #endregion
 
 }
