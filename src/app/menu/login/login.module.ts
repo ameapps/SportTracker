@@ -8,9 +8,10 @@ import { LoginComponent } from './login.component';
 import { GoogleLoginProvider, SocialLoginModule } from 'angularx-social-login';
 import { AuthGuardService } from './auth-guard.service';
 import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MaterialModule } from 'src/modules/material/material.module';
 
 
 @NgModule({
@@ -18,11 +19,7 @@ import { MatInputModule } from '@angular/material/input';
   imports: [
     CommonModule,
     LoginRoutingModule,
-    /**Needed modules for the login component */
-    MatCardModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatInputModule
+    MaterialModule
   ],
   exports: [LoginComponent],
   providers: [],

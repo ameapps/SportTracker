@@ -7,10 +7,17 @@
 }
 
 mat-card {
-  margin: 10% auto;
-  width: 50%;
+
 }
 
 mat-form-field {
   width: 100%;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }

@@ -5,7 +5,6 @@ import { RegisterTrainingRoutingModule } from './register-training-routing.modul
 import { RegisterTrainingComponent } from './register-training.component';
 import {MatSelectModule} from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DemoMaterialModule } from 'src/modules/material/material.module';
 import { MatInputModule } from '@angular/material/input';
 import { ChronoTimePickerModule } from 'src/app/common/chrono-time-picker/chrono-time-picker.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
