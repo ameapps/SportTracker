@@ -133,7 +133,7 @@ export class RegisterTrainingService {
 
   /**Method checking whether the input character from the user is valid or not. */
   isPreWeightValid(char: string) {
-    return StringHelper.hasOnlyNumbers(char);
+    return StringHelper.hasOnlyNumbers(char) || char == '.';
   }
 
   /* Method to delete the input stringh whether it's not valid. */

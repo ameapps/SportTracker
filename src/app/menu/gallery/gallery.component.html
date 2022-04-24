@@ -8,8 +8,20 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div id="gallery" *ngFor="let photo of this.componentService.photos">
-    <img [src]="photo.webviewPath" />
-    <span>{{photo.filepath}}</span>
+  <div class="container">
+    <!-- Photoes shown in the gallery -->
+    <div class="photoes">
+      <div *ngFor="let photo of this.componentService.photos">
+        <img [src]="photo.webviewPath" />
+        <span>{{photo.filepath}}</span>
+      </div>
+    </div>
+    <!-- Right sidebar containing photoes preview with tooltip -->
+    <div class="right-bar">
+      <div *ngFor="let photo of this.componentService.photos">
+        <img [src]="photo.webviewPath" />
+        <span>{{photo.filepath}}</span>
+      </div>
+    </div>
   </div>
 </ion-content>

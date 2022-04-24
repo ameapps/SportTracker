@@ -1,12 +1,24 @@
-#gallery {
-    width: 50%;
-    height: 50%;
-}
-
-.container {
-    width: 100%;
-    height: 70vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+ion-content{
+    .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        position: absolute;
+    
+        .photoes {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+        }    
+        
+        .right-bar {
+            right: 0;
+            width: 10%; 
+            display: flex;
+            flex-direction: column;
+            
+        }
+    }
 }
