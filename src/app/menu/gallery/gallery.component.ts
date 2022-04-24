@@ -22,6 +22,14 @@ export class GalleryComponent implements OnInit {
     el.scrollIntoView({behavior: 'smooth'}); 
   }
 
+  photoInfo(photoInfo: string) {
+    // Getting the only numbers from the string
+    const valid = Number(photoInfo.replace(/\D/g, ""));
+    const date: Date = new Date(valid);
+    const format = `${date.toLocaleDateString("it-IT")} ${date.toLocaleTimeString("it-IT")}`;
+    return format;
+  }
+
   // #endregion
 
 }

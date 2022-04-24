@@ -19,7 +19,7 @@
     <!-- Right sidebar containing photoes preview with tooltip -->
     <div class="right-bar">
       <div *ngFor="let photo of this.componentService.photos; let i = index;">
-        <img [src]="photo.webviewPath" (click)="smoothScroll(i)" />
+        <img [src]="photo.webviewPath" (click)="smoothScroll(i)" title={{this.photoInfo(photo.filepath)}} />
         <span (click)="smoothScroll(i)">{{photo.filepath}}</span>
       </div>
     </div>
