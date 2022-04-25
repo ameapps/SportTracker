@@ -15,10 +15,11 @@ ion-content{
         }    
         
         .right-bar {
-            right: 0;
+            right: 2em;
             width: 10%; 
             display: flex;
             flex-direction: column;
+            position: fixed;
         }
 
         a {
