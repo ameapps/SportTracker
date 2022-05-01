@@ -7,3 +7,12 @@
     display: flex;
     flex-direction: row;
 }
+
+@font-face {
+    font-family: clockFont;
+    src: url("/assets/font/alarm_clock.ttf"); 
+ }
+ 
+ * {
+    font-family: clockFont;
+ }
