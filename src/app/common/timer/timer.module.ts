@@ -6,13 +6,16 @@ import { TimerComponent } from './timer.component';
 import { ChronoTimePickerComponent } from './chrono-time-picker/chrono-time-picker.component';
 import { DigitalClockComponent } from './digital-clock/digital-clock.component';
 
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+
 
 @NgModule({
   declarations: [TimerComponent, ChronoTimePickerComponent, DigitalClockComponent],
   exports: [TimerComponent, ChronoTimePickerComponent, DigitalClockComponent],
   imports: [
     CommonModule,
-    TimerRoutingModule
+    TimerRoutingModule,
+    NgxMaterialTimepickerModule
   ]
 })
 export class TimerModule { }
