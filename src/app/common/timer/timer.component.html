@@ -6,17 +6,14 @@ componente selctor -->
   <app-chrono-time-picker 
     *ngIf="this.customTrainingService.customTrainingsComplete[this.customTrainingService.trainingType].isComplete"
     (definedTime)="onDefinedTime($event)" 
-    (actualTime)="onTimeDefined($event)"
     (timeExpired)="onTimeExpired($event)"
     [chronoType]="'input-clock'"
-    [canCountdownStart]="false"  
+    [canCountdownStart]="true"  
   >
   </app-chrono-time-picker>
 </div>
 
+<!-- Countdown del tempo quando abilitato -->
 <app-digital-clock 
-  *ngIf="this.canShowTimer"
-  [hours]="this.hours" 
-  [minutes]="this.minutes" 
-  [seconds]="this.seconds">
+  *ngIf="this.canShowTimer">
 </app-digital-clock>

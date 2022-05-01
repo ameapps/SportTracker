@@ -6,14 +6,14 @@ import { RegisterTrainingComponent } from './register-training.component';
 import {MatSelectModule} from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { ChronoTimePickerModule } from 'src/app/common/chrono-time-picker/chrono-time-picker.module';
+import { ChronoTimePickerModule } from 'src/app/common/timer/chrono-time-picker/chrono-time-picker.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TimerModule } from 'src/app/common/timer/timer.module';
 import {MatStepperModule} from '@angular/material/stepper';
 import { SelectorModule } from 'src/app/common/selector/selector.module';
 import { CustomTrainingModule } from './custom-training/custom-training.module';
 import {MatButtonModule} from '@angular/material/button';
-import { DigitalClockModule } from 'src/app/common/digital-clock/digital-clock.module';
+import { DigitalClockModule } from 'src/app/common/timer/digital-clock/digital-clock.module';
 import { RtStep3Module } from './stepper/step 3/register-step3/rt-step3/rt-step3.module';
 
 

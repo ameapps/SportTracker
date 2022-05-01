@@ -22,10 +22,8 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
   @Input() canStartCountdown: boolean = true;
 
   // THIS COMPONENT
-  canShowTimer: boolean = false;
+  canShowTimer: boolean = true;
   @Output() timeExpired = new EventEmitter<object>();
-
-
 
   constructor(private customTrainingService: CustomTrainingService) { 
 

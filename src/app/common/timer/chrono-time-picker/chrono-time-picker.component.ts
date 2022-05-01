@@ -1,5 +1,7 @@
-import { Component, Input, OnChanges, EventEmitter, OnInit, Output, SimpleChanges, OnDestroy } from '@angular/core';
-import { ChronoTimePickerService } from 'src/services/App/Time transforming/chrono-time-picker.service';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from "@angular/core";
+import { ChronoTimePickerService } from "src/services/App/Time transforming/chrono-time-picker.service";
+import { StorageService } from "src/services/Services/storage/storage.service";
+
 
 @Component({
   selector: 'app-chrono-time-picker',
@@ -32,7 +34,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 
   intervalTimer: any;
 
-  constructor(private timeService: ChronoTimePickerService) {}
+  constructor(private timeService: ChronoTimePickerService, private storage: StorageService) {}
 
   ngOnDestroy(): void {
     clearInterval(this.intervalTimer);
@@ -123,6 +125,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
         this.minutes = this.fixMinutes(buildtime.split(':')[1]);
         this.seconds = this.fixMinutes(buildtime.split(':')[2]);
         this.timepickerText = this.getTimeText(this.hour, this.minutes, this.seconds);
+        this.storage.set('timer', this.timepickerText)
         this.actualTime.emit(this.getTime(this.hour, this.minutes, this.seconds));
       } else {
         this.timepickerText = `Time expired!`;
