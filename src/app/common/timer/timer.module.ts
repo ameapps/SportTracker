@@ -3,18 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { TimerRoutingModule } from './timer-routing.module';
 import { TimerComponent } from './timer.component';
-import { ChronoTimePickerModule } from './chrono-time-picker/chrono-time-picker.module';
-import { DigitalClockModule } from './digital-clock/digital-clock.module';
+import { ChronoTimePickerComponent } from './chrono-time-picker/chrono-time-picker.component';
+import { DigitalClockComponent } from './digital-clock/digital-clock.component';
 
 
 @NgModule({
-  declarations: [TimerComponent],
-  exports: [TimerComponent],
+  declarations: [TimerComponent, ChronoTimePickerComponent, DigitalClockComponent],
+  exports: [TimerComponent, ChronoTimePickerComponent, DigitalClockComponent],
   imports: [
     CommonModule,
-    TimerRoutingModule,
-    ChronoTimePickerModule,
-    DigitalClockModule
+    TimerRoutingModule
   ]
 })
 export class TimerModule { }
