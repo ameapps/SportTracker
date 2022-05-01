@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from "@angular/core";
-import { ChronoTimePickerService } from "src/services/App/Time transforming/chrono-time-picker.service";
+import { ChronoTimePickerService } from "src/services/App/Time/Chrono time picker/chrono-time-picker.service";
+import { TimeSharedService } from "src/services/App/Time/time-shared.service";
 import { StorageService } from "src/services/Services/storage/storage.service";
 
 
@@ -11,8 +12,7 @@ import { StorageService } from "src/services/Services/storage/storage.service";
 export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 
   //#region fields
-  timepickerText: string = "Click to open timepicker!";
-
+  timepickerText = 'Click to open timepicker!';
   inputClockClick = false;
 
   time = '';
@@ -34,7 +34,8 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 
   intervalTimer: any;
 
-  constructor(private timeService: ChronoTimePickerService, 
+  constructor(private chronoService: ChronoTimePickerService, 
+    private timeShared: TimeSharedService,
     private storage: StorageService) {}
 
   ngOnDestroy(): void {
@@ -117,20 +118,20 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
     this.minutes = this.fixMinutes(time.split(':')[1]);
     this.totalTime = this.setTotalTime();
 
-    let millisec: number = this.timeService.calcMillisec(parseInt(this.hour), parseInt(this.minutes));
+    let millisec: number = this.chronoService.calcMillisec(parseInt(this.hour), parseInt(this.minutes));
     this.intervalTimer = setInterval(() => {
       millisec -= 1000;
       if (millisec > 0) {
         // Saving hour, minutes and seconds
-        const buildtime = this.timeService.millisecAsTime(millisec);
+        const buildtime = this.chronoService.millisecAsTime(millisec);
         this.hour = this.fixHour(buildtime.split(':')[0]);
         this.minutes = this.fixMinutes(buildtime.split(':')[1]);
         this.seconds = this.fixMinutes(buildtime.split(':')[2]);
-        this.timepickerText = this.msToTime(millisec);
+        this.timeShared.timepickerText = this.msToTime(millisec);
         // Saving the time in the ionic storage
-        this.storage.set('timer', this.timepickerText)
+        this.storage.set('timer', this.timeShared.timepickerText)
       } else {
-        this.timepickerText = `Time expired!`;
+        this.timeShared.timepickerText = `Time expired!`;
         console.log('fire')
         console.log(`time: ${time}`)
         this.timeExpired.emit(this.getTimeExpired());

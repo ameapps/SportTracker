@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
+import { TimeSharedService } from 'src/services/App/Time/time-shared.service';
 import { EventEmitter } from 'stream';
 
 @Component({
@@ -12,7 +13,7 @@ export class DigitalClockComponent implements OnInit, OnChanges {
   @Input() minutes: number | string;
   @Input() seconds: number | string;
 
-  constructor() { }
+  constructor(private timeShared: TimeSharedService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['hours']) {

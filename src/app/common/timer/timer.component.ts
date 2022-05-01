@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { dateInputsHaveChanged } from '@angular/material/datepicker/datepicker-input-base';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
+import { TimeSharedService } from 'src/services/App/Time/time-shared.service';
 import { threadId } from 'worker_threads';
 
 @Component({
@@ -25,7 +26,9 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
   canShowTimer: boolean = true;
   @Output() timeExpired = new EventEmitter<object>();
 
-  constructor(private customTrainingService: CustomTrainingService) { 
+  constructor(private timeShared: TimeSharedService,
+    private customTrainingService: CustomTrainingService, 
+    ) { 
 
   }
 
