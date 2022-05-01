@@ -34,7 +34,8 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 
   intervalTimer: any;
 
-  constructor(private timeService: ChronoTimePickerService, private storage: StorageService) {}
+  constructor(private timeService: ChronoTimePickerService, 
+    private storage: StorageService) {}
 
   ngOnDestroy(): void {
     clearInterval(this.intervalTimer);
@@ -109,7 +110,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
   /* Method to start the timer. */
   startTimer(time: string): void {
     if (!this.canCountdownStart) {
-      this.timeExpired.emit(this.getTimeExpired(time));
+      this.timeExpired.emit(this.getTimeExpired());
       return; 
     }
     this.hour = this.fixHour(time.split(':')[0]);
@@ -118,49 +119,61 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 
     let millisec: number = this.timeService.calcMillisec(parseInt(this.hour), parseInt(this.minutes));
     this.intervalTimer = setInterval(() => {
-      millisec = this.decreaseTimer(millisec);
+      millisec -= 1000;
       if (millisec > 0) {
+        // Saving hour, minutes and seconds
         const buildtime = this.timeService.millisecAsTime(millisec);
         this.hour = this.fixHour(buildtime.split(':')[0]);
         this.minutes = this.fixMinutes(buildtime.split(':')[1]);
         this.seconds = this.fixMinutes(buildtime.split(':')[2]);
-        this.timepickerText = this.getTimeText(this.hour, this.minutes, this.seconds);
+        this.timepickerText = this.msToTime(millisec);
+        // Saving the time in the ionic storage
         this.storage.set('timer', this.timepickerText)
-        this.actualTime.emit(this.getTime(this.hour, this.minutes, this.seconds));
       } else {
         this.timepickerText = `Time expired!`;
         console.log('fire')
         console.log(`time: ${time}`)
-        this.timeExpired.emit(this.getTimeExpired(time));
+        this.timeExpired.emit(this.getTimeExpired());
         clearInterval(this.intervalTimer);
       }
 
     }, 1000);
   }
 
+  // #region calculating time
+
+  /**Method calculating and building the time shown in the timer. */
+  msToTime(milliseconds: number): string {
+    var ms = milliseconds % 1000;
+    milliseconds = (milliseconds - ms) / 1000;
+    var secs = milliseconds % 60;
+    milliseconds = (milliseconds - secs) / 60;
+    var mins = milliseconds % 60;
+    var hrs = (milliseconds - mins) / 60;
+    // Building the timer string
+    return this.pad(hrs, 2) + ':' + this.pad(mins, 2) + ':' + this.pad(secs, 2) + '.' + this.pad(ms, 2);
+  }
+
+  // Pad to 2 or 3 digits, default is 2
+  pad(n, z): string {
+    z = z || 2;
+    return ('00' + n).slice(-z);
+  }
+
+  //#endregion
 
   setTotalTime(): string {
     return `${this.hour}:${this.minutes}:${this.seconds}`
   }
 
   /**Method making an object containing the expired emitted time */
-  getTimeExpired(time: string): object {
+  getTimeExpired(): object {
     const obj = {
       time: this.totalTime
     };
     return obj;
   }
 
-  /**Method getting a coplete time by concatenating
-   *  the seconds to the HH:MM time format. */
-  private getTime(hour: string, minutes: string, seconds: string): string {
-    return `${hour}:${minutes}:${seconds}`;
-  }
-
-  private decreaseTimer(millisec: number) {
-    millisec -= 1000;
-    return millisec;
-  }
 
   //#endregion
 
