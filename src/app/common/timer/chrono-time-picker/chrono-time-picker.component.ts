@@ -21,7 +21,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
   @Output() actualTime = new EventEmitter<string>();
   @Output() timeExpired = new EventEmitter<object>();
 
-  @Input() canCountdownStart = true; 
+  @Input() canCountdownStart = true;
 
   //#endregion
 
@@ -34,21 +34,21 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 
   intervalTimer: any;
 
-  constructor(private chronoService: ChronoTimePickerService, 
+  constructor(private chronoService: ChronoTimePickerService,
     private timeShared: TimeSharedService,
-    private storage: StorageService) {}
+    private storage: StorageService) { }
 
   ngOnDestroy(): void {
     clearInterval(this.intervalTimer);
   }
-   
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["chronoType"]) {
       this.chronoType = changes["chronoType"].currentValue;
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   //#region  checks
 
@@ -65,7 +65,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
    * a clock close to a time setter
    * @returns a boolean condition 
    */
-   isTimeClock(): boolean {
+  isTimeClock(): boolean {
     return this.chronoType === 'time-clock';
   }
 
@@ -78,7 +78,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
     return this.chronoType === 'input-clock';
   }
   //#endregion
-  
+
   /**
    * Click event listener over input click element.  
    */
@@ -112,33 +112,78 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
   startTimer(time: string): void {
     if (!this.canCountdownStart) {
       this.timeExpired.emit(this.getTimeExpired());
-      return; 
+      return;
     }
     this.hour = this.fixHour(time.split(':')[0]);
     this.minutes = this.fixMinutes(time.split(':')[1]);
     this.totalTime = this.setTotalTime();
 
     let millisec: number = this.chronoService.calcMillisec(parseInt(this.hour), parseInt(this.minutes));
-    this.intervalTimer = setInterval(() => {
-      millisec -= 1000;
-      if (millisec > 0) {
-        // Saving hour, minutes and seconds
-        const buildtime = this.chronoService.millisecAsTime(millisec);
-        this.hour = this.fixHour(buildtime.split(':')[0]);
-        this.minutes = this.fixMinutes(buildtime.split(':')[1]);
-        this.seconds = this.fixMinutes(buildtime.split(':')[2]);
-        this.timeShared.timepickerText = this.msToTime(millisec);
-        // Saving the time in the ionic storage
-        this.storage.set('timer', this.timeShared.timepickerText)
-      } else {
-        this.timeShared.timepickerText = `Time expired!`;
-        console.log('fire')
-        console.log(`time: ${time}`)
-        this.timeExpired.emit(this.getTimeExpired());
-        clearInterval(this.intervalTimer);
-      }
 
-    }, 1000);
+    // this.intervalTimer = setInterval(() => {
+    //   millisec -= 1000;
+    //   if (millisec > 0) {
+    //     // Saving hour, minutes and seconds
+    //     const buildtime = this.chronoService.millisecAsTime(millisec);
+    //     this.hour = this.fixHour(buildtime.split(':')[0]);
+    //     this.minutes = this.fixMinutes(buildtime.split(':')[1]);
+    //     this.seconds = this.fixMinutes(buildtime.split(':')[2]);
+    //     this.timeShared.timepickerText = this.msToTime(millisec);
+    //     // Saving the time in the ionic storage
+    //     this.storage.set('timer', this.timeShared.timepickerText)
+    //   } else {
+    //     this.timeShared.timepickerText = `Time expired!`;
+    //     console.log('fire')
+    //     console.log(`time: ${time}`)
+    //     this.timeExpired.emit(this.getTimeExpired());
+    //     clearInterval(this.intervalTimer);
+    //   }
+    // }, 1000);
+
+    /**NON FUNZIONA, VA IN ECCEZIONE:  ERROR DOMException: Failed to construct 'Worker': */
+    // console.log('fire timer worker')
+    // const path1 = 'C:\Users\ament\OneDrive\Documenti\_2__Informatica\_1__Miei\_2__Progetti in realizzazione\_2__Git\_1__Miei progetti\_1__Javascript\_4__Ionic\SportTracker\src\workers\timer.worker.ts';
+    // const path2 = 'src/workers/timer.worker.ts';
+    // const timer = new Worker(new URL(path1), { type: `module` });
+    // timer.onmessage = ({ data }) => {
+    //   console.log(`page got message: ${data}`);
+    // };
+    // timer.onerror = (error) => {
+    //   console.log(`page got erroe: ${error.message}`);
+    // };
+    // timer.postMessage('ciao');
+
+    /**PROVO COME INDICA IL LINK: https://localcoder.org/getting-failed-to-construct-worker-with-js-worker-file-located-on-other-domain */
+    // const path1 = 'C:\Users\ament\OneDrive\Documenti\_2__Informatica\_1__Miei\_2__Progetti in realizzazione\_2__Git\_1__Miei progetti\_1__Javascript\_4__Ionic\SportTracker\src\workers\timer.worker.ts';
+    // const workerUrl = this.workerCros(path1);
+    // const timer = new Worker(workerUrl);
+    // timer.onmessage = ({ data }) => {
+    //   console.log(`page got message: ${data}`);
+    // };
+    // timer.onerror = (error) => {
+    //   console.log(`page got erroe: ${error.message}`);
+    // };
+    // timer.postMessage('ciao');
+
+
+    /** FUNZIONA! */
+    // https://gist.github.com/bemson/57dffb89ee7b28d63a29
+    // https://stackoverflow.com/questions/49171791/web-worker-onmessage-uncaught-syntaxerror-unexpected-token
+    function workerRunner() {
+      self.onmessage = function (event) {
+        console.log('worker called')
+        self.postMessage('launched worker...', null);
+      }
+    }
+    const workerBlob = new Blob(['('+workerRunner+')()']),
+    workerBlobUrl = URL.createObjectURL(workerBlob),
+    worker = new Worker(workerBlobUrl);
+    worker.onmessage = function (event) {
+      console.log('onmessage')
+    };
+    worker.postMessage('foo');
+
+    
   }
 
   // #region calculating time
@@ -190,7 +235,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
     const minutesword = parseInt(minutes) > 1 ? 'minutes' : 'minute';
     let timetext = null;
 
-    if (seconds== null) {
+    if (seconds == null) {
       timetext = `You have selected ${hour} ${hourword} and ${minutes} ${minutesword}`;
     } else {
       const secondsword = parseInt(seconds) > 1 ? 'seconds' : 'second';
@@ -211,7 +256,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
     return hour;
   }
 
-  
+
   /**Method to remove the '0' if its the first char */
   private fixMinutes(minutes: string) {
     const isFirstZero = minutes.charAt(0) === '0';
@@ -231,7 +276,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  
+
   //#endregion
 
   //#endregion
