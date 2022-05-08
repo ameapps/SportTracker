@@ -140,38 +140,19 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
     //   }
     // }, 1000);
 
-    /**NON FUNZIONA, VA IN ECCEZIONE:  ERROR DOMException: Failed to construct 'Worker': */
-    // console.log('fire timer worker')
-    // const path1 = 'C:\Users\ament\OneDrive\Documenti\_2__Informatica\_1__Miei\_2__Progetti in realizzazione\_2__Git\_1__Miei progetti\_1__Javascript\_4__Ionic\SportTracker\src\workers\timer.worker.ts';
-    // const path2 = 'src/workers/timer.worker.ts';
-    // const timer = new Worker(new URL(path1), { type: `module` });
-    // timer.onmessage = ({ data }) => {
-    //   console.log(`page got message: ${data}`);
-    // };
-    // timer.onerror = (error) => {
-    //   console.log(`page got erroe: ${error.message}`);
-    // };
-    // timer.postMessage('ciao');
-
-    /**PROVO COME INDICA IL LINK: https://localcoder.org/getting-failed-to-construct-worker-with-js-worker-file-located-on-other-domain */
-    // const path1 = 'C:\Users\ament\OneDrive\Documenti\_2__Informatica\_1__Miei\_2__Progetti in realizzazione\_2__Git\_1__Miei progetti\_1__Javascript\_4__Ionic\SportTracker\src\workers\timer.worker.ts';
-    // const workerUrl = this.workerCros(path1);
-    // const timer = new Worker(workerUrl);
-    // timer.onmessage = ({ data }) => {
-    //   console.log(`page got message: ${data}`);
-    // };
-    // timer.onerror = (error) => {
-    //   console.log(`page got erroe: ${error.message}`);
-    // };
-    // timer.postMessage('ciao');
-
-
     /** FUNZIONA! */
     // https://gist.github.com/bemson/57dffb89ee7b28d63a29
     // https://stackoverflow.com/questions/49171791/web-worker-onmessage-uncaught-syntaxerror-unexpected-token
     function workerRunner() {
       self.onmessage = function (event) {
-        console.log('worker called')
+        console.log('service received message!')
+        let millisec = event.data.millisec; 
+        this.intervalTimer = setInterval(() => {
+          millisec -= 1000;
+          /**CONTINUARE! */
+          self.postMessage(millisec, null);
+        }, 1000);
+
         self.postMessage('launched worker...', null);
       }
     }
@@ -179,11 +160,13 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
     workerBlobUrl = URL.createObjectURL(workerBlob),
     worker = new Worker(workerBlobUrl);
     worker.onmessage = function (event) {
-      console.log('onmessage')
+      console.log(event.data)
     };
-    worker.postMessage('foo');
+    worker.postMessage({
+      millisec: millisec
+    });
 
-    
+
   }
 
   // #region calculating time
