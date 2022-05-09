@@ -13,9 +13,7 @@ export class ChronoTimePickerService {
 
   /**Method calcolating the millisec time of the timepicker. */
   calcMillisec(hour: number, minutes: number): number {
-    const hourMillisec: number = this.calcHourMillisec(hour);
-    const minutesMillisec: number = this.calcMinutesMillisec(minutes);
-    return hourMillisec + minutesMillisec; 
+    return this.calcHourMillisec(hour) + this.calcMinutesMillisec(minutes); 
   }
 
 
@@ -28,8 +26,7 @@ export class ChronoTimePickerService {
 
   /**Method transforming the specified hours in its corrisponding milliseconds */
   calcHourMillisec(hour: number): number {
-    const hoursAsMin = this.hourAsMinutes(hour);
-    return this.calcMinutesMillisec(hoursAsMin);
+    return this.calcMinutesMillisec(this.hourAsMinutes(hour));
   }
 
   /**Method transforming the specified hours in its corrisponding minutes */
