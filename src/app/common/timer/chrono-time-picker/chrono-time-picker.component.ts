@@ -124,90 +124,77 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
     /** FUNZIONA! */
     // https://gist.github.com/bemson/57dffb89ee7b28d63a29
     // https://stackoverflow.com/questions/49171791/web-worker-onmessage-uncaught-syntaxerror-unexpected-token
-    // function workerRunner() {
-    //   /**Codice del service worker */
-    //   self.onmessage = function (event) {
-    //     console.log('service received message!')
-    //     let millisec = event.data.millisec; 
-    //     this.intervalTimer = setInterval(() => {
-    //       millisec -= 1000;
-    //       const timeCalculations = {
-    //         millisec: millisec,
-    //         hour: -1,
-    //         minutes: -1,
-    //         seconds: -1,
-    //         timeShared: '',
-    //         timepickerText : ''
-    //       };
-    //       if (millisec > 0) {
-    //         // Saving hour, minutes and seconds
-    //         const buildtime = new Date(millisec);
-    //         timeCalculations.hour = buildtime.getHours();
-    //         timeCalculations.minutes = buildtime.getMinutes();
-    //         timeCalculations.seconds = buildtime.getSeconds();
-    //         timeCalculations.timeShared = msToTime(millisec);
-    //       } else {
-    //         timeCalculations.timepickerText = `Time expired!`;
-    //         this.timeExpired.emit(this.getTimeExpired());
-    //         clearInterval(this.intervalTimer);
-    //       }
-    //       //Invio oggetto con i dati elaborati dal worker service
-    //       self.postMessage(timeCalculations, null);
-    //     }, 1000);
-    //     // Ricezione messaggio da parte del worker
-    //     self.postMessage('launched worker...', null);
-    //   }.bind(this);
+    function workerRunner() {
+      /**Codice del service worker */
+      self.onmessage = function (event) {
+        console.log('service received message!')
+        let millisec = event.data.millisec; 
+        this.intervalTimer = setInterval(() => {
+          millisec -= 1000;
+          const timeCalculations = {
+            millisec: millisec,
+            hour: -1,
+            minutes: -1,
+            seconds: -1,
+            timeShared: '',
+            timepickerText : ''
+          };
+          if (millisec > 0) {
+            // Saving hour, minutes and seconds
+            const buildtime = new Date(millisec);
+            timeCalculations.hour = buildtime.getHours();
+            timeCalculations.minutes = buildtime.getMinutes();
+            timeCalculations.seconds = buildtime.getSeconds();
+            timeCalculations.timeShared = msToTime(millisec);
+          } else {
+            timeCalculations.timepickerText = `Time expired!`;
+            this.timeExpired.emit(this.getTimeExpired());
+            clearInterval(this.intervalTimer);
+          }
+          //Invio oggetto con i dati elaborati dal worker service
+          self.postMessage(timeCalculations, null);
+        }, 1000);
+        // Ricezione messaggio da parte del worker
+        self.postMessage('launched worker...', null);
+      }.bind(this);
 
-    //   function msToTime(milliseconds: number): string {
-    //     var ms = milliseconds % 1000;
-    //     milliseconds = (milliseconds - ms) / 1000;
-    //     var secs = milliseconds % 60;
-    //     milliseconds = (milliseconds - secs) / 60;
-    //     var mins = milliseconds % 60;
-    //     var hrs = (milliseconds - mins) / 60;
-    //     // Building the timer string
-    //     return pad(hrs, 2) + ':' + pad(mins, 2) + ':' + pad(secs, 2) + '.' + pad(ms, 2);
-    //   }
+      function msToTime(milliseconds: number): string {
+        var ms = milliseconds % 1000;
+        milliseconds = (milliseconds - ms) / 1000;
+        var secs = milliseconds % 60;
+        milliseconds = (milliseconds - secs) / 60;
+        var mins = milliseconds % 60;
+        var hrs = (milliseconds - mins) / 60;
+        // Building the timer string
+        return pad(hrs, 2) + ':' + pad(mins, 2) + ':' + pad(secs, 2) + '.' + pad(ms, 2);
+      }
 
-    //   function pad(n, z): string {
-    //     z = z || 2;
-    //     return ('00' + n).slice(-z);
-    //   }
-    // }
-    // const workerBlob = new Blob(['('+workerRunner+')()']),
-    // workerBlobUrl = URL.createObjectURL(workerBlob),
-    // worker = new Worker(workerBlobUrl);
-    // /**Ricezione messaggio dal servizio */
-    // worker.onmessage = function(event) {
-    //   if (event.data.millisec > 0) {
-    //     this.hour = this.fixHour(event.data.timeShared.split(':')[0]);
-    //     this.minutes = this.fixMinutes(event.data.timeShared.split(':')[1]);
-    //     this.seconds = this.fixMinutes(event.data.timeShared.split(':')[2]);
-    //     this.timeShared.timepickerText = this.msToTime(event.data.millisec);
-    //     // Saving the time in the ionic storage
-    //     this.storage.set('timer', this.timeShared.timepickerText)
-    //   } else {
-    //     this.timeShared.timepickerText = event.data.timepickerText;
-    //   }
-    // }.bind(this);
-    // /**Invio messaggio al servizio */
-    // worker.postMessage({
-    //   millisec: millisec
-    // });
-
-    
-    const prom = new Promise((resolve, reject) => {
-      setInterval(() => {
-        millisec-= 1000;
-        if (millisec > 0) {
-          this.timeShared.timepickerText = this.msToTime(millisec);
-          // Saving the time in the ionic storage
-          this.storage.set('timer', this.timeShared.timepickerText)
-        } else {
-          this.timeShared.timepickerText = this.timeShared.timepickerText;
-        }
-      }, 1000);
+      function pad(n, z): string {
+        z = z || 2;
+        return ('00' + n).slice(-z);
+      }
+    }
+    const workerBlob = new Blob(['('+workerRunner+')()']),
+    workerBlobUrl = URL.createObjectURL(workerBlob),
+    worker = new Worker(workerBlobUrl);
+    /**Ricezione messaggio dal servizio */
+    worker.onmessage = function(event) {
+      if (event.data.millisec > 0) {
+        this.hour = this.fixHour(event.data.timeShared.split(':')[0]);
+        this.minutes = this.fixMinutes(event.data.timeShared.split(':')[1]);
+        this.seconds = this.fixMinutes(event.data.timeShared.split(':')[2]);
+        this.timeShared.timepickerText = this.msToTime(event.data.millisec);
+        // Saving the time in the ionic storage
+        this.storage.set('timer', this.timeShared.timepickerText)
+      } else {
+        this.timeShared.timepickerText = event.data.timepickerText;
+      }
+    }.bind(this);
+    /**Invio messaggio al servizio */
+    worker.postMessage({
+      millisec: millisec
     });
+
   }
 
   // #region calculating time
