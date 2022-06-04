@@ -91,7 +91,6 @@ export class TapisRoulantComponent implements OnInit, OnChanges, OnDestroy {
   /**Method managing what happen when the timer is expired */
   onExpiredTimer(event) {
     this.expiredTime = event;
-
     this.timeExpired.emit(event);
   }
 
