@@ -182,7 +182,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
       millisec: millisec
     });
 
-    // this.startNativeTimer();
+    this.startNativeTimer();
 
   }
 
