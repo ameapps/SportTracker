@@ -44,6 +44,7 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
 
   //#region methods
   onDefinedTime(event){
+    this.canShowTimer = true; 
     this.definedTime.emit(event);
   }
 
@@ -51,7 +52,6 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
     this.hours = this.setHours(time);
     this.minutes = this.setMinutes(time);
     this.seconds = this.setSeconds(time);
-
     this.canShowTimer = true;
 
     this.actualTime.emit(time);

@@ -119,12 +119,12 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
       this.timeExpired.emit(this.getTimeExpired());
       return;
     }
-    const showAlert = async () => {
-      await Dialog.alert({
-        title: 'Stop',
-        message: 'this is an error',
-      });
-    };
+    // const showAlert = async () => {
+    //   await Dialog.alert({
+    //     title: 'Stop',
+    //     message: 'this is an error',
+    //   });
+    // };
     let ticks = 0;
     this.hour = this.fixHour(time.split(':')[0]);
     this.minutes = this.fixMinutes(time.split(':')[1]);
@@ -163,8 +163,6 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
        if (millisec_from_db.value as number <= totalMillisecs && !has_timer_finished) {
          const savedTimestamp = await this.storage.get('time-stamp');
          const offsetMs = savedTimestamp.value != null ?  Date.now() - savedTimestamp.value as number : 0;
-         console.log('offsetMs')
-         console.log(offsetMs)
          millisec -= offsetMs;
        } else {
          millisec = totalMillisecs;
@@ -326,8 +324,6 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 export function workerRunner(milliseconds) {
   /**Codice del service worker */
   self.onmessage = function (event) {
-    console.log('service received message!')
-    // let millisec = event.data.millisec; 
     let millisec = milliseconds; 
     this.intervalTimer = setInterval(() => {
       millisec -= 1000;
