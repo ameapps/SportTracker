@@ -38,10 +38,10 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 
   intervalTimer: any;
 
-  constructor(private chronoService: ChronoTimePickerService,
-    private componentService: RegisterTrainingService,
-    private timeShared: TimeSharedService,
-    private storage: StorageService) { }
+  constructor(
+    private timeShared: TimeSharedService, // Da tenere!
+    private storage: StorageService,       // Da tenere!
+    private chronoService: ChronoTimePickerService) { }
 
   ngOnDestroy(): void {
     clearInterval(this.intervalTimer);
@@ -182,7 +182,10 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
       millisec: millisec
     });
 
-    this.startNativeTimer();
+    if (this.chronoService.platformService.currentPlatform !== 'browser') {
+      this.startNativeTimer();
+    }
+
 
   }
 

@@ -24,10 +24,10 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
   @Input() canStartCountdown: boolean = true;
 
   // THIS COMPONENT
-  canShowTimer: boolean = true;
+  
   @Output() timeExpired = new EventEmitter<object>();
 
-  constructor(private timeShared: TimeSharedService,
+  constructor(public timeShared: TimeSharedService,
     private componentService: RegisterTrainingService,
     private customTrainingService: CustomTrainingService, 
     ) { 
@@ -46,7 +46,7 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
 
   //#region methods
   onDefinedTime(event){
-    this.canShowTimer = true; 
+    this.timeShared.canShowTimer = true; 
     this.componentService.stepsComplete[1] = false;
     this.definedTime.emit(event);
   }
@@ -55,13 +55,13 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
     this.hours = this.setHours(time);
     this.minutes = this.setMinutes(time);
     this.seconds = this.setSeconds(time);
-    this.canShowTimer = true;
+    this.timeShared.canShowTimer = true;
 
     this.actualTime.emit(time);
   }
 
   onTimeExpired(event) {
-    this.canShowTimer = false;
+    this.timeShared.canShowTimer = false;
     /* Emitting expired time */
     const obj = {
       timeExpired : event.time,

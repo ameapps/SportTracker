@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StringHelper } from 'src/helpers/StringHelper';
+import { PlatformService } from 'src/services/Services/platform/platform.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { StringHelper } from 'src/helpers/StringHelper';
 export class ChronoTimePickerService {
 
 
-  constructor() { }
+  constructor(public platformService: PlatformService) { }
   
   //#region calc milliseconds
 
