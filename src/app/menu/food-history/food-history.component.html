@@ -1,11 +1,123 @@
-<div class="container">
-  <ion-header [translucent]="true">
-    <ion-toolbar color="primary">
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>{{ 'Food history' }}</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <p>food history works!</p>
-</div>
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Registra Alimento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="food-form-container">
+    <h2>Aggiungi alimento</h2>
+    <form [formGroup]="foodForm" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label position="floating">Nome alimento</ion-label>
+        <ion-input formControlName="name" type="text" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Quantità</ion-label>
+        <ion-input
+          formControlName="quantity"
+          type="number"
+          min="0"
+          required
+        ></ion-input>
+        <ion-select
+          formControlName="unit"
+          interface="popover"
+          placeholder="Unità"
+          slot="end"
+        >
+          <ion-select-option value="grammi">grammi</ion-select-option>
+          <ion-select-option value="pezzo">pezzo</ion-select-option>
+          <ion-select-option value="tazza">tazza</ion-select-option>
+          <ion-select-option value="porzione">porzione</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Categoria</ion-label>
+        <ion-select formControlName="category" interface="popover" required>
+          <ion-select-option value="Frutta">Frutta</ion-select-option>
+          <ion-select-option value="Verdura">Verdura</ion-select-option>
+          <ion-select-option value="Cereali">Cereali</ion-select-option>
+          <ion-select-option value="Carne">Carne</ion-select-option>
+          <ion-select-option value="Bevande">Bevande</ion-select-option>
+          <ion-select-option value="Snack">Snack</ion-select-option>
+          <ion-select-option value="Altro">Altro</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Calorie (kcal)</ion-label>
+        <ion-input
+          formControlName="calories"
+          type="number"
+          min="0"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Carboidrati (g)</ion-label>
+            <ion-input
+              formControlName="carbs"
+              type="number"
+              min="0"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Proteine (g)</ion-label>
+            <ion-input
+              formControlName="proteins"
+              type="number"
+              min="0"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Grassi (g)</ion-label>
+            <ion-input formControlName="fats" type="number" min="0"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Fibre (g)</ion-label>
+            <ion-input
+              formControlName="fiber"
+              type="number"
+              min="0"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-item>
+        <ion-label position="floating">Zuccheri (g)</ion-label>
+        <ion-input formControlName="sugars" type="number" min="0"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Data e ora</ion-label>
+        <ion-datetime
+          formControlName="dateTime"
+          display-format="DD/MM/YYYY HH:mm"
+        ></ion-datetime>
+      </ion-item>
+
+      <ion-button
+        expand="block"
+        type="submit"
+        color="primary"
+        [disabled]="foodForm.invalid"
+      >
+        Salva alimento
+      </ion-button>
+    </form>
+  </div>
+</ion-content>
