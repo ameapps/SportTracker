@@ -46,10 +46,10 @@ export class RegisterTrainingComponent implements OnInit {
   }
 
   constructor(
-    private componentService: RegisterTrainingService,
-    private customTrainingService: CustomTrainingService,
-    private formBuilder: FormBuilder,
-    private router: Router
+    public componentService: RegisterTrainingService,
+    public customTrainingService: CustomTrainingService,
+    public formBuilder: FormBuilder,
+    public router: Router
   ) {
     this.asyncConstructor();
   }
