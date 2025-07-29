@@ -24,6 +24,10 @@ const routes: Routes = [
     loadChildren: () => import('./menu/report/report.module').then( m => m.ReportModule)
   },
   {
+    path: 'menu/food-history',
+    loadChildren: () => import('./menu/food-history/food-history.module').then( m => m.FoodHistoryModule)
+  },
+  {
     path: 'menu/homepage',
     loadChildren: () => import('./menu/homepage/homepage.module').then( m => m.HomepageModule)
   }

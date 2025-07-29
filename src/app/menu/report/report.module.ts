@@ -12,7 +12,7 @@ import { IonicModule } from '@ionic/angular';
   imports: [
     CommonModule,
     ReportRoutingModule,
-    IonicModule // aggiungi questa riga
+    IonicModule 
   ]
 })
 export class ReportModule { }

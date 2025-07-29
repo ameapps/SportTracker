@@ -16,12 +16,12 @@
     },
     {
         "name" : "Register eaten food",
-        "url" : "",
-        "component": null
+        "url" : "menu/food-history",
+        "component": "FoodHistoryComponent"
     },
     {
         "name" : "Gallery",
         "url" : "menu/gallery",
-        "component": null
+        "component": "GalleryComponent"
     }  
 ]
