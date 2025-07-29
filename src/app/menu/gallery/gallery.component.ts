@@ -9,8 +9,9 @@ import { GalleryService } from 'src/services/App/Gallery/gallery.service';
 })
 export class GalleryComponent implements OnInit {
 
-  constructor(private router: Router,
-    private componentService: GalleryService) { }
+  folder = 'something';
+
+  constructor(public router: Router, public componentService: GalleryService) {}
 
   ngOnInit() {}
 
@@ -18,18 +19,19 @@ export class GalleryComponent implements OnInit {
 
   /**Method to scroll the page at the specified element in the page */
   smoothScroll(id: number) {
-    const el: HTMLElement = document.getElementById(`gallery-photo-${id}`)
-    el.scrollIntoView({behavior: 'smooth'}); 
+    const el: HTMLElement = document.getElementById(`gallery-photo-${id}`);
+    el.scrollIntoView({ behavior: 'smooth' });
   }
 
   photoInfo(photoInfo: string) {
     // Getting the only numbers from the string
-    const valid = Number(photoInfo.replace(/\D/g, ""));
+    const valid = Number(photoInfo.replace(/\D/g, ''));
     const date: Date = new Date(valid);
-    const format = `${date.toLocaleDateString("it-IT")} ${date.toLocaleTimeString("it-IT")}`;
+    const format = `${date.toLocaleDateString(
+      'it-IT'
+    )} ${date.toLocaleTimeString('it-IT')}`;
     return format;
   }
 
   // #endregion
-
 }

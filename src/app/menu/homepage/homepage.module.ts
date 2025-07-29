@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HomepageRoutingModule } from './homepage-routing.module';
 import { HomepageComponent } from './homepage.component';
 import { LoginComponent } from '../login/login.component';
+import { IonicModule } from '@ionic/angular';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { LoginComponent } from '../login/login.component';
   exports: [HomepageComponent],
   imports: [
     CommonModule,
-    HomepageRoutingModule
+    HomepageRoutingModule,
+    IonicModule // aggiungi questa riga
   ]
 })
 

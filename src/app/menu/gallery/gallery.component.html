@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{ folder }}</ion-title>
+    <ion-title>{{ 'Gallery' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,16 +11,20 @@
   <div class="container">
     <!-- Photoes shown in the gallery -->
     <div class="photoes">
-      <div *ngFor="let photo of this.componentService.photos; let i = index;">
-        <img [src]="photo.webviewPath" id="gallery-photo-{{i}}" />
-        <span>{{photo.filepath}}</span>
+      <div *ngFor="let photo of this.componentService.photos; let i = index">
+        <img [src]="photo.webviewPath" id="gallery-photo-{{ i }}" />
+        <span>{{ photo.filepath }}</span>
       </div>
     </div>
     <!-- Right sidebar containing photoes preview with tooltip -->
     <div class="right-bar right-bar-scroll">
-      <div *ngFor="let photo of this.componentService.photos; let i = index;">
-        <img [src]="photo.webviewPath" (click)="smoothScroll(i)" title={{this.photoInfo(photo.filepath)}} />
-        <span (click)="smoothScroll(i)">{{photo.filepath}}</span>
+      <div *ngFor="let photo of this.componentService.photos; let i = index">
+        <img
+          [src]="photo.webviewPath"
+          (click)="smoothScroll(i)"
+          title="{{ this.photoInfo(photo.filepath) }}"
+        />
+        <span (click)="smoothScroll(i)">{{ photo.filepath }}</span>
       </div>
     </div>
   </div>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { GalleryRoutingModule } from './gallery-routing.module';
 import { GalleryComponent } from './gallery.component';
+import { IonicModule } from '@ionic/angular';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { GalleryComponent } from './gallery.component';
   exports: [GalleryComponent],
   imports: [
     CommonModule,
-    GalleryRoutingModule
+    GalleryRoutingModule,
+    IonicModule
   ]
 })
 export class GalleryModule { }
