@@ -9,7 +9,7 @@ import { GalleryService } from 'src/services/App/Gallery/gallery.service';
 })
 export class GalleryComponent implements OnInit {
 
-  folder = 'something';
+  folder = 'Gallery';
 
   constructor(public router: Router, public componentService: GalleryService) {}
 
