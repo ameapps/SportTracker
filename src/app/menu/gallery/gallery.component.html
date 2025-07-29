@@ -1,31 +1,31 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>{{ 'Gallery' }}</ion-title>
+    <ion-title>Gallery</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="container">
-    <!-- Photoes shown in the gallery -->
-    <div class="photoes">
-      <div *ngFor="let photo of this.componentService.photos; let i = index">
-        <img [src]="photo.webviewPath" id="gallery-photo-{{ i }}" />
-        <span>{{ photo.filepath }}</span>
-      </div>
+  <div class="gallery-container">
+    <h2>Le tue foto</h2>
+    <div *ngIf="componentService.photos?.length > 0; else emptyGallery">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" sizeMd="4" sizeLg="3" *ngFor="let photo of componentService.photos; let i = index">
+            <ion-card class="photo-card">
+              <img [src]="photo.webviewPath" [alt]="photo.filepath" (click)="smoothScroll(i)" />
+              <ion-card-content>
+                <span class="photo-name">{{ photo.filepath }}</span>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
-    <!-- Right sidebar containing photoes preview with tooltip -->
-    <div class="right-bar right-bar-scroll">
-      <div *ngFor="let photo of this.componentService.photos; let i = index">
-        <img
-          [src]="photo.webviewPath"
-          (click)="smoothScroll(i)"
-          title="{{ this.photoInfo(photo.filepath) }}"
-        />
-        <span (click)="smoothScroll(i)">{{ photo.filepath }}</span>
+    <ng-template #emptyGallery>
+      <div class="empty-gallery">
+        <ion-icon name="images-outline" size="large"></ion-icon>
+        <p>Nessuna foto presente.<br>Scatta o carica una foto per iniziare!</p>
       </div>
-    </div>
+    </ng-template>
   </div>
 </ion-content>
