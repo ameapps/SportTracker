@@ -1,14 +1,28 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicModule } from "@ionic/angular";
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-food-history',
   templateUrl: './food-history.component.html',
-  styleUrls: ['./food-history.component.scss']
+  styleUrls: ['./food-history.component.scss'],
 })
 export class FoodHistoryComponent {
   foodForm: FormGroup;
+
+  units = ['grammi', 'pezzo', 'tazza', 'porzione'];
+  choosenUnit: string;
+
+  categories = [
+    'Frutta',
+    'Verdura',
+    'Cereali',
+    'Carne',
+    'Bevande',
+    'Snack',
+    'Altro',
+  ];
+  choosenCategory: string;
 
   constructor(private fb: FormBuilder) {
     this.foodForm = this.fb.group({
@@ -22,7 +36,16 @@ export class FoodHistoryComponent {
       fats: [null, [Validators.min(0)]],
       fiber: [null, [Validators.min(0)]],
       sugars: [null, [Validators.min(0)]],
-      dateTime: [new Date().toISOString(), Validators.required]
+      dateTime: [new Date().toISOString(), Validators.required],
+    });
+
+    // Salva il valore selezionato in choosenUnit
+    this.foodForm.get('unit')?.valueChanges.subscribe((value) => {
+      this.choosenUnit = value;
+    });
+    // Salva il valore selezionato in choosenCategory
+    this.foodForm.get('category')?.valueChanges.subscribe((value) => {
+      this.choosenCategory = value;
     });
   }
 

@@ -21,29 +21,24 @@
           min="0"
           required
         ></ion-input>
-        <ion-select
-          formControlName="unit"
-          interface="popover"
-          placeholder="Unità"
-          slot="end"
-        >
-          <ion-select-option value="grammi">grammi</ion-select-option>
-          <ion-select-option value="pezzo">pezzo</ion-select-option>
-          <ion-select-option value="tazza">tazza</ion-select-option>
-          <ion-select-option value="porzione">porzione</ion-select-option>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Unità</ion-label>
+        <ion-select formControlName="unit" placeholder="Unità">
+          <ion-select-option *ngFor="let unit of units" [value]="unit">{{
+            unit
+          }}</ion-select-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Categoria</ion-label>
-        <ion-select formControlName="category" interface="popover" required>
-          <ion-select-option value="Frutta">Frutta</ion-select-option>
-          <ion-select-option value="Verdura">Verdura</ion-select-option>
-          <ion-select-option value="Cereali">Cereali</ion-select-option>
-          <ion-select-option value="Carne">Carne</ion-select-option>
-          <ion-select-option value="Bevande">Bevande</ion-select-option>
-          <ion-select-option value="Snack">Snack</ion-select-option>
-          <ion-select-option value="Altro">Altro</ion-select-option>
+        <ion-select formControlName="category" required>
+          <ion-select-option
+            *ngFor="let category of categories"
+            [value]="category"
+            >{{ category }}</ion-select-option
+          >
         </ion-select>
       </ion-item>
 
