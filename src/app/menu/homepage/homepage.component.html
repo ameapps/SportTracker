@@ -7,15 +7,15 @@
 <ion-content [fullscreen]="true">
   <div class="home-container">
     <img src="assets/icon/favicon.png" alt="Sport Tracker Logo" class="logo" />
-    <h1>Benvenuto!</h1>
-    <p>Monitora le tue sessioni di allenamento, alimentazione e progressi.</p>
+    <h1>Welcome!</h1>
+    <p>Track your training sessions, nutrition, and progress.</p>
     <ion-grid>
       <ion-row>
         <ion-col size="6">
           <ion-card button (click)="navigateTo('register-training')">
             <ion-card-header>
               <ion-icon name="barbell-outline" size="large"></ion-icon>
-              <ion-card-title>Registra Allenamento</ion-card-title>
+              <ion-card-title>Register Training</ion-card-title>
             </ion-card-header>
           </ion-card>
         </ion-col>
@@ -27,13 +27,11 @@
             </ion-card-header>
           </ion-card>
         </ion-col>
-      </ion-row>
-      <ion-row>
         <ion-col size="6">
           <ion-card button (click)="navigateTo('food-history')">
             <ion-card-header>
               <ion-icon name="nutrition-outline" size="large"></ion-icon>
-              <ion-card-title>Registra Cibo</ion-card-title>
+              <ion-card-title>Register Food</ion-card-title>
             </ion-card-header>
           </ion-card>
         </ion-col>
