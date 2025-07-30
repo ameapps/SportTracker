@@ -8,68 +8,84 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper" style="height: 100%;">
-
+  <mat-horizontal-stepper
+    [linear]="isLinear"
+    #stepper="matHorizontalStepper"
+    style="height: 100%"
+  >
     <!-- Primo step -->
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>{{this.componentService.stepsName[0]}}</ng-template>
+        <ng-template matStepLabel>{{
+          this.componentService.stepsName[0]
+        }}</ng-template>
 
         <!-- Input for pre training weight -->
         <mat-form-field>
-          <input 
+          <input
             (keypress)="this.isValidPreWeight($event)"
             (keypress)="this.componentService.preWeightInput()"
-            matInput 
-            [(ngModel)]="this.componentService.beforeTrainingWeight" 
-            placeholder="Before training weight (KG)" 
-            formControlName="firstCtrl" 
-            required>
+            matInput
+            [(ngModel)]="this.componentService.beforeTrainingWeight"
+            placeholder="Before training weight (KG)"
+            formControlName="firstCtrl"
+            required
+          />
         </mat-form-field>
 
         <!-- Select for the time of preweight measurement -->
         <mat-form-field>
-          <mat-select [(value)]="this.componentService.preWeightTime" placeholder="Pre weight measurement time">
-            <mat-option 
-              *ngFor="let time of preWeightTimes"
-              [value]="time"
-              >
+          <mat-select
+            [(value)]="this.componentService.preWeightTime"
+            placeholder="Pre weight measurement time"
+          >
+            <mat-option *ngFor="let time of preWeightTimes" [value]="time">
               {{ time }}
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <div class="stepper-navigators-position"  *ngIf="this.componentService.stepsComplete[0]">
+        <div
+          class="stepper-navigators-position"
+          *ngIf="this.componentService.stepsComplete[0]"
+        >
           <button mat-button matStepperNext>Next</button>
         </div>
       </form>
     </mat-step>
 
     <!-- Secondo step -->
-    <mat-step [stepControl]="secondFormGroup" [completed]="this.componentService.stepsComplete[1]">
+    <mat-step
+      [stepControl]="secondFormGroup"
+      [completed]="this.componentService.stepsComplete[1]"
+    >
       <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>{{this.componentService.stepsName[1]}}</ng-template>
-        <p>Select your training! </p>
+        <ng-template matStepLabel>{{
+          this.componentService.stepsName[1]
+        }}</ng-template>
+        <p>Select your training!</p>
 
         <!-- Selection of the training to do -->
-        <app-selector 
-          [selections]="this.componentService.struments" 
-          [allowedSelectionNumber]="1" 
-          [clicked] = "this.componentService.clicked"
+        <app-selector
+          [selections]="this.componentService.struments"
+          [allowedSelectionNumber]="1"
+          [clicked]="this.componentService.clicked"
           (selectedItems)="saveSelectedItems($event)"
         ></app-selector>
 
         <!-- Loading a custom menu according to the selected strument -->
-        <app-custom-training 
+        <app-custom-training
           (timeExpired)="onTimeExpired($event)"
           [expiredTime]="this.componentService.expiredTime"
-          [trainingTypes]="this.componentService.trainings" 
-          [trainingType]="this.componentService.selectedTrainings[0]">
+          [trainingTypes]="this.componentService.trainings"
+          [trainingType]="this.componentService.selectedTrainings[0]"
+        >
         </app-custom-training>
 
         <!-- Bottoni che chiedono se si vuole fare un altro training -->
         <div id="next-training" *ngIf="this.componentService.stepsComplete[1]">
-          <button mat-button (click)="anotherTraining($event)" >Another training</button>
+          <button mat-button (click)="anotherTraining($event)">
+            Another training
+          </button>
           <button mat-button matStepperNext (click)="complete()">Done</button>
         </div>
       </form>
@@ -77,15 +93,20 @@
 
     <!-- Terzo step -->
     <mat-step>
-      <ng-template matStepLabel>{{this.componentService.stepsName[2]}}</ng-template>
+      <ng-template matStepLabel>{{
+        this.componentService.stepsName[2]
+      }}</ng-template>
       <app-rt-step3></app-rt-step3>
-      <p id="you-are-done">You are now done.</p> 
-      <div id="last-buttons" class="stepper-navigators"  *ngIf="this.componentService.stepsComplete[2]">
+      <p id="you-are-done">You are now done.</p>
+      <div
+        id="last-buttons"
+        class="stepper-navigators"
+        *ngIf="this.componentService.stepsComplete[2]"
+      >
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)="goToGallery()">Gallery</button>
         <button mat-button (click)="goToReport()">Report</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>
-
 </ion-content>

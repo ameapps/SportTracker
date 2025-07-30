@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatHorizontalStepper, MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { StringHelper } from 'src/helpers/StringHelper';
@@ -9,8 +14,6 @@ import { CustomTrainingService } from 'src/services/App/Custom training/custom-t
 import { CycletteService } from 'src/services/App/Custom training/cyclette/cyclette.service';
 import { TapisroulantService } from 'src/services/App/Custom training/tapis roulant/tapisroulant.service';
 import { RegisterTrainingService } from 'src/services/App/Register Training/register-training.service';
-
-
 
 @Component({
   selector: 'app-register-training',
@@ -20,12 +23,9 @@ import { RegisterTrainingService } from 'src/services/App/Register Training/regi
 export class RegisterTrainingComponent implements OnInit {
   toppings = new FormControl();
 
-
-
   isTimerEnabled = false;
 
   completedTrainings: object[] = [];
-
 
   //#region stepper
   isLinear = false;
@@ -56,10 +56,10 @@ export class RegisterTrainingComponent implements OnInit {
 
   ngOnInit() {
     this.firstFormGroup = this.formBuilder.group({
-      firstCtrl: ['', Validators.required]
+      firstCtrl: ['', Validators.required],
     });
     this.secondFormGroup = this.formBuilder.group({
-      secondCtrl: ['', Validators.required]
+      secondCtrl: ['', Validators.required],
     });
   }
 
@@ -76,7 +76,6 @@ export class RegisterTrainingComponent implements OnInit {
 
     const preWeightTimes = await this.componentService.getPreWeightTimes();
     this.preWeightTimes = JSON.parse(preWeightTimes);
-
   }
 
   onTimeExpired(event) {
@@ -111,7 +110,7 @@ export class RegisterTrainingComponent implements OnInit {
     // location.href = "menu/gallery";
     this.router.navigate(['/menu/gallery']).then(() => {
       window.location.reload();
-    });;
+    });
   }
 
   /**Method rooting to the "Report" page */
@@ -119,14 +118,13 @@ export class RegisterTrainingComponent implements OnInit {
     // location.href = "menu/report";
     this.router.navigate(['/menu/report']).then(() => {
       window.location.reload();
-    });;
+    });
   }
 
   /** Method to get the emitted index of the selected items in selector component */
   saveSelectedItems(event) {
     this.componentService.selectedTrainings = event;
   }
-
 
   //#region another training
 
