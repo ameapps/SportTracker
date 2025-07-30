@@ -2,26 +2,31 @@
     {
         "name" : "Homepage",
         "url" : "menu/homepage",
-        "component": "homepageComponent"
+        "component": "HomepageComponent",
+        "icon": "home-outline"
     },
     {
         "name" : "Register training",
         "url" : "menu/register-training",
-        "component": "RegisterTrainingComponent"
+        "component": "RegisterTrainingComponent",
+        "icon": "barbell-outline"
     },
     {
         "name" : "Report",
         "url" : "menu/report",
-        "component": null
+        "component": null,
+        "icon": "stats-chart-outline"
     },
     {
         "name" : "Register eaten food",
         "url" : "menu/food-history",
-        "component": "FoodHistoryComponent"
+        "component": "FoodHistoryComponent",
+        "icon": "nutrition-outline"
     },
     {
         "name" : "Gallery",
         "url" : "menu/gallery",
-        "component": "GalleryComponent"
+        "component": "GalleryComponent",
+        "icon": "images-outline"
     }  
 ]
