@@ -1,14 +1,11 @@
 <div class="container">
   <!-- Bottone accattivante per scattare foto -->
-  <div class="photo-btn-homepage-style">
-    <ion-button
-      color="primary"
-      (click)="takePhoto()"
-      class="round-photo-btn"
-      fill="solid"
-      shape="round"
-    >
-      <ion-icon name="camera-outline" size="large"></ion-icon>
-    </ion-button>
+  <div class="photo-card-container">
+    <ion-card button (click)="takePhoto()" class="photo-card">
+      <ion-card-header>
+        <ion-icon name="camera-outline" size="large"></ion-icon>
+        <ion-card-title>Scatta Foto</ion-card-title>
+      </ion-card-header>
+    </ion-card>
   </div>
 </div>
