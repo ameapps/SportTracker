@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReportComponent } from './report.component';
-import { ReportRoutingModule } from './report-routing.module';
+import { NgChartsModule } from 'ng2-charts'; // <-- CORRETTO!
 import { IonicModule } from '@ionic/angular';
-
-
+import { ReportRoutingModule } from './report-routing.module';
 
 @NgModule({
   declarations: [ReportComponent],
   exports: [ReportComponent],
   imports: [
     CommonModule,
-    ReportRoutingModule,
-    IonicModule 
+    IonicModule,
+    NgChartsModule,
+    ReportRoutingModule
   ]
 })
 export class ReportModule { }
