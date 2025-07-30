@@ -13,7 +13,9 @@ export class GalleryComponent implements OnInit {
 
   constructor(public router: Router, public componentService: GalleryService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.info('gallery component initialized');
+  }
 
   // #region methods
 
