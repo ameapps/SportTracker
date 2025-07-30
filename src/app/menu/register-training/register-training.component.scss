@@ -39,9 +39,9 @@ input {
 }
 
 /* The 'Previous step' button is hidden */
-.hide-previous-stepper {
-  display: none;
-}
+// .hide-previous-stepper {
+//   display: none;
+// }
 
 p {
   color: var(--ion-text-color, white);
@@ -184,6 +184,4 @@ button {
   cursor: default;
   user-select: none;
 }
-:host ::ng-deep .mat-step-icon.mat-step-icon-state-edit {
-  display: none !important;
-}
+
