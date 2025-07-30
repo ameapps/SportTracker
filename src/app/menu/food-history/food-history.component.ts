@@ -10,17 +10,17 @@ import { IonicModule } from '@ionic/angular';
 export class FoodHistoryComponent {
   foodForm: FormGroup;
 
-  units = ['grammi', 'pezzo', 'tazza', 'porzione'];
+  units = ['Grams', 'Piece', 'Cup', 'Portion'];
   choosenUnit: string;
 
   categories = [
-    'Frutta',
-    'Verdura',
-    'Cereali',
-    'Carne',
-    'Bevande',
-    'Snack',
-    'Altro',
+    'Fruit',
+    'Vegetables',
+    'Cereals',
+    'Meat',
+    'Drinks',
+    'Snacks',
+    'Other',
   ];
   choosenCategory: string;
 

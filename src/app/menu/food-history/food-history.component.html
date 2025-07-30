@@ -1,20 +1,20 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>Registra Alimento</ion-title>
+    <ion-title>Register Food</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div class="food-form-container">
-    <h2>Aggiungi alimento</h2>
+    <h2>Add Food</h2>
     <form [formGroup]="foodForm" (ngSubmit)="onSubmit()">
       <ion-item>
-        <ion-label position="floating">Nome alimento</ion-label>
+        <ion-label position="floating">Food name</ion-label>
         <ion-input formControlName="name" type="text" required></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Quantità</ion-label>
+        <ion-label position="floating">Quantity</ion-label>
         <ion-input
           formControlName="quantity"
           type="number"
@@ -23,8 +23,8 @@
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Unità</ion-label>
-        <ion-select formControlName="unit" placeholder="Unità">
+        <ion-label position="floating">Unit</ion-label>
+        <ion-select formControlName="unit" placeholder="Unit">
           <ion-select-option *ngFor="let unit of units" [value]="unit">{{
             unit
           }}</ion-select-option>
@@ -32,7 +32,7 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Categoria</ion-label>
+        <ion-label position="floating">Category</ion-label>
         <ion-select formControlName="category" required>
           <ion-select-option
             *ngFor="let category of categories"
@@ -43,7 +43,7 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Calorie (kcal)</ion-label>
+        <ion-label position="floating">Calories (kcal)</ion-label>
         <ion-input
           formControlName="calories"
           type="number"
@@ -55,7 +55,7 @@
       <ion-row>
         <ion-col size="6">
           <ion-item>
-            <ion-label position="floating">Carboidrati (g)</ion-label>
+            <ion-label position="floating">Carbohydrates (g)</ion-label>
             <ion-input
               formControlName="carbs"
               type="number"
@@ -65,7 +65,7 @@
         </ion-col>
         <ion-col size="6">
           <ion-item>
-            <ion-label position="floating">Proteine (g)</ion-label>
+            <ion-label position="floating">Proteins (g)</ion-label>
             <ion-input
               formControlName="proteins"
               type="number"
@@ -77,13 +77,13 @@
       <ion-row>
         <ion-col size="6">
           <ion-item>
-            <ion-label position="floating">Grassi (g)</ion-label>
+            <ion-label position="floating">Fats (g)</ion-label>
             <ion-input formControlName="fats" type="number" min="0"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col size="6">
           <ion-item>
-            <ion-label position="floating">Fibre (g)</ion-label>
+            <ion-label position="floating">Fiber (g)</ion-label>
             <ion-input
               formControlName="fiber"
               type="number"
@@ -93,12 +93,12 @@
         </ion-col>
       </ion-row>
       <ion-item>
-        <ion-label position="floating">Zuccheri (g)</ion-label>
+        <ion-label position="floating">Sugars (g)</ion-label>
         <ion-input formControlName="sugars" type="number" min="0"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Data e ora</ion-label>
+        <ion-label position="floating">Date and time</ion-label>
         <ion-datetime
           formControlName="dateTime"
           display-format="DD/MM/YYYY HH:mm"
@@ -111,7 +111,7 @@
         color="primary"
         [disabled]="foodForm.invalid"
       >
-        Salva alimento
+        Save food
       </ion-button>
     </form>
   </div>
