@@ -7,25 +7,45 @@
 
   <ion-content [fullscreen]="true">
     <div class="report-container">
-      <h2>Training Minutes by Equipment</h2>
-      <canvas
-        baseChart
-        [datasets]="trainingData"
-        [labels]="trainingLabels"
-        [options]="barChartOptions"
-        [legend]="true"
-        [chartType]="barChartType">
-      </canvas>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            <ion-icon name="barbell-outline" color="primary"></ion-icon>
+            Training Minutes by Equipment
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <canvas
+            baseChart
+            [datasets]="trainingData"
+            [labels]="trainingLabels"
+            [options]="barChartOptions"
+            [legend]="true"
+            [chartType]="barChartType"
+            style="max-height: 300px;"
+          ></canvas>
+        </ion-card-content>
+      </ion-card>
 
-      <h2>Food Frequency</h2>
-      <canvas
-        baseChart
-        [datasets]="[{ label: 'Times eaten', data: foodData }]"
-        [labels]="foodLabels"
-        [options]="barChartOptions"
-        [legend]="false"
-        [chartType]="barChartType">
-      </canvas>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            <ion-icon name="nutrition-outline" color="primary"></ion-icon>
+            Food Frequency
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <canvas
+            baseChart
+            [datasets]="[{ label: 'Times eaten', data: foodData }]"
+            [labels]="foodLabels"
+            [options]="barChartOptions"
+            [legend]="false"
+            [chartType]="barChartType"
+            style="max-height: 300px;"
+          ></canvas>
+        </ion-card-content>
+      </ion-card>
     </div>
   </ion-content>
 </div>
