@@ -14,7 +14,7 @@
     style="height: 100%"
   >
     <!-- Primo step -->
-    <mat-step [stepControl]="firstFormGroup">
+    <mat-step [stepControl]="firstFormGroup" >
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>{{
           this.componentService.stepsName[0]

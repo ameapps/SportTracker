@@ -1,61 +1,60 @@
 .select-training {
-
 }
 
 .select-training .width {
-    width: 100% !important;
+  width: 100% !important;
 }
 
-#next-training, #you-are-done {
-    position:absolute;
-    bottom: 3em;
-    right: 3em;
+#next-training,
+#you-are-done {
+  position: absolute;
+  bottom: 3em;
+  right: 3em;
 }
 
 /* The select width is full screen */
 mat-form-field {
-    width: 100%;
+  width: 100%;
 }
 
 /* Material ckeckbox is moved */
 mat-checkbox {
-    margin-left: 2%;
+  margin-left: 2%;
 }
 
 input {
-    color: var(--ion-text-color, white)
+  color: var(--ion-text-color, white);
 }
 
 #last-buttons {
-    position: absolute;
-    bottom: 3em;
+  position: absolute;
+  bottom: 3em;
 }
 
 /* Bottons to navigate the steppers are set to the bottom of the screen */
 .stepper-navigators-position {
-    position: absolute;
-    bottom: 3em;
-    right: 3em;
+  position: absolute;
+  bottom: 3em;
+  right: 3em;
 }
 
 /* The 'Previous step' button is hidden */
 .hide-previous-stepper {
-    display:none;
+  display: none;
 }
 
 p {
-    color: var(--ion-text-color, white);
+  color: var(--ion-text-color, white);
 }
 
 button {
-    color: var(--ion-text-color, white);
+  color: var(--ion-text-color, white);
 }
 
 // Sfondo bottone datepicker
 :host ::ng-deep button.ngx-material-timepicker-toggle {
-    background: rgba(0, 0, 0, 0) !important;
+  background: rgba(0, 0, 0, 0) !important;
 }
-
 
 // Sfondo generale
 :host ::ng-deep ion-content,
@@ -66,15 +65,23 @@ button {
 }
 
 // Step icons: attivo rosa (usando una variabile custom), completato grigio, inattivo primario
-:host ::ng-deep .mat-step-icon.mat-step-icon-state-number.mat-step-icon-selected,
+:host
+  ::ng-deep
+  .mat-step-icon.mat-step-icon-state-number.mat-step-icon-selected,
 :host ::ng-deep .mat-step-icon.mat-step-icon-state-edit {
-  background: var(--ion-color-step-active, var(--ion-color-secondary)) !important; // rosa custom o fallback su secondary
+  background: var(
+    --ion-color-step-active,
+    var(--ion-color-secondary)
+  ) !important; // rosa custom o fallback su secondary
   color: var(--ion-text-color, #222) !important;
   border: 2px solid var(--ion-color-primary);
 }
 
 :host ::ng-deep .mat-step-icon.mat-step-icon-state-done {
-  background: var(--ion-color-step-done, #e0e0e0) !important; // grigio chiaro custom o fallback
+  background: var(
+    --ion-color-step-done,
+    #e0e0e0
+  ) !important; // grigio chiaro custom o fallback
   color: var(--ion-color-primary) !important;
 }
 
@@ -176,4 +183,7 @@ button {
 :host ::ng-deep .mat-step-header {
   cursor: default;
   user-select: none;
+}
+:host ::ng-deep .mat-step-icon.mat-step-icon-state-edit {
+  display: none !important;
 }
