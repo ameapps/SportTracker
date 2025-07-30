@@ -69,7 +69,10 @@
           [selections]="this.componentService.struments"
           [allowedSelectionNumber]="1"
           [clicked]="this.componentService.clicked"
-          (selectedItems)="saveSelectedItems($event)"
+          (selectedItems)="
+            saveSelectedItems($event);
+            this.componentService.stepsComplete[1] = true
+          "
         ></app-selector>
 
         <!-- Loading a custom menu according to the selected strument -->
@@ -83,9 +86,6 @@
 
         <!-- Bottoni che chiedono se si vuole fare un altro training -->
         <div id="next-training" *ngIf="this.componentService.stepsComplete[1]">
-          <button mat-button (click)="anotherTraining($event)">
-            Another training
-          </button>
           <button mat-button matStepperNext (click)="complete()">Done</button>
         </div>
       </form>

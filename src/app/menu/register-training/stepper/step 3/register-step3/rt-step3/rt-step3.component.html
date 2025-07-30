@@ -1,9 +1,14 @@
 <div class="container">
-  <!-- Camera button -->
-  <ion-fab-button id="camera" (click)="addPhotoToGallery()">
-    <ion-icon name="camera"></ion-icon>
-  </ion-fab-button>
+  <!-- Bottone accattivante per scattare foto -->
+  <div class="photo-btn-homepage-style">
+    <ion-button
+      color="primary"
+      (click)="takePhoto()"
+      class="round-photo-btn"
+      fill="solid"
+      shape="round"
+    >
+      <ion-icon name="camera-outline" size="large"></ion-icon>
+    </ion-button>
+  </div>
 </div>
-
-
-

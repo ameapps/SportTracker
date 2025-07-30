@@ -126,17 +126,6 @@ export class RegisterTrainingComponent implements OnInit {
     this.componentService.selectedTrainings = event;
   }
 
-  //#region another training
-
-  anotherTraining(event) {
-    this.componentService.saveTraining();
-    this.componentService.hideTimerInput();
-    this.componentService.resetSelectedMenu();
-    this.componentService.resetExpiredTime();
-    this.componentService.hideButtons();
-  }
-
-  //#endregion
 
   //#endregion
 }

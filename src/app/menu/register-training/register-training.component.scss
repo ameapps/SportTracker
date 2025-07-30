@@ -174,5 +174,6 @@ button {
 }
 
 :host ::ng-deep .mat-step-header {
-  pointer-events: none;
+  cursor: default;
+  user-select: none;
 }
