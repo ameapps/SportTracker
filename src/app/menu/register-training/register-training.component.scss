@@ -1,5 +1,3 @@
-// #region select training
-
 .select-training {
 
 }
@@ -33,22 +31,6 @@ input {
     bottom: 3em;
 }
 
-/* The stepper container is full scree height */
-::ng-deep .mat-horizontal-content-container {
-    height: inherit;
-}
-
-/** The user can't navigate thought the steps by clicking on them! */
-::ng-deep .mat-horizontal-stepper-header {
-    pointer-events: none !important;
-}
-
-/* Customizing the material button color */
-button.mat-focus-indicator.mat-stepper-next.mat-button.mat-button-base {
-    background-color: var(--ion-color-primary);
-    color: var(--ion-color-primary-contrast);
-}
-
 /* Bottons to navigate the steppers are set to the bottom of the screen */
 .stepper-navigators-position {
     position: absolute;
@@ -69,9 +51,124 @@ button {
     color: var(--ion-text-color, white);
 }
 
-// endregion
+// Sfondo bottone datepicker
+:host ::ng-deep button.ngx-material-timepicker-toggle {
+    background: rgba(0, 0, 0, 0) !important;
+}
 
-// #region page
 
-// endregion
+// Sfondo generale
+:host ::ng-deep ion-content,
+:host ::ng-deep .mat-horizontal-content-container,
+:host ::ng-deep .mat-stepper-horizontal {
+  --background: var(--ion-color-light) !important;
+  background: var(--ion-color-light) !important;
+}
 
+// Step icons: attivo rosa (usando una variabile custom), completato grigio, inattivo primario
+:host ::ng-deep .mat-step-icon.mat-step-icon-state-number.mat-step-icon-selected,
+:host ::ng-deep .mat-step-icon.mat-step-icon-state-edit {
+  background: var(--ion-color-step-active, var(--ion-color-secondary)) !important; // rosa custom o fallback su secondary
+  color: var(--ion-text-color, #222) !important;
+  border: 2px solid var(--ion-color-primary);
+}
+
+:host ::ng-deep .mat-step-icon.mat-step-icon-state-done {
+  background: var(--ion-color-step-done, #e0e0e0) !important; // grigio chiaro custom o fallback
+  color: var(--ion-color-primary) !important;
+}
+
+:host ::ng-deep .mat-step-icon.mat-step-icon-state-number {
+  background: var(--ion-color-primary) !important;
+  color: var(--ion-color-primary-contrast) !important;
+}
+
+// Step label
+:host ::ng-deep .mat-step-label,
+:host ::ng-deep .mat-stepper-label {
+  color: var(--ion-color-primary) !important;
+  font-weight: 600;
+}
+
+// Input verticali e ben visibili
+:host ::ng-deep mat-form-field {
+  display: block !important;
+  width: 100% !important;
+  margin-bottom: 1.2rem;
+}
+
+:host ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background: var(--ion-color-input-bg, #fff) !important;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(40, 120, 200, 0.07);
+  border: 1px solid var(--ion-color-medium, #e0e0e0);
+}
+
+:host ::ng-deep .mat-form-field-label {
+  color: var(--ion-color-primary) !important;
+  font-weight: 500;
+}
+
+:host ::ng-deep .mat-input-element {
+  color: var(--ion-text-color, #222) !important;
+  background: transparent !important;
+}
+
+:host ::ng-deep .mat-form-field-underline,
+:host ::ng-deep .mat-form-field-ripple {
+  background-color: var(--ion-color-primary) !important;
+}
+
+// Colore delle opzioni nel mat-select
+:host ::ng-deep .mat-select-panel {
+  background: var(--ion-color-input-bg, #fff) !important;
+}
+
+:host ::ng-deep .mat-option,
+:host ::ng-deep .mat-option.mat-active,
+:host ::ng-deep .mat-option.mat-selected {
+  background: var(--ion-color-input-bg, #fff) !important;
+  color: var(--ion-text-color, #222) !important;
+}
+
+// Colore del valore selezionato nella tendina
+:host ::ng-deep .mat-select-value {
+  color: var(--ion-text-color, #222) !important;
+}
+
+// Bottoni
+:host ::ng-deep button,
+:host ::ng-deep .mat-button,
+:host ::ng-deep ion-button {
+  background: var(--ion-color-primary) !important;
+  color: var(--ion-color-primary-contrast) !important;
+  border-radius: 8px;
+}
+
+// Card e item
+:host ::ng-deep ion-card,
+:host ::ng-deep ion-item,
+:host ::ng-deep .mat-card {
+  background: var(--ion-color-light) !important;
+  color: var(--ion-text-color, #222) !important;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(40, 120, 200, 0.08);
+}
+
+// Testo
+:host ::ng-deep h1,
+:host ::ng-deep h2,
+:host ::ng-deep h3,
+:host ::ng-deep h4,
+:host ::ng-deep h5,
+:host ::ng-deep h6,
+:host ::ng-deep p,
+:host ::ng-deep label {
+  color: var(--ion-text-color, #222) !important;
+}
+
+// Icone
+:host ::ng-deep ion-icon,
+:host ::ng-deep .mat-icon {
+  color: var(--ion-color-primary) !important;
+}
