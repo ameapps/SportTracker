@@ -6,7 +6,7 @@
         "icon": "home-outline"
     },
     {
-        "name" : "Register training",
+        "name" : "Trainings",
         "url" : "menu/register-training",
         "component": "RegisterTrainingComponent",
         "icon": "barbell-outline"
@@ -18,7 +18,7 @@
         "icon": "stats-chart-outline"
     },
     {
-        "name" : "Register eaten food",
+        "name" : "Food history",
         "url" : "menu/food-history",
         "component": "FoodHistoryComponent",
         "icon": "nutrition-outline"
