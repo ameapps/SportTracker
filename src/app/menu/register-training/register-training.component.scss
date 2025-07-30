@@ -172,3 +172,7 @@ button {
 :host ::ng-deep .mat-icon {
   color: var(--ion-color-primary) !important;
 }
+
+:host ::ng-deep .mat-step-header {
+  pointer-events: none;
+}
