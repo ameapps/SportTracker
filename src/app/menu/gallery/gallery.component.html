@@ -6,7 +6,7 @@
 
 <ion-content [fullscreen]="true">
   <div class="gallery-container">
-    <h2>Le tue foto</h2>
+    <h2>Your photos</h2>
     <div *ngIf="componentService.photos?.length > 0; else emptyGallery">
       <ion-grid>
         <ion-row>
@@ -24,7 +24,7 @@
     <ng-template #emptyGallery>
       <div class="empty-gallery">
         <ion-icon name="images-outline" size="large"></ion-icon>
-        <p>Nessuna foto presente.<br>Scatta o carica una foto per iniziare!</p>
+        <p>No photos available.<br>Take or upload a photo to get started!</p>
       </div>
     </ng-template>
   </div>
