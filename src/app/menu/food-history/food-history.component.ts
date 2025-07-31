@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
@@ -24,7 +25,7 @@ export class FoodHistoryComponent {
   ];
   choosenCategory: string;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.foodForm = this.fb.group({
       name: ['', Validators.required],
       quantity: [null, [Validators.required, Validators.min(0)]],
@@ -54,6 +55,7 @@ export class FoodHistoryComponent {
       // Salva i dati o invia al servizio
       console.log(this.foodForm.value);
       // Reset o navigazione
+      this.router.navigate(['/menu/homepage']);
     }
   }
 }
