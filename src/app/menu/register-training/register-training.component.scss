@@ -111,9 +111,15 @@ button {
   border: 1px solid var(--ion-color-medium, #e0e0e0);
 }
 
+// Colore labels nelle input
 :host ::ng-deep .mat-form-field-label {
   color: var(--ion-color-primary) !important;
   font-weight: 500;
+}
+
+// Dark mode: label bianca
+.dark-theme :host ::ng-deep .mat-form-field-label {
+  color: #fff !important;
 }
 
 :host ::ng-deep .mat-input-element {
