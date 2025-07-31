@@ -37,10 +37,6 @@ export class SelectorComponent implements OnInit, OnChanges {
    */
   strumentSelected(index: number) {
     console.log("strumentSelected", index, this.clicked);
-    // this.clicked[index] =
-    //     this.clickedNumber() < this.allowedSelectionNumber || this.isClicked(index) ?
-    //       !this.clicked[index] :
-    //       this.clicked[index];
     for (let i = 0; i < this.clicked.length; i++) {
       if (i !== index) {
         this.clicked[i] = false;

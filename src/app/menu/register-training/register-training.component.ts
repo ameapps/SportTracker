@@ -64,6 +64,7 @@ export class RegisterTrainingComponent implements OnInit {
   }
 
   async asyncConstructor() {
+    console.log('RegisterTrainingComponent: asyncConstructor');
     /* Getting trainings from assets */
     const trainigs = await this.componentService.getTrainigs();
     this.componentService.trainings = JSON.parse(trainigs);

@@ -1,27 +1,32 @@
 [
-    {
-        "id": "Tapis roulant",
-        "pathLight": "assets/icon/register-training/light/tapis-roulant.svg",
-        "pathDark":"assets/icon/register-training/dark/tapis-roulant.svg"
-    },    
-    {
-        "id": "Cyclette",
-        "pathLight": "assets/icon/register-training/light/cyclette.svg",
-        "pathDark":"assets/icon/register-training/dark/cyclette.svg"
-    },    
-    {
-        "id": "Run",
-        "pathLight": "assets/icon/register-training/light/run.svg",
-        "pathDark":"assets/icon/register-training/dark/run.svg"
-    },    
-    {
-        "id": "Bycicle",
-        "pathLight": "assets/icon/register-training/light/bycicle.svg",
-        "pathDark":"assets/icon/register-training/dark/bycicle.svg"
-    },    
-    {
-        "id": "Swim",
-        "pathLight": "assets/icon/register-training/light/swim.svg",
-        "pathDark":"assets/icon/register-training/dark/swim.svg"
-    }
+  {
+    "id": "Tapis roulant",
+    "pathLight": "assets/icon/register-training/light/tapis-roulant.svg",
+    "pathDark": "assets/icon/register-training/dark/tapis-roulant.svg",
+    "isValid": true
+  },
+  {
+    "id": "Cyclette",
+    "pathLight": "assets/icon/register-training/light/cyclette.svg",
+    "pathDark": "assets/icon/register-training/dark/cyclette.svg",
+    "isValid": true
+  },
+  {
+    "id": "Run",
+    "pathLight": "assets/icon/register-training/light/run.svg",
+    "pathDark": "assets/icon/register-training/dark/run.svg",
+    "isValid": false
+  },
+  {
+    "id": "Bycicle",
+    "pathLight": "assets/icon/register-training/light/bycicle.svg",
+    "pathDark": "assets/icon/register-training/dark/bycicle.svg",
+    "isValid": false
+  },
+  {
+    "id": "Swim",
+    "pathLight": "assets/icon/register-training/light/swim.svg",
+    "pathDark": "assets/icon/register-training/dark/swim.svg",
+    "isValid": false
+  }
 ]

@@ -32,7 +32,7 @@ export class RegisterTrainingService {
   isMenuComplete = false;
 
   trainings: string[] = [];
-  struments: string[] = [];
+  struments: any[] = [];
   stepsName: string[] = [];
 
   clicked: boolean[] = [];
@@ -168,7 +168,7 @@ export class RegisterTrainingService {
     return this.savedTrainings;
   }
 
-  /**Method to get the custom training data according the specified 
+  /**Method to get the custom training data according the specified
  * custom tranining id.
  * @param id: custom training id
  */
