@@ -1,19 +1,19 @@
 
-<!-- Far apparire solo dopo la compilazione 
-del custom menu dello strumento scelto dal 
-componente selctor --> 
-<div *ngIf="this.customTrainingService.trainingType != null">            
-  <app-chrono-time-picker 
+<!-- Far apparire solo dopo la compilazione
+del custom menu dello strumento scelto dal
+componente selctor -->
+<div *ngIf="CAN_USE_TIMEPICKER && this.customTrainingService.trainingType != null">
+  <app-chrono-time-picker
     *ngIf="this.customTrainingService.customTrainingsComplete[this.customTrainingService.trainingType].isComplete"
-    (definedTime)="onDefinedTime($event)" 
+    (definedTime)="onDefinedTime($event)"
     (timeExpired)="onTimeExpired($event)"
     [chronoType]="'input-clock'"
-    [canCountdownStart]="true"  
+    [canCountdownStart]="true"
   >
   </app-chrono-time-picker>
 </div>
 
 <!-- Countdown del tempo quando abilitato -->
-<app-digital-clock 
+<app-digital-clock
   *ngIf="this.timeShared.canShowTimer">
 </app-digital-clock>

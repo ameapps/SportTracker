@@ -11,7 +11,9 @@ import { threadId } from 'worker_threads';
   styleUrls: ['./timer.component.scss'],
 })
 export class TimerComponent implements OnInit, OnChanges, OnDestroy {
-   
+
+  CAN_USE_TIMEPICKER = false;
+
   // CHRONO TIME PICKER
   @Input() chronoType: string = "";
   @Output() definedTime = new EventEmitter();
@@ -24,13 +26,13 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
   @Input() canStartCountdown: boolean = true;
 
   // THIS COMPONENT
-  
+
   @Output() timeExpired = new EventEmitter<object>();
 
   constructor(public timeShared: TimeSharedService,
     private componentService: RegisterTrainingService,
-    private customTrainingService: CustomTrainingService, 
-    ) { 
+    private customTrainingService: CustomTrainingService,
+    ) {
 
   }
 
@@ -46,7 +48,7 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
 
   //#region methods
   onDefinedTime(event){
-    this.timeShared.canShowTimer = true; 
+    this.timeShared.canShowTimer = true;
     this.componentService.stepsComplete[1] = false;
     this.definedTime.emit(event);
   }
