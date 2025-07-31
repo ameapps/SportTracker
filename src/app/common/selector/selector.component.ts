@@ -25,7 +25,7 @@ export class SelectorComponent implements OnInit, OnChanges {
     if (changes["selectionNumber"]) {
       this.allowedSelectionNumber = changes["selectionNumber"].currentValue;
     }
-    
+
   }
 
   ngOnInit() {}
@@ -33,13 +33,20 @@ export class SelectorComponent implements OnInit, OnChanges {
   /**
    * Method setting as true/false the clicked
    * image boolean state in clicked array.
-   * @param index 
+   * @param index
    */
   strumentSelected(index: number) {
-    this.clicked[index] = 
-        this.clickedNumber() < this.allowedSelectionNumber || this.isClicked(index) ? 
-          !this.clicked[index] : 
-          this.clicked[index];
+    console.log("strumentSelected", index, this.clicked);
+    // this.clicked[index] =
+    //     this.clickedNumber() < this.allowedSelectionNumber || this.isClicked(index) ?
+    //       !this.clicked[index] :
+    //       this.clicked[index];
+    for (let i = 0; i < this.clicked.length; i++) {
+      if (i !== index) {
+        this.clicked[i] = false;
+      }
+    }
+    this.clicked[index] = !this.clicked[index];
 
     this.selectedItems.emit(this.emitSelectedItems(index));
   }
@@ -52,7 +59,7 @@ export class SelectorComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Click event manager indicating whether 
+   * Click event manager indicating whether
    * the strument is clicked or unclicked.
    * @param index of the struments
    * @returns true or false depending on its click state
