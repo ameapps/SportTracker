@@ -1,6 +1,9 @@
 <div class="container">
   <ion-header [translucent]="true">
     <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
       <ion-title>Report</ion-title>
     </ion-toolbar>
   </ion-header>
@@ -22,7 +25,7 @@
             [options]="barChartOptions"
             [legend]="true"
             [chartType]="barChartType"
-            style="max-height: 300px;"
+            style="max-height: 300px"
           ></canvas>
         </ion-card-content>
       </ion-card>
@@ -42,7 +45,7 @@
             [options]="barChartOptions"
             [legend]="false"
             [chartType]="barChartType"
-            style="max-height: 300px;"
+            style="max-height: 300px"
           ></canvas>
         </ion-card-content>
       </ion-card>
