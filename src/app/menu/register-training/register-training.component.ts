@@ -94,6 +94,11 @@ export class RegisterTrainingComponent implements OnInit {
     }
   }
 
+  /** Metodo per tornare alla homepage */
+  goToHome() {
+    this.router.navigate(['/menu/homepage']);
+  }
+
   /**Method returning the key of the event, where
    * the key is the character pressed on the
    * keyboard from the user.
@@ -126,7 +131,6 @@ export class RegisterTrainingComponent implements OnInit {
   saveSelectedItems(event) {
     this.componentService.selectedTrainings = event;
   }
-
 
   //#endregion
 }

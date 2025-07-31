@@ -97,7 +97,7 @@
         this.componentService.stepsName[2]
       }}</ng-template>
       <app-rt-step3></app-rt-step3>
-      <p id="you-are-done">You are now done.</p>
+      <button id="you-are-done" mat-raised-button color="primary" (click)="goToHome()">You are now done.</button>
       <div
         id="last-buttons"
         class="stepper-navigators"
