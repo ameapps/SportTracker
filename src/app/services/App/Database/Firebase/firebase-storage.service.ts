@@ -9,20 +9,17 @@ import { DbDataType } from '../../../Enums/DbDataType';
 import { DbEntities } from 'src/app/services/Enums/DbEntitities';
 import { AssetsService } from 'src/app/services/Services/assets/assets.service';
 import { IDatabase } from 'src/app/services/Interfaces/Database';
+import { ApiService } from '../../API/api.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FirebaseStorageService implements IDatabase {
-
-  constructor(
-    public assets: AssetsService,
-    public sanitizer: DomSanitizer,) {
-  }
+  constructor(public api_service: ApiService, public assets: AssetsService, public sanitizer: DomSanitizer) {}
 
   /**Prototype to get all elements associated to the specified entity */
   async getAllItems(datatype: DbDataType): Promise<object[]> {
-    const credentials = await this.getCredentials();
+    const credentials = this.api_service.fbCredentials ?? await this.assets.getFile('assets/Firebase/sportmonitoring_credentials.json');
     let items: object[] = [];
     switch (datatype) {
       case DbDataType.GALLERY:
@@ -42,8 +39,8 @@ export class FirebaseStorageService implements IDatabase {
    * @returns
    */
   async saveElement(key: string, savedImageFile: object) {
-    const credentials = await this.getCredentials();
-    let data = await FirebaseHelper.getData(credentials, key) as object[];
+    const credentials = await this.getFbCredentials();
+    let data = (await FirebaseHelper.getData(credentials, key)) as object[];
     data = data != null ? data : [];
 
     FirebaseHelper.pushToChild(savedImageFile, credentials, key);
@@ -53,7 +50,10 @@ export class FirebaseStorageService implements IDatabase {
    * the firebase realtime database. */
   async getGalleryItems(credentials: object): Promise<object[]> {
     const key = DbEntities[DbEntities.PHOTO_STORAGE];
-    const allPhotos = await FirebaseHelper.getData(credentials, key) as object[];
+    const allPhotos = (await FirebaseHelper.getData(
+      credentials,
+      key
+    )) as object[];
     let fixedData: object[] = [];
     if (allPhotos != null) {
       fixedData = this.sanitizePhotoes(allPhotos);
@@ -69,14 +69,15 @@ export class FirebaseStorageService implements IDatabase {
     let arr: object[] = [];
     if (data != null) {
       data.forEach((element) => {
-        const blob = BlobHelper.convertBase64ToBlob(element['blobBase64'] as string);
+        const blob = BlobHelper.convertBase64ToBlob(
+          element['blobBase64'] as string
+        );
         let objectURLa = URL.createObjectURL(blob);
         const imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURLa);
         const index = ObjectHelper.getValueKey(data, element);
-        data[index]["webviewPath"] = imageUrl;
+        data[index]['webviewPath'] = imageUrl;
         arr.push(data[index]);
       });
-
     }
     return arr;
   }
@@ -84,10 +85,12 @@ export class FirebaseStorageService implements IDatabase {
   //#region getters
 
   /**Method getting the firebase credentials fromt he assets */
-  async getCredentials() {
-  const credentials = await this.assets.getFile('assets/Firebase/sportmonitoring_credentials.json');
-  return JSON.parse(JSON.stringify(credentials));
-}
+  async getFbCredentials() {
+    const credentials = this.api_service.fbCredentials ?? await this.assets.getFile(
+      'assets/Firebase/sportmonitoring_credentials.json'
+    );
+    return JSON.parse(JSON.stringify(credentials));
+  }
 
   //#endregion
 }

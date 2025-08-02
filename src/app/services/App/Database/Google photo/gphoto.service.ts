@@ -4,6 +4,7 @@ import { IDatabase } from 'src/app/services/Interfaces/Database';
 import { ApiHelper } from 'src/app/helpers/ApiHelper';
 import { AssetsService } from 'src/app/services/Services/assets/assets.service';
 import { BlobHelper } from 'src/app/helpers/BlobHelper';
+import { ApiService } from '../../API/api.service';
 
 
 @Injectable({
@@ -14,7 +15,7 @@ export class GphotoService  implements IDatabase {
   ALBUM = 'https://photoslibrary.googleapis.com/v1/albums';
   UPLOAD = 'https://photoslibrary.googleapis.com/v1/uploads';
 
-  constructor(public assets: AssetsService) {
+  constructor(public assets: AssetsService, private api_service: ApiService) {
   }
 
 
@@ -24,7 +25,7 @@ export class GphotoService  implements IDatabase {
   }
 
   async createAlbum(name: string) {
-    const credentials = await this.assets.getFile('assets/Google/credentials sportmonitoring.json');
+    const credentials = this.api_service.googleCredentials ?? await this.assets.getFile('assets/Google/credentials sportmonitoring.json');
     const header = {
       'content-type' : 'application/json',
       'Authorization': `Bearer ${credentials['web']['client_secret']}`,
@@ -41,7 +42,7 @@ export class GphotoService  implements IDatabase {
   }
 
   async upload(data: any) {
-    const credentials = await this.assets.getFile('assets/Google/credentials sportmonitoring.json');
+    const credentials = this.api_service.googleCredentials ?? await this.assets.getFile('assets/Google/credentials sportmonitoring.json');
     const header = {
       'content-type' : 'octet-stream',
       'Authorization': `Bearer ${credentials['web']['client_secret']}`,

@@ -6,6 +6,7 @@ import { AppPages } from 'src/app/Models/appPages';
 import { InitialConfigurationService } from 'src/app/services/App/Initial Configuration/initial-configuration.service';
 import { AssetsService } from 'src/app/services/Services/assets/assets.service';
 import { StorageService } from 'src/app/services/Services/storage/storage.service';
+import { CommonService } from './services/common/common.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -14,23 +15,24 @@ import { StorageService } from 'src/app/services/Services/storage/storage.servic
 export class AppComponent {
   public appPages = [];
   public labels = [];
-  constructor(public storage: StorageService,
+  constructor(
+    private common: CommonService,
+    public storage: StorageService,
     public assets: AssetsService,
     public config: InitialConfigurationService,
     public http: HttpClient
-    )
-  {
+  ) {
     this.asyncConstructor();
-
   }
 
   async asyncConstructor() {
+    await this.common.setApiConfigs();
     const menuSer = await this.config.getMenuItems();
     const menu = JSON.parse(menuSer);
     console.log('Menu items:', menu);
-    menu.forEach(element => {
+    menu.forEach((element) => {
       const page = new AppPages(element.name, element.url, element.icon);
-      this.appPages.push(page)
+      this.appPages.push(page);
     });
   }
 }
