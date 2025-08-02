@@ -6,7 +6,7 @@ import { AssetsService } from 'src/services/Services/assets/assets.service';
 })
 export class InitialConfigurationService {
 
-  constructor(private assets: AssetsService) { }
+  constructor(public assets: AssetsService) { }
 
   /**
    * Getting menu items from json assets

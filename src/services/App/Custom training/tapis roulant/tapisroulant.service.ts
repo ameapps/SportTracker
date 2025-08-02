@@ -10,7 +10,7 @@ export class TapisroulantService {
   choosenSpeed = '';
   registerTrainingService: RegisterTrainingService;
 
-  constructor(private customTrainingService: CustomTrainingService) { }
+  constructor(public customTrainingService: CustomTrainingService) { }
 
   getData(): any {
     const obj = {

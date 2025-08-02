@@ -8,19 +8,19 @@ import { ChartOptions, ChartType, ChartData } from 'chart.js';
 })
 export class ReportComponent {
   // Esempio dati per allenamenti
-  trainingLabels = ['2025-07-01', '2025-07-02', '2025-07-03'];
-  trainingData = [
+  public trainingLabels = ['2025-07-01', '2025-07-02', '2025-07-03'];
+  public trainingData = [
     { label: 'Cyclette', data: [30, 45, 20] },
     { label: 'Treadmill', data: [20, 15, 40] }
   ];
 
   // Esempio dati per cibi
-  foodLabels = ['Banana', 'Rice', 'Chicken', 'Apple'];
-  foodData = [5, 3, 2, 4];
+  public foodLabels = ['Banana', 'Rice', 'Chicken', 'Apple'];
+  public foodData = [5, 3, 2, 4];
 
-  barChartOptions: ChartOptions = {
+  public barChartOptions: ChartOptions = {
     responsive: true,
     plugins: { legend: { display: true } }
   };
-  barChartType: ChartType = 'bar';
+  public barChartType: ChartType = 'bar';
 }

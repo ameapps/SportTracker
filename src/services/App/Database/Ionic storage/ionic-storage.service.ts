@@ -26,9 +26,9 @@ import { AlgorithmHelper } from 'src/helpers/AlgorithmHelper';
 })
 export class IonicStorageService implements IDatabase {
 
-  constructor(private storage: StorageService,
-    private sanitizer: DomSanitizer,
-    private router: Router
+  constructor(public storage: StorageService,
+    public sanitizer: DomSanitizer,
+    public router: Router
   ) { }
 
   /**Prototype to get all elements associated to the specified entity */
@@ -102,7 +102,7 @@ export class IonicStorageService implements IDatabase {
     return savedTrainings;
   }
 
-  private addStorageTrainings(savedTrainings: object[], data: object): object[] {
+  public addStorageTrainings(savedTrainings: object[], data: object): object[] {
     savedTrainings.forEach(savedTraining => {
       data['value'].push(savedTraining);
     });
@@ -116,7 +116,7 @@ export class IonicStorageService implements IDatabase {
    * @param key
    * @param parsed
    */
-  private async setStorage(key: string, parsed: any) {
+  public async setStorage(key: string, parsed: any) {
     try {
       await this.storage.set(key, parsed);
     } catch (error) {
@@ -128,7 +128,7 @@ export class IonicStorageService implements IDatabase {
 
   /**Method getting the photoes from the gallery using both
    * ionic storage and indexedDb. */
-  private async getGalleryItems(items: object[]) {
+  public async getGalleryItems(items: object[]) {
     let allPhotos = null;
     try {     
       allPhotos = await this.getPhotoes();
@@ -148,7 +148,7 @@ export class IonicStorageService implements IDatabase {
    * where the webisite is executing. 
    * Localhost = ionic storage; 
    * Online = indexed Db */
-  private async getPhotoes() {
+  public async getPhotoes() {
     let photoes = null;
     if (ProjectHelper.isRunningOnlocalhost()) {
       photoes = await this.imagesFromStorage();
@@ -162,7 +162,7 @@ export class IonicStorageService implements IDatabase {
   //#region photoes from ionic storage
 
   /**Method getting the images from the ionic storage ar the specified key. */
-  private async imagesFromStorage() {
+  public async imagesFromStorage() {
     const key: string = DbEntities[DbEntities.PHOTO_STORAGE];
     const el = await this.storage.get(key);
     let arr = JSON.parse(el.value);
@@ -178,7 +178,7 @@ export class IonicStorageService implements IDatabase {
   //#region photoes from indexed db
 
   /**Method getting the images from the indexed db. */
-  private async imagesFromIndexedDb(photoes: any) {
+  public async imagesFromIndexedDb(photoes: any) {
     try {
       photoes = await this.indexedDbAllPhotoes();
       const keys = Object.keys(photoes[0]);
@@ -193,7 +193,7 @@ export class IonicStorageService implements IDatabase {
 
   /**Method getting all the pictures from the indexedDb
    * when ionic storage can't get them. */
-  private async indexedDbAllPhotoes() {
+  public async indexedDbAllPhotoes() {
     const indexesDb = await IndexedDbHelper.openDb('Disc') as any;
     const pictures = await IndexedDbHelper.AllObjectstoreElements(indexesDb, ['FileStorage']);
     return pictures;
@@ -212,7 +212,7 @@ export class IonicStorageService implements IDatabase {
    *    keys = ["pic", "name"];
    *    var result = [{blobBase64: "data:image/png;base64,bhkbfjhsbfd", "name": "a.jpg"}, {...}]
    * */
-  private asBlobBase64(photoes: any, keys: string[]) {
+  public asBlobBase64(photoes: any, keys: string[]) {
     const buildedObjs: object[] = [];
     let builded = new Object();
     for (let index = 0; index < photoes.length; index++) {

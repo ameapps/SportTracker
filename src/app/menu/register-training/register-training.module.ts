@@ -13,6 +13,7 @@ import { SelectorModule } from 'src/app/common/selector/selector.module';
 import { CustomTrainingModule } from './custom-training/custom-training.module';
 import {MatButtonModule} from '@angular/material/button';
 import { RtStep3Module } from './stepper/step 3/register-step3/rt-step3/rt-step3.module';
+import { IonicModule } from "@ionic/angular";
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { RtStep3Module } from './stepper/step 3/register-step3/rt-step3/rt-step3
     SelectorModule,
     CustomTrainingModule,
     MatButtonModule,
-    RtStep3Module
-  ]
+    RtStep3Module,
+    IonicModule
+]
 })
 export class RegisterTrainingModule { }

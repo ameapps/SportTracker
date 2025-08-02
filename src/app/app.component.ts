@@ -14,10 +14,10 @@ import { StorageService } from 'src/services/Services/storage/storage.service';
 export class AppComponent {
   public appPages = [];
   public labels = [];
-  constructor(private storage: StorageService, 
-    private assets: AssetsService,
-    private config: InitialConfigurationService,
-    private http: HttpClient
+  constructor(public storage: StorageService, 
+    public assets: AssetsService,
+    public config: InitialConfigurationService,
+    public http: HttpClient
     ) 
   {
     this.asyncConstructor();

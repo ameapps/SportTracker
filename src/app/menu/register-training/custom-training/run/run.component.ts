@@ -11,8 +11,8 @@ export class RunComponent implements OnInit {
 
   @Input() expiredTime;
 
-  constructor(private assets: AssetsService, 
-    private componentService: CustomTrainingService) { 
+  constructor(public assets: AssetsService, 
+    public componentService: CustomTrainingService) { 
       this.asyncConstructor();
     }
     

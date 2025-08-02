@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'menu/register-training',
+    redirectTo: 'menu/homepage',
     pathMatch: 'full'
   },
   {
@@ -37,7 +37,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   exports: [RouterModule]
 })

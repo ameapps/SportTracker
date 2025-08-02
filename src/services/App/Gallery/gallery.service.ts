@@ -11,7 +11,7 @@ export class GalleryService {
 
   photos: Photo[] = [];
 
-  constructor(private databaseService: DatabaseService) {
+  constructor(public databaseService: DatabaseService) {
     this.asyncConstructor();
   }
 

@@ -6,7 +6,7 @@ import { Platform } from '@ionic/angular';
 })
 export class PlatformService {
 
-  private _currentPlatform: string;
+  public _currentPlatform: string;
 
   constructor(public platform: Platform) {
     this._currentPlatform = this.setCurrentPlatform();
@@ -24,7 +24,7 @@ export class PlatformService {
   }
 
   // Are we on mobile platform? Yes if platform is ios or android, but not desktop or mobileweb, no otherwise
-  private setCurrentPlatform() {
+  public setCurrentPlatform() {
     if (
         this.platform.is('ios')
         || this.platform.is('android')

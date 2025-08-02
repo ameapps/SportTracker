@@ -8,7 +8,7 @@ export class ApiService {
   constructor() { }
 
   /**Method POSTING the data to the specified URL using http service.  */
-  upload(data: object) {
+  upload(data: any) {
 
   }
   

@@ -14,7 +14,7 @@ export class GphotoService  implements IDatabase {
   ALBUM = 'https://photoslibrary.googleapis.com/v1/albums';
   UPLOAD = 'https://photoslibrary.googleapis.com/v1/uploads'; 
 
-  constructor(private assets: AssetsService) { 
+  constructor(public assets: AssetsService) { 
   }
 
 

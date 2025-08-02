@@ -14,11 +14,11 @@ import { PhotoService } from 'src/services/Services/camera/photo.service';
 })
 export class RtStep3Component implements OnInit {
 
-  gallery: object[] = [];
+  gallery: any[] = [];
 
-  constructor(private photoService: PhotoService,
-    private databaseService: DatabaseService,
-    private registerTrainingService: RegisterTrainingService) { }
+  constructor(public photoService: PhotoService,
+    public databaseService: DatabaseService,
+    public registerTrainingService: RegisterTrainingService) { }
 
   asyncConstructor() {
   }

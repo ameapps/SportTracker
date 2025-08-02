@@ -8,7 +8,7 @@ import { IonicModule } from '@ionic/angular';
 
 
 @NgModule({
-  declarations: [HomepageComponent, LoginComponent],
+  declarations: [HomepageComponent],
   exports: [HomepageComponent],
   imports: [
     CommonModule,

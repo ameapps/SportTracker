@@ -8,7 +8,7 @@ import {  } from 'stream';
 })
 export class SelectorComponent implements OnInit, OnChanges {
 
-  @Input() selections: object[];
+  @Input() selections: any[];
   @Input() allowedSelectionNumber: number;
   @Output() selectedItems = new EventEmitter<number[]>();
 

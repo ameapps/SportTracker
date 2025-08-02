@@ -103,7 +103,7 @@ export class RegisterTrainingComponent implements OnInit {
    * the key is the character pressed on the
    * keyboard from the user.
    */
-  private getCharacter(event: any) {
+  public getCharacter(event: any) {
     return event.key;
   }
 

@@ -9,8 +9,8 @@ import {map, tap} from 'rxjs/operators';
 })
 export class AuthGuardService implements CanActivate {
 
-  constructor(private router: Router,
-              private socialAuthService: SocialAuthService) {
+  constructor(public router: Router,
+              public socialAuthService: SocialAuthService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {    

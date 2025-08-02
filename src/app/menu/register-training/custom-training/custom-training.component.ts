@@ -21,7 +21,7 @@ export class CustomTrainingComponent implements OnInit, OnChanges {
   strumentsMenu: string[] = [];
   //#endregion
 
-  constructor(private componentService: CustomTrainingService) {
+  constructor(public componentService: CustomTrainingService) {
     this.asyncConstructor();
   }
 

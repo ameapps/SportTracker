@@ -41,7 +41,7 @@ export class FirebaseHelper {
     }
 
     /**Method getting the data available at the specified path using the specified database. */
-    private static async getDbData(db: Database, path: any) {
+    public static async getDbData(db: Database, path: any) {
         const starCountRef = ref(db, path);
 
         const prom = new Promise((resolve, reject) => {
@@ -110,7 +110,7 @@ export class FirebaseHelper {
     }
 
     //#region get object key
-    private static async getPostKey(db: Database, postKeyType: string, key: string) {
+    public static async getPostKey(db: Database, postKeyType: string, key: string) {
         let postKey: string = '';
 
         switch (postKeyType) {

@@ -16,10 +16,10 @@ export class TapisRoulantComponent implements OnInit, OnChanges, OnDestroy {
 
   speeds: string[] = [];
 
-  constructor(private assets: AssetsService,
-    private componentService: TapisroulantService,
-    private registerTrainingService: RegisterTrainingService,
-    private customTrainingService: CustomTrainingService) {
+  constructor(public assets: AssetsService,
+    public componentService: TapisroulantService,
+    public registerTrainingService: RegisterTrainingService,
+    public customTrainingService: CustomTrainingService) {
     this.asyncConstructor();
   }
 

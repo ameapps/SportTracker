@@ -8,6 +8,7 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 import { AuthGuardService } from 'src/app/menu/login/auth-guard.service';
 import { LoginModule } from 'src/app/menu/login/login.module';
 import { MatCardModule } from '@angular/material/card';
+import { IonicModule } from "@ionic/angular";
 
 
 @NgModule({
@@ -17,8 +18,9 @@ import { MatCardModule } from '@angular/material/card';
     CommonModule,
     RtStep3RoutingModule,
     LoginModule,
-    MatCardModule
-  ],
+    MatCardModule,
+    IonicModule
+],
   providers: [{
     provide: 'SocialAuthServiceConfig',
     useValue: {

@@ -14,8 +14,8 @@ import { IDatabase } from 'src/services/Interfaces/Database';
 export class FirebaseStorageService implements IDatabase {
 
   constructor(
-    private assets: AssetsService,
-    private sanitizer: DomSanitizer,) {
+    public assets: AssetsService,
+    public sanitizer: DomSanitizer,) {
   }
 
   /**Prototype to get all elements associated to the specified entity */

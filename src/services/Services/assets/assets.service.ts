@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
  */
 export class AssetsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient) { }
 
   /**
    * @param path Method getting the content of the file (included into

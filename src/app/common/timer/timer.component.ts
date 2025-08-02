@@ -27,11 +27,11 @@ export class TimerComponent implements OnInit, OnChanges, OnDestroy {
 
   // THIS COMPONENT
 
-  @Output() timeExpired = new EventEmitter<object>();
+  @Output() timeExpired = new EventEmitter<any>();
 
   constructor(public timeShared: TimeSharedService,
-    private componentService: RegisterTrainingService,
-    private customTrainingService: CustomTrainingService,
+    public componentService: RegisterTrainingService,
+    public customTrainingService: CustomTrainingService,
     ) {
 
   }

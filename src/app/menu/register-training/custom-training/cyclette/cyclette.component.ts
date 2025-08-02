@@ -13,17 +13,17 @@ import { AssetsService } from 'src/services/Services/assets/assets.service';
 })
 export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
 
-  resistances: object[];
-  legsPositions: object[];
+  resistances: any[];
+  legsPositions: any[];
 
   @Input() expiredTime;
   @Output() timeExpired = new EventEmitter();
 
   // CycletteService
 
-  constructor(private componentService: CycletteService,
-    private registerTrainingService: RegisterTrainingService,
-    private customTrainingService: CustomTrainingService) {
+  constructor(public componentService: CycletteService,
+    public registerTrainingService: RegisterTrainingService,
+    public customTrainingService: CustomTrainingService) {
     this.asyncConstructor()
   }
 
@@ -65,7 +65,7 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   /**Method to enable the stepper navigator buttons. */
-  private enableSepperButtons() {
+  public enableSepperButtons() {
     this.registerTrainingService.stepsComplete[1] = true;
   }
 

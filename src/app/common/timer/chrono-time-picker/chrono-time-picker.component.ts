@@ -23,7 +23,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 
   @Output() definedTime = new EventEmitter();
   @Output() actualTime = new EventEmitter<string>();
-  @Output() timeExpired = new EventEmitter<object>();
+  @Output() timeExpired = new EventEmitter<any>();
 
   @Input() canCountdownStart = true;
 
@@ -39,9 +39,9 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
   intervalTimer: any;
 
   constructor(
-    private timeShared: TimeSharedService, // Da tenere!
-    private storage: StorageService,       // Da tenere!
-    private chronoService: ChronoTimePickerService) { }
+    public timeShared: TimeSharedService, // Da tenere!
+    public storage: StorageService,       // Da tenere!
+    public chronoService: ChronoTimePickerService) { }
 
   ngOnDestroy(): void {
     clearInterval(this.intervalTimer);
@@ -61,7 +61,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
    * Method checking whether the timepicker to 
    * @returns a boolean condition
    */
-  isBasic(): boolean {
+  public isBasic(): boolean {
     return this.chronoType === 'basic';
   }
 
@@ -70,7 +70,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
    * a clock close to a time setter
    * @returns a boolean condition 
    */
-  isTimeClock(): boolean {
+  public isTimeClock(): boolean {
     return this.chronoType === 'time-clock';
   }
 
@@ -79,7 +79,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
    * a clock close to an input element
    * @returns a boolean condition
    */
-  isInputClock(): boolean {
+  public isInputClock(): boolean {
     return this.chronoType === 'input-clock';
   }
   //#endregion
@@ -87,7 +87,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Click event listener over input click element.  
    */
-  InputClockClicked(): void {
+  public InputClockClicked(): void {
     this.inputClockClick = !this.inputClockClick;
   }
 
@@ -101,7 +101,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
    * It's triggered when 'ok' button is pressed.
    * @param value hour gotten from the widget
    */
-  timeChanged(value) {
+  public timeChanged(value) {
     this.time = value;
     this.definedTime.emit(value);
     this.clearTimer();
@@ -114,7 +114,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   /* Method to start the timer. */
-  async startTimer(time: string): Promise<void> {
+ public async startTimer(time: string): Promise<void> {
     if (!this.canCountdownStart) {
       this.timeExpired.emit(this.getTimeExpired());
       return;
@@ -195,7 +195,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
    * DA CAPIRE PERCHE' IL CODICE DELLA DOCUMENTAZIONE NON FUNZIONA. 
    * AL MOMENTO L'ESECUZIONE DI QUESTO METODO LANCIA UN'ECCEZIONE. 
    */
-  private startNativeTimer() {
+  public startNativeTimer() {
     const { App, BackgroundTask } = Plugins;
     App.addListener('appStateChange',  async (state) => {
       if (!state.isActive) {
@@ -226,7 +226,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
   // #region calculating time
 
     /**Method calculating and building the time shown in the timer. */
-    msToTime(milliseconds: number): string {
+    public msToTime(milliseconds: number): string {
       var ms = milliseconds % 1000;
       milliseconds = (milliseconds - ms) / 1000;
       var secs = milliseconds % 60;
@@ -238,19 +238,19 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
     }
   
   // Pad to 2 or 3 digits, default is 2
-  pad(n, z): string {
+  public pad(n, z): string {
     z = z || 2;
     return ('00' + n).slice(-z);
   }
 
   //#endregion
 
-  setTotalTime(): string {
+  public setTotalTime(): string {
     return `${this.hour}:${this.minutes}:${this.seconds}`
   }
 
   /**Method making an object containing the expired emitted time */
-  getTimeExpired(): object {
+  public getTimeExpired(): any {
     return {
       time: this.totalTime
     };

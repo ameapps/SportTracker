@@ -12,15 +12,15 @@ import { IonicStorageService } from './Ionic storage/ionic-storage.service';
 })
 export class DatabaseService {
 
-  constructor(private ionicStorageService: IonicStorageService,
-    private firebaseStorageService: FirebaseStorageService,
-    private gPhoto: GphotoService
+  constructor(public ionicStorageService: IonicStorageService,
+    public firebaseStorageService: FirebaseStorageService,
+    public gPhoto: GphotoService
   ) { }
 
 
   /**Prototype to get all elements associated to the specified entity */
-  async getAllItems(dbType: DbType, datatype: DbDataType): Promise<object[]> {
-    let datas: object[] = [];
+  async getAllItems(dbType: DbType, datatype: DbDataType): Promise<any[]> {
+    let datas: any[] = [];
     switch (dbType) {
       case DbType.IONIC_STORAGE:
         datas = await this.ionicStorageService.getAllItems(datatype);
@@ -37,7 +37,7 @@ export class DatabaseService {
 
   /**Method saving the shotted pictures to the ionic storage.
    Method to be called after addNewToGallery method. */
-  public async savePhoto(dbType: DbType, key: string, savedImageFile: object) {
+  public async savePhoto(dbType: DbType, key: string, savedImageFile: any) {
     switch (dbType) {
       case DbType.IONIC_STORAGE:
         await this.ionicStorageService.saveElement(key, savedImageFile);
@@ -57,7 +57,7 @@ export class DatabaseService {
     return true;
   }
 
-  async saveTrainingData(dbType: DbType, savedTrainings: object[]) {
+  async saveTrainingData(dbType: DbType, savedTrainings: any[]) {
     switch (dbType) {
       case DbType.IONIC_STORAGE:
         await this.ionicStorageService.saveTrainingData(savedTrainings);

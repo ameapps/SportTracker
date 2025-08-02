@@ -25,7 +25,7 @@ export class FoodHistoryComponent {
   ];
   choosenCategory: string;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(public fb: FormBuilder, public router: Router) {
     this.foodForm = this.fb.group({
       name: ['', Validators.required],
       quantity: [null, [Validators.required, Validators.min(0)]],

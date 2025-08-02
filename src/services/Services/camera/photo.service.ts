@@ -14,7 +14,7 @@ export class PhotoService {
   public photos: Photo[] = [];
   private PHOTO_STORAGE: string = DbEntities[DbEntities.PHOTO_STORAGE];
 
-  constructor(private databaseService: DatabaseService) { }
+  constructor(public databaseService: DatabaseService) { }
 
   /**Method to open camera and shotting a picture */
   public async shotPhoto() {
@@ -72,7 +72,7 @@ export class PhotoService {
     };
   }
 
-  private async readAsBase64(cameraPhoto: CameraPhoto) {
+  public async readAsBase64(cameraPhoto: CameraPhoto) {
     // Fetch the photo, read as a blob, then convert to base64 format
     const response = await fetch(cameraPhoto.webPath!);
     const blob = await response.blob();

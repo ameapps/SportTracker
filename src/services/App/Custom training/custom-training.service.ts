@@ -12,10 +12,10 @@ import { TapisroulantService } from './tapis roulant/tapisroulant.service';
 export class CustomTrainingService {
 
   /* This is to know if at least one custom train has been completed */
-  customTrainingsComplete: object[] = [];
+  customTrainingsComplete: any[] = [];
   trainingType: number;
 
-  constructor(private assets: AssetsService,
+  constructor(public assets: AssetsService,
   ) {
     this.asyncConstructor();
 
@@ -26,7 +26,7 @@ export class CustomTrainingService {
   }
 
   /**Method to init "RegisterTrainingService" */
-  initTrainigsComplete(training: any): object[] {
+  initTrainigsComplete(training: any): any[] {
     const result = [];
     training.forEach(element => {
       result.push({

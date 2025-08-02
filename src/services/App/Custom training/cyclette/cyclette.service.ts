@@ -15,10 +15,10 @@ export class CycletteService {
   canConsumeKcalShow = false;
   canShowNextTrain: boolean = false;
 
-  private registerTrainingService: RegisterTrainingService;
+  public registerTrainingService: RegisterTrainingService;
 
-  constructor(private assets: AssetsService,
-    private customTrainingService: CustomTrainingService) { }
+  constructor(public assets: AssetsService,
+    public customTrainingService: CustomTrainingService) { }
 
 
   /**Method prevening this component from showing 
@@ -30,11 +30,11 @@ export class CycletteService {
 
   //#region getters
 
-  getLegPositions(cyclette: string): object[] {
+  getLegPositions(cyclette: string): any[] {
     return JSON.parse(cyclette).legsPosition;
   }
 
-  getResistances(cyclette: string): object[] {
+  getResistances(cyclette: string): any[] {
     return JSON.parse(cyclette).resistance;
   }
 

@@ -43,10 +43,10 @@ export class RegisterTrainingService {
 
   //#endregion
 
-  constructor(private assets: AssetsService,
-    private customTrainingService: CustomTrainingService,
-    private tapisroulantService: TapisroulantService,
-    private cycletteService: CycletteService
+  constructor(public assets: AssetsService,
+    public customTrainingService: CustomTrainingService,
+    public tapisroulantService: TapisroulantService,
+    public cycletteService: CycletteService
   ) {
     this.tapisroulantService.setA(this);
     this.cycletteService.setA(this);
@@ -172,7 +172,7 @@ export class RegisterTrainingService {
  * custom tranining id.
  * @param id: custom training id
  */
-  private getTrainingData(id: number): object {
+  public getTrainingData(id: number): object {
     let data = null;
     switch (id) {
       case 1:
@@ -208,7 +208,7 @@ export class RegisterTrainingService {
   }
 
   /**Method to get the last custom training from the custom trainings list */
-  private lastCustomTraining() {
+  public lastCustomTraining() {
     const length = this.selectedTrainings.length;
     const strument = this.selectedTrainings[length - 1];
     const el = this.customTrainingService.customTrainingsComplete[strument];

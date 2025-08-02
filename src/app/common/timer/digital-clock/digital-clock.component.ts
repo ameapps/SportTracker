@@ -13,7 +13,7 @@ export class DigitalClockComponent implements OnInit, OnChanges {
   @Input() minutes: number | string;
   @Input() seconds: number | string;
 
-  constructor(private timeShared: TimeSharedService) { }
+  constructor(public timeShared: TimeSharedService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['hours']) {
