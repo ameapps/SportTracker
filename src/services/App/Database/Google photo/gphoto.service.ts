@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { DbDataType } from 'src/services/Enums/DbDataType';
 import { IDatabase } from 'src/services/Interfaces/Database';
-import { ApiHelper } from 'src/helpers/ApiHelper';
+import { ApiHelper } from 'src/app/helpers/ApiHelper';
 import { AssetsService } from 'src/services/Services/assets/assets.service';
-import { BlobHelper } from 'src/helpers/BlobHelper';
+import { BlobHelper } from 'src/app/helpers/BlobHelper';
 
 
 @Injectable({
@@ -12,9 +12,9 @@ import { BlobHelper } from 'src/helpers/BlobHelper';
 export class GphotoService  implements IDatabase {
 
   ALBUM = 'https://photoslibrary.googleapis.com/v1/albums';
-  UPLOAD = 'https://photoslibrary.googleapis.com/v1/uploads'; 
+  UPLOAD = 'https://photoslibrary.googleapis.com/v1/uploads';
 
-  constructor(public assets: AssetsService) { 
+  constructor(public assets: AssetsService) {
   }
 
 
@@ -24,7 +24,7 @@ export class GphotoService  implements IDatabase {
   }
 
   async createAlbum(name: string) {
-    const credentials = await this.assets.getFile('assets/Google/credentials sportmonitoring.json'); 
+    const credentials = await this.assets.getFile('assets/Google/credentials sportmonitoring.json');
     const header = {
       'content-type' : 'application/json',
       'Authorization': `Bearer ${credentials['web']['client_secret']}`,
@@ -41,13 +41,13 @@ export class GphotoService  implements IDatabase {
   }
 
   async upload(data: any) {
-    const credentials = await this.assets.getFile('assets/Google/credentials sportmonitoring.json'); 
+    const credentials = await this.assets.getFile('assets/Google/credentials sportmonitoring.json');
     const header = {
       'content-type' : 'octet-stream',
       'Authorization': `Bearer ${credentials['web']['client_secret']}`,
       'X-Goog-Upload-Content-Type': 'image/png',
       'X-Goog-Upload-Protocol': 'raw',
-      'mode' : 'no-cors'      
+      'mode' : 'no-cors'
     };
 
     const asBlob = BlobHelper.convertBase64ToBlob(data['blobBase64']);
@@ -62,7 +62,7 @@ export class GphotoService  implements IDatabase {
   }
 
 
-  
+
 
 
 }

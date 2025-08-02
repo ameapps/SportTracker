@@ -1,8 +1,8 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AppPage } from 'e2e/src/app.po';
-import { ApiHelper } from 'src/helpers/ApiHelper';
-import { AppPages } from 'src/Models/appPages';
+import { ApiHelper } from 'src/app/helpers/ApiHelper';
+import { AppPages } from 'src/app/Models/appPages';
 import { InitialConfigurationService } from 'src/services/App/Initial Configuration/initial-configuration.service';
 import { AssetsService } from 'src/services/Services/assets/assets.service';
 import { StorageService } from 'src/services/Services/storage/storage.service';
@@ -14,11 +14,11 @@ import { StorageService } from 'src/services/Services/storage/storage.service';
 export class AppComponent {
   public appPages = [];
   public labels = [];
-  constructor(public storage: StorageService, 
+  constructor(public storage: StorageService,
     public assets: AssetsService,
     public config: InitialConfigurationService,
     public http: HttpClient
-    ) 
+    )
   {
     this.asyncConstructor();
 
@@ -30,7 +30,7 @@ export class AppComponent {
     console.log('Menu items:', menu);
     menu.forEach(element => {
       const page = new AppPages(element.name, element.url, element.icon);
-      this.appPages.push(page)        
+      this.appPages.push(page)
     });
   }
 }

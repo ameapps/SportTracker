@@ -8,17 +8,17 @@ import { StorageService } from 'src/services/Services/storage/storage.service';
 import { IDatabase } from 'src/services/Interfaces/Database';
 
 import { DomSanitizer } from '@angular/platform-browser';
-import { IndexedDbHelper } from 'src/helpers/IndexedDbHelper';
+import { IndexedDbHelper } from 'src/app/helpers/IndexedDbHelper';
 import { Router } from '@angular/router';
-import { BlobHelper } from 'src/helpers/BlobHelper';
-import { ProjectHelper } from 'src/helpers/ProjectHelper';
+import { BlobHelper } from 'src/app/helpers/BlobHelper';
+import { ProjectHelper } from 'src/app/helpers/ProjectHelper';
 
 
 import { Storage } from '@capacitor/storage';
 import { isArray } from 'util';
 import { TypeofExpr } from '@angular/compiler';
-import { ObjectHelper } from 'src/helpers/ObjectHelper';
-import { AlgorithmHelper } from 'src/helpers/AlgorithmHelper';
+import { ObjectHelper } from 'src/app/helpers/ObjectHelper';
+import { AlgorithmHelper } from 'src/app/helpers/AlgorithmHelper';
 
 
 @Injectable({
@@ -45,7 +45,7 @@ export class IonicStorageService implements IDatabase {
   }
 
   /**
-   * Method saving an element at the specified key 
+   * Method saving an element at the specified key
    * on the ionic storage.
    * EXAMPLE:
    *    await this.ionicStorageService.saveElement(key, savedImageFile);
@@ -53,7 +53,7 @@ export class IonicStorageService implements IDatabase {
    *      key = "PHOTO_STORAGE"
    *      element = {"key": "value"}
    *    RESULT= [{..}, {..}, {..}, {"key": "value"}]
-   * @param key to use for saving the object. It allows to get it back. 
+   * @param key to use for saving the object. It allows to get it back.
    * @param element element to save.
    */
   async saveElement(key: string, element: object) {
@@ -130,12 +130,12 @@ export class IonicStorageService implements IDatabase {
    * ionic storage and indexedDb. */
   public async getGalleryItems(items: object[]) {
     let allPhotos = null;
-    try {     
+    try {
       allPhotos = await this.getPhotoes();
     } catch (error) {
       console.log(error)
     }
-    const arr: any = allPhotos; 
+    const arr: any = allPhotos;
     items = arr;
     const gottenkeys = [];
     if (allPhotos != null) {
@@ -144,9 +144,9 @@ export class IonicStorageService implements IDatabase {
     return items;
   }
 
-  /**Method getting the photoes from ionic storage or indexed db depending 
-   * where the webisite is executing. 
-   * Localhost = ionic storage; 
+  /**Method getting the photoes from ionic storage or indexed db depending
+   * where the webisite is executing.
+   * Localhost = ionic storage;
    * Online = indexed Db */
   public async getPhotoes() {
     let photoes = null;
@@ -206,8 +206,8 @@ export class IonicStorageService implements IDatabase {
   //#region utils
 
   /**Method chainging the specified object fielts renaming them
-   * making the object similiar to a storage object. 
-   * EXAMPLE: 
+   * making the object similiar to a storage object.
+   * EXAMPLE:
    *    photoes = [{content: "bhkbfjhsbfd", "name": "a.jpg"}, {...}]
    *    keys = ["pic", "name"];
    *    var result = [{blobBase64: "data:image/png;base64,bhkbfjhsbfd", "name": "a.jpg"}, {...}]

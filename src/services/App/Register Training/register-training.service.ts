@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable @typescript-eslint/ban-types */
 import { Injectable } from '@angular/core';
-import { StringHelper } from 'src/helpers/StringHelper';
+import { StringHelper } from 'src/app/helpers/StringHelper';
 import { AssetsService } from 'src/services/Services/assets/assets.service';
 import { CustomTrainingService } from '../Custom training/custom-training.service';
 import { CycletteService } from '../Custom training/cyclette/cyclette.service';

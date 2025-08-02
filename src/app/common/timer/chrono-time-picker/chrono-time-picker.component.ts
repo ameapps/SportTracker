@@ -1,6 +1,6 @@
 import { computeDecimalDigest } from "@angular/compiler/src/i18n/digest";
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from "@angular/core";
-import { StringHelper } from "src/helpers/StringHelper";
+import { StringHelper } from "src/app/helpers/StringHelper";
 import { ChronoTimePickerService } from "src/services/App/Time/Chrono time picker/chrono-time-picker.service";
 import { TimeSharedService } from "src/services/App/Time/time-shared.service";
 import { StorageService } from "src/services/Services/storage/storage.service";
@@ -58,7 +58,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
   //#region  checks
 
   /**
-   * Method checking whether the timepicker to 
+   * Method checking whether the timepicker to
    * @returns a boolean condition
    */
   public isBasic(): boolean {
@@ -66,16 +66,16 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   /**
-   * Method checking whether the timepicker to show is 
+   * Method checking whether the timepicker to show is
    * a clock close to a time setter
-   * @returns a boolean condition 
+   * @returns a boolean condition
    */
   public isTimeClock(): boolean {
     return this.chronoType === 'time-clock';
   }
 
   /**
-   * Method checking whether the timepicker to show is 
+   * Method checking whether the timepicker to show is
    * a clock close to an input element
    * @returns a boolean condition
    */
@@ -85,7 +85,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
   //#endregion
 
   /**
-   * Click event listener over input click element.  
+   * Click event listener over input click element.
    */
   public InputClockClicked(): void {
     this.inputClockClick = !this.inputClockClick;
@@ -151,11 +151,11 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
         return;
       }
 
-    /* Getting time from storage in case timer is not running 
+    /* Getting time from storage in case timer is not running
        on mobile, not to let timer stop in background */
        let millisec_from_db = await this.storage.get('timer');
        const has_timer_finished = !(await this.storage.get('has-timer-finished'));
-       if (millisec_from_db == null || millisec_from_db.value === '') { 
+       if (millisec_from_db == null || millisec_from_db.value === '') {
          this.storage.set('timer', totalMillisecs);
         }
        // Calcolo i millisecondi corretti in caso di sospensione dell'app
@@ -167,7 +167,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
        } else {
          millisec = totalMillisecs;
        }
-   
+
        // Calculating if the timer has finished or not
        const timer_finished = await this.storage.get('has-timer-finished');
        const hasTimerFinished = timer_finished != null && timer_finished.value as number > 0;
@@ -191,9 +191,9 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 
   /**Starting native timer using a Capacitor Background task.
    * This code will only work on android and iOS devices.
-   * DA CONTINUARE! 
-   * DA CAPIRE PERCHE' IL CODICE DELLA DOCUMENTAZIONE NON FUNZIONA. 
-   * AL MOMENTO L'ESECUZIONE DI QUESTO METODO LANCIA UN'ECCEZIONE. 
+   * DA CONTINUARE!
+   * DA CAPIRE PERCHE' IL CODICE DELLA DOCUMENTAZIONE NON FUNZIONA.
+   * AL MOMENTO L'ESECUZIONE DI QUESTO METODO LANCIA UN'ECCEZIONE.
    */
   public startNativeTimer() {
     const { App, BackgroundTask } = Plugins;
@@ -236,7 +236,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
       // Building the timer string
       return this.pad(hrs, 2) + ':' + this.pad(mins, 2) + ':' + this.pad(secs, 2) + '.' + this.pad(ms, 2);
     }
-  
+
   // Pad to 2 or 3 digits, default is 2
   public pad(n, z): string {
     z = z || 2;
@@ -327,7 +327,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 export function workerRunner(milliseconds) {
   /**Codice del service worker */
   self.onmessage = function (event) {
-    let millisec = milliseconds; 
+    let millisec = milliseconds;
     this.intervalTimer = setInterval(() => {
       millisec -= 1000;
       const timeCalculations = {
@@ -375,5 +375,5 @@ export function workerRunner(milliseconds) {
 }
 
 
-// #endregion 
+// #endregion
 

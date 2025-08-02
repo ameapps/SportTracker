@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { DbType } from 'src/services/Enums/DbType';
 import { DbDataType } from 'src/services/Enums/DbDataType';
 import { DatabaseService } from '../Database/database.service';
-import { Photo } from 'src/Models/photo.model';
+import { Photo } from 'src/app/Models/photo.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class GalleryService {
 
   /**
    * Method getting the photoes to show in gallery.
-   * @returns 
+   * @returns
    */
   public async getGalleryPhotos(dbType: DbType): Promise<Photo[]> {
     let photoes:Photo[] = [];
@@ -30,7 +30,7 @@ export class GalleryService {
         photoes = await this.databaseService.getAllItems(
           DbType.IONIC_STORAGE,
           DbDataType.GALLERY
-        ) as Photo[];        
+        ) as Photo[];
         break;
       case DbType.FIREBASE:
         photoes = await this.databaseService.getAllItems(

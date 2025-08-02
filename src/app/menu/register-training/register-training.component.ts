@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { MatHorizontalStepper, MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
-import { StringHelper } from 'src/helpers/StringHelper';
+import { StringHelper } from 'src/app/helpers/StringHelper';
 import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
 import { CycletteService } from 'src/services/App/Custom training/cyclette/cyclette.service';
 import { TapisroulantService } from 'src/services/App/Custom training/tapis roulant/tapisroulant.service';

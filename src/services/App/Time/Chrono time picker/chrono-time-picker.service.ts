@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { StringHelper } from 'src/helpers/StringHelper';
+import { StringHelper } from 'src/app/helpers/StringHelper';
 import { PlatformService } from 'src/services/Services/platform/platform.service';
 
 @Injectable({
@@ -9,20 +9,20 @@ export class ChronoTimePickerService {
 
 
   constructor(public platformService: PlatformService) { }
-  
+
   //#region calc milliseconds
 
   /**Method calcolating the millisec time of the timepicker. */
   calcMillisec(hour: number, minutes: number): number {
-    return this.calcHourMillisec(hour) + this.calcMinutesMillisec(minutes); 
+    return this.calcHourMillisec(hour) + this.calcMinutesMillisec(minutes);
   }
 
 
   /**Method transforming the specified minutes in its corrisponding milliseconds */
   calcMinutesMillisec(minutes: number): number {
-    const ONE_SECOND = 1000; 
+    const ONE_SECOND = 1000;
     const MINUTE_SECONDS = 60;
-    return minutes * MINUTE_SECONDS * ONE_SECOND; 
+    return minutes * MINUTE_SECONDS * ONE_SECOND;
   }
 
   /**Method transforming the specified hours in its corrisponding milliseconds */
@@ -45,7 +45,7 @@ export class ChronoTimePickerService {
     const hours = StringHelper.msToTime(millisec);
     return hours;
   }
-  
+
 
 
 

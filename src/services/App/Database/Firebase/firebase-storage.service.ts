@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { BlobHelper } from 'src/helpers/BlobHelper';
-import { FirebaseHelper } from 'src/helpers/FirebaseHelper';
-import { ObjectHelper } from 'src/helpers/ObjectHelper';
+import { BlobHelper } from 'src/app/helpers/BlobHelper';
+import { FirebaseHelper } from 'src/app/helpers/FirebaseHelper';
+import { ObjectHelper } from 'src/app/helpers/ObjectHelper';
 import { DbDataType } from 'src/services/Enums/DbDataType';
 import { DbEntities } from 'src/services/Enums/DbEntitities';
 import { AssetsService } from 'src/services/Services/assets/assets.service';
@@ -23,7 +23,7 @@ export class FirebaseStorageService implements IDatabase {
     const credentials = await this.getCredentials();
     let items: object[] = [];
     switch (datatype) {
-      case DbDataType.GALLERY:     
+      case DbDataType.GALLERY:
         items = await this.getGalleryItems(credentials);
         break;
       default:
@@ -34,10 +34,10 @@ export class FirebaseStorageService implements IDatabase {
 
   /**
    * Method saving the soecified element on firebase
-   * at the specified object key. 
-   * @param key 
-   * @param savedImageFile 
-   * @returns 
+   * at the specified object key.
+   * @param key
+   * @param savedImageFile
+   * @returns
    */
   async saveElement(key: string, savedImageFile: object) {
     const credentials = await this.getCredentials();
@@ -47,10 +47,10 @@ export class FirebaseStorageService implements IDatabase {
     FirebaseHelper.pushToChild(savedImageFile, credentials, key);
   }
 
-  /**Method getting the photoes from the gallery using 
+  /**Method getting the photoes from the gallery using
    * the firebase realtime database. */
   async getGalleryItems(credentials: object): Promise<object[]> {
-    const key = DbEntities[DbEntities.PHOTO_STORAGE];   
+    const key = DbEntities[DbEntities.PHOTO_STORAGE];
     const allPhotos = await FirebaseHelper.getData(credentials, key) as object[];
     let fixedData: object[] = [];
     if (allPhotos != null) {
@@ -61,7 +61,7 @@ export class FirebaseStorageService implements IDatabase {
 
   /**
    * Method sinifizing the photoes gotten from firebase.
-   * @param data 
+   * @param data
    */
   sanitizePhotoes(data: object[]): object[] {
     let arr: object[] = [];
