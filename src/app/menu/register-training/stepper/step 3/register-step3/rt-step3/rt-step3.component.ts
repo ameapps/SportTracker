@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Component, OnInit } from '@angular/core';
 import { Photo } from '@capacitor/camera';
-import { DatabaseService } from 'src/services/App/Database/database.service';
-import { RegisterTrainingService } from 'src/services/App/Register Training/register-training.service';
-import { DbEntities } from 'src/services/Enums/DbEntitities';
-import { DbType } from 'src/services/Enums/DbType';
-import { PhotoService } from 'src/services/Services/camera/photo.service';
+import { DatabaseService } from 'src/app/services/App/Database/database.service';
+import { RegisterTrainingService } from 'src/app/services/App/Register Training/register-training.service';
+import { DbEntities } from 'src/app/services/Enums/DbEntitities';
+import { DbType } from 'src/app/services/Enums/DbType';
+import { PhotoService } from 'src/app/services/Services/camera/photo.service';
 
 @Component({
   selector: 'app-rt-step3',
@@ -31,7 +31,7 @@ export class RtStep3Component implements OnInit {
     const savedImageFile = await this.photoService.savePicture(photo);
     const key = DbEntities[DbEntities.PHOTO_STORAGE];
 
-    // saving the photo 
+    // saving the photo
     this.photoService.savePhoto(savedImageFile, key);
     const photos = await this.photoService.loadSaved();
 

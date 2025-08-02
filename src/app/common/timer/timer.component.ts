@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { dateInputsHaveChanged } from '@angular/material/datepicker/datepicker-input-base';
-import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
-import { RegisterTrainingService } from 'src/services/App/Register Training/register-training.service';
-import { TimeSharedService } from 'src/services/App/Time/time-shared.service';
+import { CustomTrainingService } from 'src/app/services/App/Custom training/custom-training.service';
+import { RegisterTrainingService } from 'src/app/services/App/Register Training/register-training.service';
+import { TimeSharedService } from 'src/app/services/App/Time/time-shared.service';
 import { threadId } from 'worker_threads';
 
 @Component({

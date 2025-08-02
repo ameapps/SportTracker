@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { AppPage } from 'e2e/src/app.po';
 import { ApiHelper } from 'src/app/helpers/ApiHelper';
 import { AppPages } from 'src/app/Models/appPages';
-import { InitialConfigurationService } from 'src/services/App/Initial Configuration/initial-configuration.service';
-import { AssetsService } from 'src/services/Services/assets/assets.service';
-import { StorageService } from 'src/services/Services/storage/storage.service';
+import { InitialConfigurationService } from 'src/app/services/App/Initial Configuration/initial-configuration.service';
+import { AssetsService } from 'src/app/services/Services/assets/assets.service';
+import { StorageService } from 'src/app/services/Services/storage/storage.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',

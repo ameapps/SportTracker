@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
-import { AssetsService } from 'src/services/Services/assets/assets.service';
+import { CustomTrainingService } from 'src/app/services/App/Custom training/custom-training.service';
+import { AssetsService } from 'src/app/services/Services/assets/assets.service';
 
 @Component({
   selector: 'app-run',
@@ -11,11 +11,11 @@ export class RunComponent implements OnInit {
 
   @Input() expiredTime;
 
-  constructor(public assets: AssetsService, 
-    public componentService: CustomTrainingService) { 
+  constructor(public assets: AssetsService,
+    public componentService: CustomTrainingService) {
       this.asyncConstructor();
     }
-    
+
   asyncConstructor() {
     console.log('to be implemented')
   }

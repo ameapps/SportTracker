@@ -10,10 +10,10 @@ import {
 import { MatHorizontalStepper, MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { StringHelper } from 'src/app/helpers/StringHelper';
-import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
-import { CycletteService } from 'src/services/App/Custom training/cyclette/cyclette.service';
-import { TapisroulantService } from 'src/services/App/Custom training/tapis roulant/tapisroulant.service';
-import { RegisterTrainingService } from 'src/services/App/Register Training/register-training.service';
+import { CustomTrainingService } from 'src/app/services/App/Custom training/custom-training.service';
+import { CycletteService } from 'src/app/services/App/Custom training/cyclette/cyclette.service';
+import { TapisroulantService } from 'src/app/services/App/Custom training/tapis roulant/tapisroulant.service';
+import { RegisterTrainingService } from 'src/app/services/App/Register Training/register-training.service';
 
 @Component({
   selector: 'app-register-training',

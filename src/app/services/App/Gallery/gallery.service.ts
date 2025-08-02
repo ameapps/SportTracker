@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { DbType } from 'src/services/Enums/DbType';
-import { DbDataType } from 'src/services/Enums/DbDataType';
+import { DbType } from 'src/app/services/Enums/DbType';
+import { DbDataType } from 'src/app/services/Enums/DbDataType';
 import { DatabaseService } from '../Database/database.service';
 import { Photo } from 'src/app/Models/photo.model';
 

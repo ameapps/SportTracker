@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
-import { TimeSharedService } from 'src/services/App/Time/time-shared.service';
+import { TimeSharedService } from 'src/app/services/App/Time/time-shared.service';
 import { EventEmitter } from 'stream';
 
 @Component({

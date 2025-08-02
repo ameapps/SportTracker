@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { DbDataType } from 'src/services/Enums/DbDataType';
-import { IDatabase } from 'src/services/Interfaces/Database';
+import { DbDataType } from 'src/app/services/Enums/DbDataType';
+import { IDatabase } from 'src/app/services/Interfaces/Database';
 import { ApiHelper } from 'src/app/helpers/ApiHelper';
-import { AssetsService } from 'src/services/Services/assets/assets.service';
+import { AssetsService } from 'src/app/services/Services/assets/assets.service';
 import { BlobHelper } from 'src/app/helpers/BlobHelper';
 
 

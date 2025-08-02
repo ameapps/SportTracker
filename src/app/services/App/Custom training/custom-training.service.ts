@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Injectable } from '@angular/core';
 import { RegisterTrainingComponent } from 'src/app/menu/register-training/register-training.component';
-import { AssetsService } from 'src/services/Services/assets/assets.service';
+import { AssetsService } from '../../Services/assets/assets.service';
 import { RegisterTrainingService } from '../Register Training/register-training.service';
 import { CycletteService } from './cyclette/cyclette.service';
 import { TapisroulantService } from './tapis roulant/tapisroulant.service';

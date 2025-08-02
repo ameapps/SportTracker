@@ -3,10 +3,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { BlobHelper } from 'src/app/helpers/BlobHelper';
 import { FirebaseHelper } from 'src/app/helpers/FirebaseHelper';
 import { ObjectHelper } from 'src/app/helpers/ObjectHelper';
-import { DbDataType } from 'src/services/Enums/DbDataType';
-import { DbEntities } from 'src/services/Enums/DbEntitities';
-import { AssetsService } from 'src/services/Services/assets/assets.service';
-import { IDatabase } from 'src/services/Interfaces/Database';
+// Update the import path below to the correct relative path if needed
+import { DbDataType } from '../../../Enums/DbDataType';
+// Update the import path below to the correct relative path if needed
+import { DbEntities } from 'src/app/services/Enums/DbEntitities';
+import { AssetsService } from 'src/app/services/Services/assets/assets.service';
+import { IDatabase } from 'src/app/services/Interfaces/Database';
 
 @Injectable({
   providedIn: 'root'

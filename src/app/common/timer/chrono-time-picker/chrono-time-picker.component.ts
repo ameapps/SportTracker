@@ -1,12 +1,12 @@
 import { computeDecimalDigest } from "@angular/compiler/src/i18n/digest";
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from "@angular/core";
 import { StringHelper } from "src/app/helpers/StringHelper";
-import { ChronoTimePickerService } from "src/services/App/Time/Chrono time picker/chrono-time-picker.service";
-import { TimeSharedService } from "src/services/App/Time/time-shared.service";
-import { StorageService } from "src/services/Services/storage/storage.service";
+import { ChronoTimePickerService } from "src/app/services/App/Time/Chrono time picker/chrono-time-picker.service";
+import { TimeSharedService } from "src/app/services/App/Time/time-shared.service";
+import { StorageService } from "src/app/services/Services/storage/storage.service";
 import { Plugins } from '@capacitor/core';
 import { Dialog } from '@capacitor/dialog';
-import { RegisterTrainingService } from "src/services/App/Register Training/register-training.service";
+import { RegisterTrainingService } from "src/app/services/App/Register Training/register-training.service";
 
 @Component({
   selector: 'app-chrono-time-picker',

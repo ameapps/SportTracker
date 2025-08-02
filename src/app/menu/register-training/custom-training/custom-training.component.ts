@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
+import { CustomTrainingService } from 'src/app/services/App/Custom training/custom-training.service';
 
 @Component({
   selector: 'app-custom-training',
@@ -16,7 +16,7 @@ export class CustomTrainingComponent implements OnInit, OnChanges {
 
   @Input() expiredTime: object;
 
-  @Output() timeExpired = new EventEmitter(); 
+  @Output() timeExpired = new EventEmitter();
 
   strumentsMenu: string[] = [];
   //#endregion

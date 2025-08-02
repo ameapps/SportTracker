@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Injectable } from '@angular/core';
 import { StringHelper } from 'src/app/helpers/StringHelper';
-import { AssetsService } from 'src/services/Services/assets/assets.service';
+import { AssetsService } from 'src/app/services/Services/assets/assets.service';
 import { CustomTrainingService } from '../Custom training/custom-training.service';
 import { CycletteService } from '../Custom training/cyclette/cyclette.service';
 import { TapisroulantService } from '../Custom training/tapis roulant/tapisroulant.service';

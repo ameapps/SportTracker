@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Camera, CameraPhoto, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Storage } from '@capacitor/storage';
-import { DatabaseService } from 'src/services/App/Database/database.service';
-import { IonicStorageService } from 'src/services/App/Database/Ionic storage/ionic-storage.service';
-import { DbEntities } from 'src/services/Enums/DbEntitities';
-import { DbType } from 'src/services/Enums/DbType';
+import { DatabaseService } from 'src/app/services/App/Database/database.service';
+import { IonicStorageService } from 'src/app/services/App/Database/Ionic storage/ionic-storage.service';
+import { DbEntities } from 'src/app/services/Enums/DbEntitities';
+import { DbType } from 'src/app/services/Enums/DbType';
 
 @Injectable({
   providedIn: 'root'
@@ -55,7 +55,7 @@ export class PhotoService {
 
     // Nella versione pubblicat a volte non funziona!
     try {
-      const savedFile = await Filesystem.writeFile(builded); 
+      const savedFile = await Filesystem.writeFile(builded);
     } catch (error) {
       console.log(`Couldn't save photo on local indexed Db. ${error}`)
     }

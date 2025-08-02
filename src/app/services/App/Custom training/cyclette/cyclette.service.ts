@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AssetsService } from 'src/services/Services/assets/assets.service';
+import { AssetsService } from '../../../Services/assets/assets.service';
 import { RegisterTrainingService } from '../../Register Training/register-training.service';
 import { CustomTrainingService } from '../custom-training.service';
 
@@ -21,8 +21,8 @@ export class CycletteService {
     public customTrainingService: CustomTrainingService) { }
 
 
-  /**Method prevening this component from showing 
-    the last training inserted values.  */ 
+  /**Method prevening this component from showing
+    the last training inserted values.  */
   resetValues() {
     this.choosenResistance = null;
     this.choosenPosition = null;
@@ -46,7 +46,7 @@ export class CycletteService {
 
 
   //#region kcal consume
-  
+
   /* Algorithm estimating the kcal consume after training for the specfied time */
   estimateKcalConsume(millisec: number): number {
     const HOUR_CALORIES = 672;
@@ -73,7 +73,7 @@ export class CycletteService {
     return millisecsCalc;
   }
 
-  /**Method collecting all the data this component could get from the user */ 
+  /**Method collecting all the data this component could get from the user */
   getData() {
     const obj = {
       choosenResistance: this.choosenResistance,

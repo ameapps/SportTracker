@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Injectable } from '@angular/core';
-import { DbDataType } from 'src/services/Enums/DbDataType';
-import { DbType } from 'src/services/Enums/DbType';
-import { IDatabase } from 'src/services/Interfaces/Database';
+import { DbDataType } from '../../Enums/DbDataType';
+import { DbType } from '../../Enums/DbType';
+import { IDatabase } from '../../Interfaces/Database';
 import { FirebaseStorageService } from './Firebase/firebase-storage.service';
 import { GphotoService } from './Google photo/gphoto.service';
 import { IonicStorageService } from './Ionic storage/ionic-storage.service';
@@ -49,7 +49,7 @@ export class DatabaseService {
         // provo a vedere se riesco a creare l'album. eliminare
         await this.gPhoto.createAlbum('ste');
         await this.gPhoto.upload(savedImageFile);
-        break; 
+        break;
       default:
         break;
     }

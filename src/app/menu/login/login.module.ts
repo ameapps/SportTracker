@@ -11,7 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { MaterialModule } from 'src/modules/material/material.module';
+import { MaterialModule } from 'src/app/modules/material/material.module';
 
 
 @NgModule({

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
-import { CustomTrainingService } from 'src/services/App/Custom training/custom-training.service';
-import { CycletteService } from 'src/services/App/Custom training/cyclette/cyclette.service';
-import { RegisterTrainingService } from 'src/services/App/Register Training/register-training.service';
-import { AssetsService } from 'src/services/Services/assets/assets.service';
+import { CustomTrainingService } from 'src/app/services/App/Custom training/custom-training.service';
+import { CycletteService } from 'src/app/services/App/Custom training/cyclette/cyclette.service';
+import { RegisterTrainingService } from 'src/app/services/App/Register Training/register-training.service';
+import { AssetsService } from 'src/app/services/Services/assets/assets.service';
 
 @Component({
   selector: 'app-cyclette',
@@ -75,7 +75,7 @@ export class CycletteComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
    * Listener for time events from chrono-timer component
-   * @param event stirng representing the time emitted 
+   * @param event stirng representing the time emitted
    */
   definedTime(event) {
     this.registerTrainingService.definedTime = event;

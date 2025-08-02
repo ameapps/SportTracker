@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AssetsService } from 'src/services/Services/assets/assets.service';
+import { AssetsService } from 'src/app/services/Services/assets/assets.service';
 
 @Injectable({
   providedIn: 'root'

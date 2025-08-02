@@ -2,10 +2,10 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
 /* eslint-disable @typescript-eslint/ban-types */
 import { Injectable } from '@angular/core';
-import { DbDataType } from 'src/services/Enums/DbDataType';
-import { DbEntities } from 'src/services/Enums/DbEntitities';
-import { StorageService } from 'src/services/Services/storage/storage.service';
-import { IDatabase } from 'src/services/Interfaces/Database';
+import { DbDataType } from 'src/app/services/Enums/DbDataType';
+import { DbEntities } from 'src/app/services/Enums/DbEntitities';
+import { StorageService } from 'src/app/services/Services/storage/storage.service';
+import { IDatabase } from 'src/app/services/Interfaces/Database';
 
 import { DomSanitizer } from '@angular/platform-browser';
 import { IndexedDbHelper } from 'src/app/helpers/IndexedDbHelper';

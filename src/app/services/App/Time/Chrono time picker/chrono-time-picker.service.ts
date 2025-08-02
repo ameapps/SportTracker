@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StringHelper } from 'src/app/helpers/StringHelper';
-import { PlatformService } from 'src/services/Services/platform/platform.service';
+import { PlatformService } from 'src/app/services/Services/platform/platform.service';
 
 @Injectable({
   providedIn: 'root'
