@@ -7,7 +7,7 @@
         "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
         "client_secret": "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",
         "redirect_uris": [
-            "https://sportmonitoring-8b00f.web.app/menu/train"
+            "https://sportmonitoring-8b00f.web.app/menu/register-training"
         ]
     }
 }
