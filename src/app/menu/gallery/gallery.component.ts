@@ -9,6 +9,8 @@ import { GalleryService } from 'src/app/services/App/Gallery/gallery.service';
   styleUrls: ['./gallery.component.scss'],
 })
 export class GalleryComponent implements OnInit {
+
+  deleteLoaderMs = 5000;
   isLoading = true;
   isTimeout = false;
   timeoutRef: any;
@@ -99,7 +101,7 @@ export class GalleryComponent implements OnInit {
         this.clearSelection();
         this.cdr.detectChanges();
       }
-    }, 30000);
+    }, this.deleteLoaderMs);
     try {
       await this.componentService.deletePhotosFromCloud(photosToDelete);
       // Aggiorna la lista locale
