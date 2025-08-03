@@ -4,7 +4,6 @@ import { DbDataType } from '../../Enums/DbDataType';
 import { DbType } from '../../Enums/DbType';
 import { IDatabase } from '../../Interfaces/Database';
 import { FirebaseStorageService } from './Firebase/firebase-storage.service';
-import { GphotoService } from './Google photo/gphoto.service';
 import { IonicStorageService } from './Ionic storage/ionic-storage.service';
 
 @Injectable({
@@ -13,8 +12,7 @@ import { IonicStorageService } from './Ionic storage/ionic-storage.service';
 export class DatabaseService {
 
   constructor(public ionicStorageService: IonicStorageService,
-    public firebaseStorageService: FirebaseStorageService,
-    public gPhoto: GphotoService
+    public firebaseStorageService: FirebaseStorageService
   ) { }
 
 
@@ -44,11 +42,6 @@ export class DatabaseService {
         break;
       case DbType.FIREBASE:
         await this.firebaseStorageService.saveElement(key, savedImageFile);
-        break;
-      case DbType.GPHOTO:
-        // provo a vedere se riesco a creare l'album. eliminare
-        await this.gPhoto.createAlbum('ste');
-        await this.gPhoto.upload(savedImageFile);
         break;
       default:
         break;
