@@ -60,11 +60,7 @@ export class FirebaseHelper {
     return (foodHistory || []).reduce((acc, curr) => {
       if (Array.isArray(curr)) {
         curr.forEach((item) => {
-          acc.push({
-            id: item.id,
-            type: item.type,
-            data: item.data,
-          });
+          acc.push(item);
         });
       }
       return acc;
