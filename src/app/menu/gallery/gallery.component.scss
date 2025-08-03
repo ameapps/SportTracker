@@ -1,3 +1,21 @@
+.selected-photo {
+  border: 3px solid var(--ion-color-primary);
+  opacity: 0.7;
+}
+
+.photo-action-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  background: #222;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem 0;
+  z-index: 3000;
+}
 .gallery-loader {
   position: fixed;
   top: 0;
