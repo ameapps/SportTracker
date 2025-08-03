@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { DatabaseService } from 'src/app/services/App/Database/database.service';
+import { DbType } from 'src/app/services/Enums/DbType';
 
 @Component({
   selector: 'app-food-history',
@@ -25,7 +27,11 @@ export class FoodHistoryComponent {
   ];
   choosenCategory: string;
 
-  constructor(public fb: FormBuilder, public router: Router) {
+  constructor(
+    public fb: FormBuilder,
+    public router: Router,
+    private database: DatabaseService
+  ) {
     this.foodForm = this.fb.group({
       name: ['', Validators.required],
       quantity: [null, [Validators.required, Validators.min(0)]],
@@ -52,9 +58,11 @@ export class FoodHistoryComponent {
 
   onSubmit() {
     if (this.foodForm.valid) {
-      // Salva i dati o invia al servizio
+      //01. Salva i dati o invia al servizio
       console.log(this.foodForm.value);
-      // Reset o navigazione
+      //02. Salvo su firebase i dati sul cibo appena mangiato
+      this.database.saveFoodHistoryData(DbType.FIREBASE, [this.foodForm.value]);
+      //03. Reset o navigazione
       this.router.navigate(['/menu/homepage']);
     }
   }

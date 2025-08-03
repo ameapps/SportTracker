@@ -63,4 +63,17 @@ export class DatabaseService {
     }
   }
 
+  async saveFoodHistoryData(dbType: DbType, savedFoodHistory: any[]) {
+    switch (dbType) {
+      case DbType.IONIC_STORAGE:
+        await this.ionicStorageService.saveTrainingData(savedFoodHistory);
+        break;
+      case DbType.FIREBASE:
+        await this.firebaseStorageService.saveElement('FoodHistory', savedFoodHistory);
+        break;
+      default:
+        break;
+    }
+  }
+
 }
