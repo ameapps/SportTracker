@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class ApiService {
   public fbCredentials: any;
-  public googleCredentials: any;
 
   constructor() {}
 

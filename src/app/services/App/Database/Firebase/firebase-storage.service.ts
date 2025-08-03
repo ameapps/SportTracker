@@ -18,7 +18,7 @@ export class FirebaseStorageService implements IDatabase {
   constructor(public api_service: ApiService, public assets: AssetsService, public sanitizer: DomSanitizer) {}
 
   /**Prototype to get all elements associated to the specified entity */
-  async getAllItems(datatype: DbDataType): Promise<object[]> {
+  async getAllItems(datatype: DbDataType): Promise<any[]> {
     const credentials = this.api_service.fbCredentials ?? await this.assets.getFile('assets/Firebase/sportmonitoring_credentials.json');
     let items: object[] = [];
     switch (datatype) {
@@ -38,7 +38,7 @@ export class FirebaseStorageService implements IDatabase {
    * @param savedImageFile
    * @returns
    */
-  async saveElement(key: string, savedImageFile: object) {
+  async saveElement(key: string, savedImageFile: any) {
     const credentials = await this.getFbCredentials();
     let data = (await FirebaseHelper.getData(credentials, key)) as object[];
     data = data != null ? data : [];
@@ -48,13 +48,14 @@ export class FirebaseStorageService implements IDatabase {
 
   /**Method getting the photoes from the gallery using
    * the firebase realtime database. */
-  async getGalleryItems(credentials: object): Promise<object[]> {
+  async getGalleryItems(credentials: any): Promise<any[]> {
     const key = DbEntities[DbEntities.PHOTO_STORAGE];
     const allPhotos = (await FirebaseHelper.getData(
       credentials,
       key
-    )) as object[];
-    let fixedData: object[] = [];
+    )) as any[];
+    console.log('FirebaseStorageService.getGalleryItems', allPhotos);
+    let fixedData: any[] = [];
     if (allPhotos != null) {
       fixedData = this.sanitizePhotoes(allPhotos);
     }
@@ -65,8 +66,8 @@ export class FirebaseStorageService implements IDatabase {
    * Method sinifizing the photoes gotten from firebase.
    * @param data
    */
-  sanitizePhotoes(data: object[]): object[] {
-    let arr: object[] = [];
+  sanitizePhotoes(data: any[]): any[] {
+    let arr: any[] = [];
     if (data != null) {
       data.forEach((element) => {
         const blob = BlobHelper.convertBase64ToBlob(

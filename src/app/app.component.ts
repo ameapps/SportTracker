@@ -26,7 +26,7 @@ export class AppComponent {
   }
 
   async asyncConstructor() {
-    await this.common.setApiConfigs();
+    await this.common.getApiConfigs();
     const menuSer = await this.config.getMenuItems();
     const menu = JSON.parse(menuSer);
     console.log('Menu items:', menu);
