@@ -8,6 +8,9 @@ import { Photo } from 'src/app/Models/photo.model';
   providedIn: 'root'
 })
 export class GalleryService {
+  deletePhotosFromCloud(photosToDelete: Photo[]) {
+    throw new Error('Method not implemented.');
+  }
 
   photos: Photo[] = [];
 

@@ -15,7 +15,7 @@
       <mat-progress-spinner color="primary" mode="indeterminate" diameter="48"></mat-progress-spinner>
       <div class="empty-gallery">
         <ion-icon name="images-outline" size="large"></ion-icon>
-        <p>loading photoes</p>
+        <p>{{ selectedPhotos.length > 0 ? 'Eliminazione in corso...' : 'loading photoes' }}</p>
       </div>
     </div>
 

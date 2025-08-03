@@ -86,14 +86,40 @@ export class GalleryComponent implements OnInit {
   }
 
   // Elimina le foto selezionate
-  deleteSelectedPhotos() {
+  async deleteSelectedPhotos() {
     if (this.selectedPhotos.length === 0) return;
-    this.selectedPhotos.sort((a, b) => b - a); // Elimina dall'ultimo per non shiftare gli indici
-    for (const idx of this.selectedPhotos) {
-      this.componentService.photos.splice(idx, 1);
+    this.isLoading = true;
+    this.cdr.detectChanges(); // Forza la UI a mostrare subito il loader
+    const photosToDelete = this.selectedPhotos.map(idx => this.componentService.photos[idx]);
+    // Il loader resta visibile per almeno 30 secondi
+    let finished = false;
+    setTimeout(() => {
+      if (!finished) {
+        this.isLoading = false;
+        this.clearSelection();
+        this.cdr.detectChanges();
+      }
+    }, 30000);
+    try {
+      await this.componentService.deletePhotosFromCloud(photosToDelete);
+      // Aggiorna la lista locale
+      this.componentService.photos = this.componentService.photos.filter((_, idx) => !this.selectedPhotos.includes(idx));
+      finished = true;
+      setTimeout(() => {
+        this.isLoading = false;
+        this.clearSelection();
+        this.cdr.detectChanges();
+      }, 30000);
+    } catch (err) {
+      finished = true;
+      setTimeout(() => {
+        this.isLoading = false;
+        this.clearSelection();
+        this.cdr.detectChanges();
+      }, 30000);
+      // Puoi mostrare un messaggio di errore qui
+      console.error('Errore eliminazione foto:', err);
     }
-    this.clearSelection();
-    this.cdr.detectChanges();
   }
 
   photoInfo(photoInfo: string) {
