@@ -1,4 +1,5 @@
 import { ChangeDetectorRef } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GalleryService } from 'src/app/services/App/Gallery/gallery.service';
@@ -9,6 +10,12 @@ import { GalleryService } from 'src/app/services/App/Gallery/gallery.service';
   styleUrls: ['./gallery.component.scss'],
 })
 export class GalleryComponent implements OnInit {
+  constructor(
+    public router: Router,
+    public componentService: GalleryService,
+    private cdr: ChangeDetectorRef,
+    private snackBar: MatSnackBar
+  ) {}
 
   loaderMs = 5000;
   isLoading = true;
@@ -21,7 +28,6 @@ export class GalleryComponent implements OnInit {
   selectedPhotos: number[] = [];
   longPressTimeout: any;
 
-  constructor(public router: Router, public componentService: GalleryService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.isLoading = true;
@@ -89,6 +95,7 @@ export class GalleryComponent implements OnInit {
 
   // Elimina le foto selezionate
   async deleteSelectedPhotos() {
+    let toastMsg = '';
     if (this.selectedPhotos.length === 0) return;
     this.isLoading = true;
     this.cdr.detectChanges(); // Forza la UI a mostrare subito il loader
@@ -100,6 +107,7 @@ export class GalleryComponent implements OnInit {
         this.isLoading = false;
         this.clearSelection();
         this.cdr.detectChanges();
+        this.snackBar.open('Photo deletion failed within the given time', 'Close', { duration: 4000 });
       }
     }, this.loaderMs);
     try {
@@ -111,6 +119,7 @@ export class GalleryComponent implements OnInit {
         this.isLoading = false;
         this.clearSelection();
         this.cdr.detectChanges();
+        this.snackBar.open('Photos deleted successfully!', 'Close', { duration: 3000 });
       }, this.loaderMs);
     } catch (err) {
       finished = true;
@@ -118,6 +127,7 @@ export class GalleryComponent implements OnInit {
         this.isLoading = false;
         this.clearSelection();
         this.cdr.detectChanges();
+        this.snackBar.open('Errore durante l\'eliminazione delle foto!', 'Chiudi', { duration: 4000 });
       }, this.loaderMs);
       // Puoi mostrare un messaggio di errore qui
       console.error('Errore eliminazione foto:', err);
