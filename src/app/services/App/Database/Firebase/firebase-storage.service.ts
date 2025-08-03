@@ -29,7 +29,7 @@ export class FirebaseStorageService implements IDatabase {
       (await this.assets.getFile(
         'assets/Firebase/sportmonitoring_credentials.json'
       ));
-    let items: object[] = [];
+    let items: any[] = [];
     switch (datatype) {
       case DbDataType.GALLERY:
         items = await this.getGalleryItems(credentials);
@@ -64,7 +64,7 @@ export class FirebaseStorageService implements IDatabase {
   /**Method getting the photoes from the gallery using
    * the firebase realtime database. */
   async getGalleryItems(credentials: any): Promise<any[]> {
-    const key = DbEntities[DbEntities.PHOTO_STORAGE];
+    const key = 'PHOTO_STORAGE';
     const allPhotos = (await FirebaseHelper.getData(credentials, key)) as any[];
     console.log('FirebaseStorageService.getGalleryItems', allPhotos);
     let fixedData: any[] = [];
@@ -76,18 +76,19 @@ export class FirebaseStorageService implements IDatabase {
 
   /**Method getting the report food data from firebase */
   public async getReportFoodData(dbType: DbType): Promise<any[]> {
+    console.log('getReportFoodData')
     try {
       const credentials =
         this.api_service.fbCredentials ??
         (await this.assets.getFile(
           'assets/Firebase/sportmonitoring_credentials.json'
         ));
-      const key = DbEntities[DbEntities.REPORT_FOOD_DATA];
-      const allPhotos = (await FirebaseHelper.getData(
+      const key = 'FoodHistory';
+      const foodHistory = (await FirebaseHelper.getData(
         credentials,
         key
       )) as any[];
-      console.log('FirebaseStorageService.getReportFoodData', allPhotos);
+      console.log('FirebaseStorageService.getReportFoodData', foodHistory);
     } catch (error) {
       console.error('Error fetching food report data:', error);
       return [];
@@ -109,12 +110,12 @@ export class FirebaseStorageService implements IDatabase {
         (await this.assets.getFile(
           'assets/Firebase/sportmonitoring_credentials.json'
         ));
-      const key = DbEntities[DbEntities.REPORT_TRAINING_DATA];
-      const allPhotos = (await FirebaseHelper.getData(
+      const key = 'Trainings';
+      const trainingsData = (await FirebaseHelper.getData(
         credentials,
         key
       )) as any[];
-      console.log('FirebaseStorageService.getReportTrainingData', allPhotos);
+      console.log('FirebaseStorageService.getReportTrainingData', trainingsData);
     } catch (error) {
       console.error('Error fetching training report data:', error);
       return [];
