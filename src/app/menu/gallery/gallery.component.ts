@@ -10,7 +10,7 @@ import { GalleryService } from 'src/app/services/App/Gallery/gallery.service';
 })
 export class GalleryComponent implements OnInit {
 
-  deleteLoaderMs = 5000;
+  loaderMs = 5000;
   isLoading = true;
   isTimeout = false;
   timeoutRef: any;
@@ -101,7 +101,7 @@ export class GalleryComponent implements OnInit {
         this.clearSelection();
         this.cdr.detectChanges();
       }
-    }, this.deleteLoaderMs);
+    }, this.loaderMs);
     try {
       await this.componentService.deletePhotosFromCloud(photosToDelete);
       // Aggiorna la lista locale
@@ -111,14 +111,14 @@ export class GalleryComponent implements OnInit {
         this.isLoading = false;
         this.clearSelection();
         this.cdr.detectChanges();
-      }, 30000);
+      }, this.loaderMs);
     } catch (err) {
       finished = true;
       setTimeout(() => {
         this.isLoading = false;
         this.clearSelection();
         this.cdr.detectChanges();
-      }, 30000);
+      }, this.loaderMs);
       // Puoi mostrare un messaggio di errore qui
       console.error('Errore eliminazione foto:', err);
     }
