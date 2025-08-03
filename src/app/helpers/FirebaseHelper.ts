@@ -104,7 +104,7 @@ export class FirebaseHelper {
    * @returns
    */
   static async pushToChild(
-    savedImageFile: object,
+    savedImageFile: any,
     credentials: any,
     key: string
   ) {

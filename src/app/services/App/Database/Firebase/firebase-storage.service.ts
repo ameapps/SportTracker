@@ -54,10 +54,11 @@ export class FirebaseStorageService implements IDatabase {
    * @returns
    */
   async saveElement(key: string, savedImageFile: any) {
+    //01. Recupero i dati da firebase
     const credentials = await this.getFbCredentials();
-    let data = (await FirebaseHelper.getData(credentials, key)) as object[];
+    let data = (await FirebaseHelper.getData(credentials, key)) as any[];
     data = data != null ? data : [];
-
+    //02. Inserisco i dati
     FirebaseHelper.pushToChild(savedImageFile, credentials, key);
   }
 
