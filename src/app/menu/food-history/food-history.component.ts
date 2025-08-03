@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { DatabaseService } from 'src/app/services/App/Database/database.service';
@@ -30,6 +31,7 @@ export class FoodHistoryComponent {
   constructor(
     public fb: FormBuilder,
     public router: Router,
+    private snackBar: MatSnackBar,
     private database: DatabaseService
   ) {
     this.foodForm = this.fb.group({
@@ -62,7 +64,11 @@ export class FoodHistoryComponent {
       console.log(this.foodForm.value);
       //02. Salvo su firebase i dati sul cibo appena mangiato
       this.database.saveFoodHistoryData(DbType.FIREBASE, [this.foodForm.value]);
-      //03. Reset o navigazione
+      //03. Mostra un messaggio di successo
+      this.snackBar.open('Food data saved successfully!', 'Close', {
+        duration: 3000,
+      });
+      //04. Reset o navigazione
       this.router.navigate(['/menu/homepage']);
     }
   }
