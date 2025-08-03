@@ -10,7 +10,25 @@
 <ion-content [fullscreen]="true">
   <div class="gallery-container">
     <h2>Your photos</h2>
-    <div *ngIf="componentService.photos?.length > 0; else emptyGallery">
+    <!-- Loader -->
+    <div *ngIf="isLoading" class="gallery-loader">
+      <mat-progress-spinner color="primary" mode="indeterminate" diameter="48"></mat-progress-spinner>
+      <div class="empty-gallery">
+        <ion-icon name="images-outline" size="large"></ion-icon>
+        <p>loading photoes</p>
+      </div>
+    </div>
+
+    <!-- Timeout errore -->
+    <div *ngIf="isTimeout">
+      <div class="empty-gallery">
+        <ion-icon name="alert-circle-outline" size="large"></ion-icon>
+        <p>Error: impossible getting photos.<br>Please try again later.</p>
+      </div>
+    </div>
+
+    <!-- Foto -->
+    <div *ngIf="!isLoading && !isTimeout && componentService.photos?.length > 0">
       <ion-grid>
         <ion-row>
           <ion-col size="6" sizeMd="4" sizeLg="3" *ngFor="let photo of componentService.photos; let i = index">
@@ -24,11 +42,9 @@
         </ion-row>
       </ion-grid>
     </div>
-    <ng-template #emptyGallery>
-      <div class="empty-gallery">
-        <ion-icon name="images-outline" size="large"></ion-icon>
-        <p>No photos available.<br>Take or upload a photo to get started!</p>
-      </div>
-    </ng-template>
+    <div *ngIf="!isLoading && !isTimeout && componentService.photos?.length === 0" class="empty-gallery">
+      <ion-icon name="images-outline" size="large"></ion-icon>
+      <p>No photos available.<br>Take or upload a photo to get started!</p>
+    </div>
   </div>
 </ion-content>
