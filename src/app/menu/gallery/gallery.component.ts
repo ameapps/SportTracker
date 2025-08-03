@@ -127,7 +127,7 @@ export class GalleryComponent implements OnInit {
         this.isLoading = false;
         this.clearSelection();
         this.cdr.detectChanges();
-        this.snackBar.open('Errore durante l\'eliminazione delle foto!', 'Chiudi', { duration: 4000 });
+        this.snackBar.open('Error while deleting the photos!', 'Close', { duration: 4000 });
       }, this.loaderMs);
       // Puoi mostrare un messaggio di errore qui
       console.error('Errore eliminazione foto:', err);
