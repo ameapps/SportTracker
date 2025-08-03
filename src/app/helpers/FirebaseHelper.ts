@@ -51,6 +51,26 @@ export class FirebaseHelper {
     }
   }
 
+  /**Method to normalize the food history data.
+   * It maps the food history data to a specific format.
+   * @param foodHistory The food history data to normalize.
+   * @returns An array of normalized food history items.
+   */
+  public static Normalize(foodHistory: any[]) {
+    return (foodHistory || []).reduce((acc, curr) => {
+      if (Array.isArray(curr)) {
+        curr.forEach((item) => {
+          acc.push({
+            id: item.id,
+            type: item.type,
+            data: item.data,
+          });
+        });
+      }
+      return acc;
+    }, []);
+  }
+
   /**Method getting the data available at the specified path using the specified database. */
   public static async getDbData(db: Database, path: any) {
     const starCountRef = ref(db, path);
@@ -103,11 +123,7 @@ export class FirebaseHelper {
    * @param key
    * @returns
    */
-  static async pushToChild(
-    savedImageFile: any,
-    credentials: any,
-    key: string
-  ) {
+  static async pushToChild(savedImageFile: any, credentials: any, key: string) {
     try {
       const app = initializeApp(credentials as FirebaseOptions);
       const db = getDatabase(app);

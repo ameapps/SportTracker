@@ -100,10 +100,11 @@ export class DatabaseService {
       return datas;
     } catch (error) {
       console.error('Error fetching training data:', error);
+      return [];
     }
   }
 
-  async getReportFoodData(dbType: DbType) {
+  async getReportFoodData(dbType: DbType): Promise<any[]> {
     try {
       let datas: any[] = [];
       switch (dbType) {
@@ -116,8 +117,11 @@ export class DatabaseService {
         default:
           break;
       }
+
+      return datas;
     } catch (error) {
       console.error('Error fetching food data:', error);
+      return [];
     }
   }
 }

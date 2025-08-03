@@ -89,7 +89,7 @@ export class FirebaseStorageService implements IDatabase {
         credentials,
         key
       )) as any[];
-      console.log('FirebaseStorageService.getReportFoodData', foodHistory);
+      return foodHistory;
     } catch (error) {
       console.error('Error fetching food report data:', error);
       return [];
@@ -116,7 +116,7 @@ export class FirebaseStorageService implements IDatabase {
         credentials,
         key
       )) as any[];
-      console.log('FirebaseStorageService.getReportTrainingData', trainingsData);
+      return trainingsData;
     } catch (error) {
       console.error('Error fetching training report data:', error);
       return [];
