@@ -1,3 +1,5 @@
 export enum DbDataType {
-    GALLERY
+    GALLERY,
+    REPORT_FOOD_DATA,
+    REPORT_TRAINING_DATA
 }

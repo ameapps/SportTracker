@@ -10,20 +10,35 @@ import { DbEntities } from 'src/app/services/Enums/DbEntitities';
 import { AssetsService } from 'src/app/services/Services/assets/assets.service';
 import { IDatabase } from 'src/app/services/Interfaces/Database';
 import { ApiService } from '../../API/api.service';
+import { DbType } from 'src/app/services/Enums/DbType';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FirebaseStorageService implements IDatabase {
-  constructor(public api_service: ApiService, public assets: AssetsService, public sanitizer: DomSanitizer) {}
+  constructor(
+    public api_service: ApiService,
+    public assets: AssetsService,
+    public sanitizer: DomSanitizer
+  ) {}
 
   /**Prototype to get all elements associated to the specified entity */
   async getAllItems(datatype: DbDataType): Promise<any[]> {
-    const credentials = this.api_service.fbCredentials ?? await this.assets.getFile('assets/Firebase/sportmonitoring_credentials.json');
+    const credentials =
+      this.api_service.fbCredentials ??
+      (await this.assets.getFile(
+        'assets/Firebase/sportmonitoring_credentials.json'
+      ));
     let items: object[] = [];
     switch (datatype) {
       case DbDataType.GALLERY:
         items = await this.getGalleryItems(credentials);
+        break;
+      case DbDataType.REPORT_FOOD_DATA:
+        items = await this.getReportFoodData(credentials);
+        break;
+      case DbDataType.REPORT_TRAINING_DATA:
+        items = await this.getReportTrainingData(credentials);
         break;
       default:
         break;
@@ -50,16 +65,60 @@ export class FirebaseStorageService implements IDatabase {
    * the firebase realtime database. */
   async getGalleryItems(credentials: any): Promise<any[]> {
     const key = DbEntities[DbEntities.PHOTO_STORAGE];
-    const allPhotos = (await FirebaseHelper.getData(
-      credentials,
-      key
-    )) as any[];
+    const allPhotos = (await FirebaseHelper.getData(credentials, key)) as any[];
     console.log('FirebaseStorageService.getGalleryItems', allPhotos);
     let fixedData: any[] = [];
     if (allPhotos != null) {
       fixedData = this.sanitizePhotoes(allPhotos);
     }
     return fixedData;
+  }
+
+  /**Method getting the report food data from firebase */
+  public async getReportFoodData(dbType: DbType): Promise<any[]> {
+    try {
+      const credentials =
+        this.api_service.fbCredentials ??
+        (await this.assets.getFile(
+          'assets/Firebase/sportmonitoring_credentials.json'
+        ));
+      const key = DbEntities[DbEntities.REPORT_FOOD_DATA];
+      const allPhotos = (await FirebaseHelper.getData(
+        credentials,
+        key
+      )) as any[];
+      console.log('FirebaseStorageService.getReportFoodData', allPhotos);
+    } catch (error) {
+      console.error('Error fetching food report data:', error);
+      return [];
+    }
+  }
+
+  /**
+   *    Method getting the report training data from firebase.
+   *    This method is used to get the training data for the report.
+   *    It fetches the data from Firebase using the provided credentials.
+   *    The data is then sanitized and returned as an array of objects.
+   * @param dbType
+   * @returns
+   */
+  public async getReportTrainingData(dbType: DbType): Promise<any[]> {
+    try {
+      const credentials =
+        this.api_service.fbCredentials ??
+        (await this.assets.getFile(
+          'assets/Firebase/sportmonitoring_credentials.json'
+        ));
+      const key = DbEntities[DbEntities.REPORT_TRAINING_DATA];
+      const allPhotos = (await FirebaseHelper.getData(
+        credentials,
+        key
+      )) as any[];
+      console.log('FirebaseStorageService.getReportTrainingData', allPhotos);
+    } catch (error) {
+      console.error('Error fetching training report data:', error);
+      return [];
+    }
   }
 
   /**
@@ -87,9 +146,11 @@ export class FirebaseStorageService implements IDatabase {
 
   /**Method getting the firebase credentials fromt he assets */
   async getFbCredentials() {
-    const credentials = this.api_service.fbCredentials ?? await this.assets.getFile(
-      'assets/Firebase/sportmonitoring_credentials.json'
-    );
+    const credentials =
+      this.api_service.fbCredentials ??
+      (await this.assets.getFile(
+        'assets/Firebase/sportmonitoring_credentials.json'
+      ));
     return JSON.parse(JSON.stringify(credentials));
   }
 

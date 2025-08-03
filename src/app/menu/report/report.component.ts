@@ -1,12 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartType, ChartData } from 'chart.js';
+import { ReportService } from 'src/app/services/App/report/report.service';
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.scss'],
 })
-export class ReportComponent {
+export class ReportComponent implements OnInit {
+
+  constructor(public report_service: ReportService) {
+
+  }
+  async ngOnInit(): Promise<void> {
+    await this.report_service.getTrainingData();
+    await this.report_service.getFoodData();
+  }
+
   // Esempio dati per allenamenti
   public trainingLabels = ['2025-07-01', '2025-07-02', '2025-07-03'];
   public trainingData = [
