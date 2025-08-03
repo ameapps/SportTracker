@@ -35,7 +35,7 @@ export class GalleryComponent implements OnInit {
         this.isLoading = false;
         this.cdr.detectChanges();
       }
-    }, 30000);
+    }, this.loaderMs);
 
     // Polling per vedere quando arrivano le foto
     const poll = setInterval(() => {
