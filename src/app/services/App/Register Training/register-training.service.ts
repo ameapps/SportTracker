@@ -6,6 +6,7 @@ import { AssetsService } from 'src/app/services/Services/assets/assets.service';
 import { CustomTrainingService } from '../Custom training/custom-training.service';
 import { CycletteService } from '../Custom training/cyclette/cyclette.service';
 import { TapisroulantService } from '../Custom training/tapis roulant/tapisroulant.service';
+import { Trainings } from 'src/app/Models/trainings.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class RegisterTrainingService {
 
   selectedTrainings: number[] = [];
 
-  savedTrainings: object[] = [];
+  savedTrainings: Trainings[] = [];
 
   //#region component fields
 
@@ -154,11 +155,11 @@ export class RegisterTrainingService {
   /**Method to save all the user input associated to the
    * selected custom training to the database
    */
-  saveTraining() {
+  public saveTraining(): Trainings[] {
     const id = this.customTrainingService.getSelectedTraining();
-    const data = this.getTrainingData(id);
+    const data :any = this.getTrainingData(id);
     console.log(`Data: ${data}`);
-    const obj = {
+    const obj: Trainings = {
       id,
       type: this.getTraining(id),
       data
@@ -172,7 +173,7 @@ export class RegisterTrainingService {
  * custom tranining id.
  * @param id: custom training id
  */
-  public getTrainingData(id: number): object {
+  public getTrainingData(id: number): any {
     let data = null;
     switch (id) {
       case 1:
