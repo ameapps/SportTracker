@@ -32,11 +32,13 @@ export class RtStep3Component implements OnInit {
     const key = DbEntities[DbEntities.PHOTO_STORAGE];
 
     // saving the photo
-    this.photoService.savePhoto(savedImageFile, key);
+    console.log('Saving photo...');
+    await this.photoService.savePhoto(savedImageFile, key);
     const photos = await this.photoService.loadSaved();
 
     // saving training data
-    const savedTrainings = this.registerTrainingService.saveTraining();
+    console.log('Saving training data...');
+    const savedTrainings = await this.registerTrainingService.saveTraining();
     await this.databaseService.saveTrainingData(DbType.FIREBASE, savedTrainings);
 
     this.registerTrainingService.stepsComplete[2] = true;

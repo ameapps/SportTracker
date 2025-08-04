@@ -68,7 +68,6 @@ export class FirebaseStorageService implements IDatabase {
   async getGalleryItems(credentials: any): Promise<any[]> {
     const key = 'PHOTO_STORAGE';
     const allPhotos = (await FirebaseHelper.getData(credentials, key)) as any[];
-    console.log('FirebaseStorageService.getGalleryItems', allPhotos);
     let fixedData: any[] = [];
     if (allPhotos != null) {
       fixedData = this.sanitizePhotoes(allPhotos);

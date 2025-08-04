@@ -29,7 +29,6 @@ export class AppComponent {
     await this.common.getApiConfigs();
     const menuSer = await this.config.getMenuItems();
     const menu = JSON.parse(menuSer);
-    console.log('Menu items:', menu);
     menu.forEach((element) => {
       const page = new AppPages(element.name, element.url, element.icon);
       this.appPages.push(page);
