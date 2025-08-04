@@ -38,7 +38,7 @@
               (mousedown)="startLongPress(i)"
               (mouseup)="cancelLongPress()"
               (mouseleave)="cancelLongPress()"
-              (click)="isSelectionMode ? togglePhotoSelection(i) : smoothScroll(i)"
+              (click)="isSelectionMode ? togglePhotoSelection(i) : previewPhoto(photo)"
               id="gallery-photo-{{i}}"
             >
               <img [src]="photo.webviewPath" [alt]="photo.filepath" />
@@ -64,6 +64,14 @@
     <div *ngIf="!isLoading && !isTimeout && componentService.photos?.length === 0" class="empty-gallery">
       <ion-icon name="images-outline" size="large"></ion-icon>
       <p>No photos available.<br>Take or upload a photo to get started!</p>
+    </div>
+  </div>
+
+  <!-- Photo Preview Overlay -->
+  <div *ngIf="selectedPhotoForPreview" class="photo-preview-overlay" (click)="closePreview()">
+    <div class="photo-preview-content" (click)="$event.stopPropagation()">
+      <img [src]="selectedPhotoForPreview.webviewPath" [alt]="selectedPhotoForPreview.filepath" />
+      <ion-button color="primary" (click)="closePreview()">Close</ion-button>
     </div>
   </div>
 </ion-content>

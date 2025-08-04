@@ -28,6 +28,8 @@ export class GalleryComponent implements OnInit {
   selectedPhotos: number[] = [];
   longPressTimeout: any;
 
+  // Per la preview delle foto
+  selectedPhotoForPreview: any = null;
 
   ngOnInit() {
     this.isLoading = true;
@@ -56,7 +58,6 @@ export class GalleryComponent implements OnInit {
   }
 
   // #region methods
-
 
   /**Method to scroll the page at the specified element in the page */
   smoothScroll(id: number) {
@@ -132,6 +133,16 @@ export class GalleryComponent implements OnInit {
       // Puoi mostrare un messaggio di errore qui
       console.error('Errore eliminazione foto:', err);
     }
+  }
+
+  // Preview foto
+  previewPhoto(photo: any) {
+    this.selectedPhotoForPreview = photo;
+  }
+
+  // Chiude la preview
+  closePreview() {
+    this.selectedPhotoForPreview = null;
   }
 
   // #endregion
