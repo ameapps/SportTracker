@@ -8,27 +8,28 @@
     </ion-toolbar>
   </ion-header>
 
+  <!-- grafico che per ogni giorno, mostra i minuti di allenamento per ogni attrezzatura -->
   <ion-content [fullscreen]="true">
     <div class="report-container">
       <ion-card>
         <ion-card-header>
           <ion-card-title>
             <ion-icon name="barbell-outline" color="primary"></ion-icon>
-            Training Minutes by Equipment
+            Training calories burned by Equipment
           </ion-card-title>
         </ion-card-header>
         <ion-card-content>
           <canvas
             baseChart
-            [datasets]="trainingData"
-            [labels]="trainingLabels"
+            [datasets]="trainingChartData.data"
+            [labels]="trainingChartData.labels"
             [options]="barChartOptions"
             [legend]="true"
             style="max-height: 300px"
           ></canvas>
         </ion-card-content>
       </ion-card>
-
+      <!-- Grafico che per ogni tipologia di cibo, mostra quante volte se ne è consumato uno -->
       <ion-card>
         <ion-card-header>
           <ion-card-title>
@@ -39,8 +40,8 @@
         <ion-card-content>
           <canvas
             baseChart
-            [datasets]="[{ label: 'Times eaten', data: foodData }]"
-            [labels]="foodLabels"
+            [datasets]="foodChartData.data"
+            [labels]="foodChartData.labels"
             [options]="barChartOptions"
             [legend]="false"
             style="max-height: 300px"
