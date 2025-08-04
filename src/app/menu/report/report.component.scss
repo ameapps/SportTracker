@@ -33,3 +33,11 @@ canvas {
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(40, 120, 200, 0.04);
 }
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}

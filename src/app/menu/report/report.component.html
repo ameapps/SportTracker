@@ -21,12 +21,32 @@
         <ion-card-content>
           <canvas
             baseChart
-            [datasets]="trainingChartData.data"
-            [labels]="trainingChartData.labels"
+            [datasets]="pagedTrainingData"
+            [labels]="pagedTrainingLabels"
             [options]="barChartOptions"
             [legend]="true"
             style="max-height: 300px"
           ></canvas>
+          <div class="pagination-controls">
+            <button
+              ion-button
+              (click)="trainingPage = Math.max(trainingPage - 1, 0)"
+              [disabled]="trainingPage === 0"
+            >
+              Prev
+            </button>
+            <span>
+              Page {{ trainingPage + 1 }} /
+              {{ Math.ceil(trainingChartData.labels.length / pageSize) }}
+            </span>
+            <button
+              ion-button
+              (click)="trainingPage = Math.min(trainingPage + 1, Math.ceil(trainingChartData.labels.length / pageSize) - 1)"
+              [disabled]="trainingPage >= Math.ceil(trainingChartData.labels.length / pageSize) - 1"
+            >
+              Next
+            </button>
+          </div>
         </ion-card-content>
       </ion-card>
       <!-- Grafico che per ogni tipologia di cibo, mostra quante volte se ne è consumato uno -->
@@ -40,12 +60,32 @@
         <ion-card-content>
           <canvas
             baseChart
-            [datasets]="foodChartData.data"
-            [labels]="foodChartData.labels"
+            [datasets]="pagedFoodData"
+            [labels]="pagedFoodLabels"
             [options]="barChartOptions"
             [legend]="false"
             style="max-height: 300px"
           ></canvas>
+          <div class="pagination-controls">
+            <button
+              ion-button
+              (click)="foodPage = Math.max(foodPage - 1, 0)"
+              [disabled]="foodPage === 0"
+            >
+              Prev
+            </button>
+            <span>
+              Page {{ foodPage + 1 }} /
+              {{ Math.ceil(foodChartData.labels.length / pageSize) }}
+            </span>
+            <button
+              ion-button
+              (click)="foodPage = Math.min(foodPage + 1, Math.ceil(foodChartData.labels.length / pageSize) - 1)"
+              [disabled]="foodPage >= Math.ceil(foodChartData.labels.length / pageSize) - 1"
+            >
+              Next
+            </button>
+          </div>
         </ion-card-content>
       </ion-card>
     </div>
