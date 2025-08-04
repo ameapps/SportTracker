@@ -5,6 +5,8 @@ import { DbType } from '../../Enums/DbType';
 import { FirebaseHelper } from 'src/app/helpers/FirebaseHelper';
 import { ChartModel } from 'src/app/Models/chart.model';
 import { countByGroup, distinct, groupBy } from 'src/app/helpers/arrayHelper';
+import { StringDecoder } from 'string_decoder';
+import { StringHelper } from 'src/app/helpers/StringHelper';
 
 @Injectable({
   providedIn: 'root',
@@ -21,17 +23,30 @@ export class ReportService {
         DbType.FIREBASE
       );
       //02. Li normalizzo
-      const mapped = FirebaseHelper.Normalize(trainingData) as Array<{ dateTime: string; duration: number; [key: string]: any }>;
+      const mapped = FirebaseHelper.Normalize(trainingData) as Array<{
+        dateTime: string;
+        duration: number;
+        [key: string]: any;
+      }>;
       console.log('mapped trainingData', mapped);
       //03. Creo i dati per il grafico
-      const labels = mapped.map((item) => item.dateTime);
+      const labelsUtc = mapped.map((item) => item.dateTime);
+      //04. Converto le date da UTC0 a localtime gg/mm/yy
+      const labelsLocal = labelsUtc.map((label) => {
+        return StringHelper.convertUtcToLocalDateString(label);
+      });
       //04. Raggruppo per data e mostro le calorie bruciate per ogni strumento
       const groupedByDate = groupBy(mapped, 'dateTime');
       const chartData: ChartModel = {
-        labels: labels,
+        labels: labelsLocal,
         data: Object.keys(groupedByDate).map((date) => ({
-          label: date,
-          data: [groupedByDate[date].reduce((sum, item) => sum + item.data.consumedKcal, 0)],
+          label: StringHelper.convertUtcToLocalDateString(date),
+          data: [
+            groupedByDate[date].reduce(
+              (sum, item) => sum + item.data.consumedKcal,
+              0
+            ),
+          ],
         })),
       };
       return chartData;

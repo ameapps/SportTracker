@@ -36,7 +36,7 @@ export class ReportComponent implements OnInit {
 
   get pagedTrainingLabels() {
     const start = this.trainingPage * this.pageSize;
-    return this.trainingChartData.labels.slice(start, start + this.pageSize);
+    return this.trainingChartData.labels;
   }
   get pagedTrainingData() {
     const start = this.trainingPage * this.pageSize;
