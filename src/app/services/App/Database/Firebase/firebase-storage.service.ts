@@ -54,6 +54,7 @@ export class FirebaseStorageService implements IDatabase {
    * @returns
    */
   async saveElement(key: string, savedImageFile: any) {
+    console.log('FirebaseStorageService.saveElement', key, savedImageFile);
     //01. Recupero i dati da firebase
     const credentials = await this.getFbCredentials();
     let data = (await FirebaseHelper.getData(credentials, key)) as any[];
