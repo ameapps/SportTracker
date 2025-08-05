@@ -2,6 +2,7 @@ export class Trainings {
   id: number;
   type: string; // Tapis roulant, Cyclette, etc.
   data: TapisRoulantData | CycletteData; // Data specific to the training type
+  photoName?: string; // Optional photo ID for the training
 }
 
 export class TapisRoulantData {

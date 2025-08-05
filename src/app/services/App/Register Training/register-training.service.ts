@@ -155,14 +155,15 @@ export class RegisterTrainingService {
   /**Method to save all the user input associated to the
    * selected custom training to the database
    */
-  public saveTraining(): Trainings[] {
+  public saveTraining(photoName: string): Trainings[] {
     const id = this.customTrainingService.getSelectedTraining();
     const data :any = this.getTrainingData(id);
     console.log(`Data: ${data}`);
     const obj: Trainings = {
       id,
       type: this.getTraining(id),
-      data
+      data,
+      photoName: photoName
     };
     this.savedTrainings.push(obj);
 

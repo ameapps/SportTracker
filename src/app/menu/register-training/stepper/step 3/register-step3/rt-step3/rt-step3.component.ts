@@ -38,7 +38,7 @@ export class RtStep3Component implements OnInit {
 
     // saving training data
     console.log('Saving training data...');
-    const savedTrainings = await this.registerTrainingService.saveTraining();
+    const savedTrainings = await this.registerTrainingService.saveTraining(savedImageFile.filepath);
     await this.databaseService.saveTrainingData(DbType.FIREBASE, savedTrainings);
 
     this.registerTrainingService.stepsComplete[2] = true;
