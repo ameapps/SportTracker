@@ -10,6 +10,16 @@
       </mat-option>
     </mat-select>
   </mat-form-field>  
+
+  <!-- Input per calorie bruciate -->
+  <mat-form-field class="element">
+    <input matInput type="number" min="0" [(ngModel)]="componentService.consumedKcal" placeholder="Calorie bruciate">
+  </mat-form-field>
+
+  <!-- Input per minuti di allenamento -->
+  <mat-form-field class="element">
+    <input matInput type="number" min="0" [(ngModel)]="componentService.trainingMinutes" placeholder="Minuti allenamento">
+  </mat-form-field>
 </div>
 
 <!-- Componente timer per la definizione, misura e visualizzazione del tempo -->

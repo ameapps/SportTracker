@@ -13,33 +13,37 @@ import { PhotoService } from 'src/app/services/Services/camera/photo.service';
   styleUrls: ['./rt-step3.component.scss'],
 })
 export class RtStep3Component implements OnInit {
-
   gallery: any[] = [];
 
-  constructor(public photoService: PhotoService,
+  constructor(
+    public photoService: PhotoService,
     public databaseService: DatabaseService,
-    public registerTrainingService: RegisterTrainingService) { }
+    public registerTrainingService: RegisterTrainingService
+  ) {}
 
-  asyncConstructor() {
-  }
+  asyncConstructor() {}
 
   ngOnInit() {}
 
   async takePhoto() {
-    console.log('takePhoto()')
+    console.log('takePhoto()');
     const photo: Photo = await this.photoService.shotPhoto();
     const savedImageFile = await this.photoService.savePicture(photo);
     const key = DbEntities[DbEntities.PHOTO_STORAGE];
-
     // saving the photo
     console.log('Saving photo...');
     await this.photoService.savePhoto(savedImageFile, key);
     const photos = await this.photoService.loadSaved();
-
     // saving training data
     console.log('Saving training data...');
-    const savedTrainings = await this.registerTrainingService.saveTraining(savedImageFile.filepath);
-    await this.databaseService.saveTrainingData(DbType.FIREBASE, savedTrainings);
+    const savedTrainings = await this.registerTrainingService.saveTraining(
+      savedImageFile.filepath
+    );
+    // saving the training data to the database
+    await this.databaseService.saveTrainingData(
+      DbType.FIREBASE,
+      savedTrainings
+    );
 
     this.registerTrainingService.stepsComplete[2] = true;
   }

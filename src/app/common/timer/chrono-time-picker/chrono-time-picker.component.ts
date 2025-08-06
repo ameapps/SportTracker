@@ -1,12 +1,21 @@
-import { computeDecimalDigest } from "@angular/compiler/src/i18n/digest";
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from "@angular/core";
-import { StringHelper } from "src/app/helpers/StringHelper";
-import { ChronoTimePickerService } from "src/app/services/App/Time/Chrono time picker/chrono-time-picker.service";
-import { TimeSharedService } from "src/app/services/App/Time/time-shared.service";
-import { StorageService } from "src/app/services/Services/storage/storage.service";
+import { computeDecimalDigest } from '@angular/compiler/src/i18n/digest';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { StringHelper } from 'src/app/helpers/StringHelper';
+import { ChronoTimePickerService } from 'src/app/services/App/Time/Chrono time picker/chrono-time-picker.service';
+import { TimeSharedService } from 'src/app/services/App/Time/time-shared.service';
+import { StorageService } from 'src/app/services/Services/storage/storage.service';
 import { Plugins } from '@capacitor/core';
 import { Dialog } from '@capacitor/dialog';
-import { RegisterTrainingService } from "src/app/services/App/Register Training/register-training.service";
+import { RegisterTrainingService } from 'src/app/services/App/Register Training/register-training.service';
 
 @Component({
   selector: 'app-chrono-time-picker',
@@ -14,7 +23,6 @@ import { RegisterTrainingService } from "src/app/services/App/Register Training/
   styleUrls: ['./chrono-time-picker.component.scss'],
 })
 export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
-
   //#region fields
   timepickerText = 'Click to open timepicker!';
   inputClockClick = false;
@@ -29,7 +37,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 
   //#endregion
 
-  @Input() chronoType: string = "";
+  @Input() chronoType: string = '';
 
   hour = '0';
   minutes = '0';
@@ -40,20 +48,21 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     public timeShared: TimeSharedService, // Da tenere!
-    public storage: StorageService,       // Da tenere!
-    public chronoService: ChronoTimePickerService) { }
+    public storage: StorageService, // Da tenere!
+    public chronoService: ChronoTimePickerService
+  ) {}
 
   ngOnDestroy(): void {
     clearInterval(this.intervalTimer);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes["chronoType"]) {
-      this.chronoType = changes["chronoType"].currentValue;
+    if (changes['chronoType']) {
+      this.chronoType = changes['chronoType'].currentValue;
     }
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   //#region  checks
 
@@ -114,7 +123,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   /* Method to start the timer. */
- public async startTimer(time: string): Promise<void> {
+  public async startTimer(time: string): Promise<void> {
     if (!this.canCountdownStart) {
       this.timeExpired.emit(this.getTimeExpired());
       return;
@@ -129,14 +138,17 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
     this.hour = this.fixHour(time.split(':')[0]);
     this.minutes = this.fixMinutes(time.split(':')[1]);
     this.totalTime = this.setTotalTime();
-    let millisec: number = this.chronoService.calcMillisec(parseInt(this.hour), parseInt(this.minutes));
+    let millisec: number = this.chronoService.calcMillisec(
+      parseInt(this.hour),
+      parseInt(this.minutes)
+    );
     const totalMillisecs = Object.assign(millisec as {});
     // Calling the timer worker
-    const workerBlob = new Blob(['('+workerRunner+')(' + millisec +')']),
-    workerBlobUrl = URL.createObjectURL(workerBlob),
-    worker = new Worker(workerBlobUrl);
+    const workerBlob = new Blob(['(' + workerRunner + ')(' + millisec + ')']),
+      workerBlobUrl = URL.createObjectURL(workerBlob),
+      worker = new Worker(workerBlobUrl);
     /**Ricezione messaggio dal servizio */
-    worker.onmessage = async function(event) {
+    worker.onmessage = async function (event) {
       if (event.data.millisec > 0) {
         this.hour = this.fixHour(event.data.timeShared.split(':')[0]);
         this.minutes = this.fixMinutes(event.data.timeShared.split(':')[1]);
@@ -151,42 +163,49 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
         return;
       }
 
-    /* Getting time from storage in case timer is not running
+      /* Getting time from storage in case timer is not running
        on mobile, not to let timer stop in background */
-       let millisec_from_db = await this.storage.get('timer');
-       const has_timer_finished = !(await this.storage.get('has-timer-finished'));
-       if (millisec_from_db == null || millisec_from_db.value === '') {
-         this.storage.set('timer', totalMillisecs);
-        }
-       // Calcolo i millisecondi corretti in caso di sospensione dell'app
-       /**CONTINUARE!!  */
-       if (millisec_from_db.value as number <= totalMillisecs && !has_timer_finished) {
-         const savedTimestamp = await this.storage.get('time-stamp');
-         const offsetMs = savedTimestamp.value != null ?  Date.now() - savedTimestamp.value as number : 0;
-         millisec -= offsetMs;
-       } else {
-         millisec = totalMillisecs;
-       }
+      let millisec_from_db = await this.storage.get('timer');
+      const has_timer_finished = !(await this.storage.get(
+        'has-timer-finished'
+      ));
+      if (millisec_from_db == null || millisec_from_db.value === '') {
+        this.storage.set('timer', totalMillisecs);
+      }
+      // Calcolo i millisecondi corretti in caso di sospensione dell'app
+      /**CONTINUARE!!  */
+      if (
+        (millisec_from_db.value as number) <= totalMillisecs &&
+        !has_timer_finished
+      ) {
+        const savedTimestamp = await this.storage.get('time-stamp');
+        const offsetMs =
+          savedTimestamp.value != null
+            ? ((Date.now() - savedTimestamp.value) as number)
+            : 0;
+        millisec -= offsetMs;
+      } else {
+        millisec = totalMillisecs;
+      }
 
-       // Calculating if the timer has finished or not
-       const timer_finished = await this.storage.get('has-timer-finished');
-       const hasTimerFinished = timer_finished != null && timer_finished.value as number > 0;
-       // Saving the time in the ionic storage
-       this.storage.set('has-timer-finished', hasTimerFinished)
-       this.storage.set('timer', millisec)
-       if (ticks > 0) this.storage.set('time-stamp', Date.now());
-       ++ticks;
+      // Calculating if the timer has finished or not
+      const timer_finished = await this.storage.get('has-timer-finished');
+      const hasTimerFinished =
+        timer_finished != null && (timer_finished.value as number) > 0;
+      // Saving the time in the ionic storage
+      this.storage.set('has-timer-finished', hasTimerFinished);
+      this.storage.set('timer', millisec);
+      if (ticks > 0) this.storage.set('time-stamp', Date.now());
+      ++ticks;
     }.bind(this);
     /**Invio messaggio al servizio */
     worker.postMessage({
-      millisec: millisec
+      millisec: millisec,
     });
 
     if (this.chronoService.platformService.currentPlatform !== 'browser') {
       this.startNativeTimer();
     }
-
-
   }
 
   /**Starting native timer using a Capacitor Background task.
@@ -197,7 +216,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
    */
   public startNativeTimer() {
     const { App, BackgroundTask } = Plugins;
-    App.addListener('appStateChange',  async (state) => {
+    App.addListener('appStateChange', async (state) => {
       if (!state.isActive) {
         // The app has become inactive. We should check if we have some work left to do, and, if so,
         // execute a background task that will allow us to finish that work before the OS
@@ -209,8 +228,7 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
           var start = new Date().getTime();
           for (var i = 0; i < 10; i++) {
             console.log('Long task running! ');
-            setTimeout(() => {
-            }, 1000);
+            setTimeout(() => {}, 1000);
           }
           // Must call in order to end our task otherwise
           // we risk our app being terminated, and possibly
@@ -225,17 +243,25 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
 
   // #region calculating time
 
-    /**Method calculating and building the time shown in the timer. */
-    public msToTime(milliseconds: number): string {
-      var ms = milliseconds % 1000;
-      milliseconds = (milliseconds - ms) / 1000;
-      var secs = milliseconds % 60;
-      milliseconds = (milliseconds - secs) / 60;
-      var mins = milliseconds % 60;
-      var hrs = (milliseconds - mins) / 60;
-      // Building the timer string
-      return this.pad(hrs, 2) + ':' + this.pad(mins, 2) + ':' + this.pad(secs, 2) + '.' + this.pad(ms, 2);
-    }
+  /**Method calculating and building the time shown in the timer. */
+  public msToTime(milliseconds: number): string {
+    var ms = milliseconds % 1000;
+    milliseconds = (milliseconds - ms) / 1000;
+    var secs = milliseconds % 60;
+    milliseconds = (milliseconds - secs) / 60;
+    var mins = milliseconds % 60;
+    var hrs = (milliseconds - mins) / 60;
+    // Building the timer string
+    return (
+      this.pad(hrs, 2) +
+      ':' +
+      this.pad(mins, 2) +
+      ':' +
+      this.pad(secs, 2) +
+      '.' +
+      this.pad(ms, 2)
+    );
+  }
 
   // Pad to 2 or 3 digits, default is 2
   public pad(n, z): string {
@@ -246,16 +272,15 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
   //#endregion
 
   public setTotalTime(): string {
-    return `${this.hour}:${this.minutes}:${this.seconds}`
+    return `${this.hour}:${this.minutes}:${this.seconds}`;
   }
 
   /**Method making an object containing the expired emitted time */
   public getTimeExpired(): any {
     return {
-      time: this.totalTime
+      time: this.totalTime,
     };
   }
-
 
   //#endregion
 
@@ -292,7 +317,6 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
     return hour;
   }
 
-
   /**Method to remove the '0' if its the first char */
   private fixMinutes(minutes: string) {
     const isFirstZero = minutes.charAt(0) === '0';
@@ -312,11 +336,9 @@ export class ChronoTimePickerComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-
   //#endregion
 
   //#endregion
-
 }
 
 // #region worker service computeDecimalDigest
@@ -336,7 +358,7 @@ export function workerRunner(milliseconds) {
         minutes: -1,
         seconds: -1,
         timeShared: '',
-        timepickerText : ''
+        timepickerText: '',
       };
       if (millisec > 0) {
         // Saving hour, minutes and seconds
@@ -365,7 +387,9 @@ export function workerRunner(milliseconds) {
     var mins = milliseconds % 60;
     var hrs = (milliseconds - mins) / 60;
     // Building the timer string
-    return pad(hrs, 2) + ':' + pad(mins, 2) + ':' + pad(secs, 2) + '.' + pad(ms, 2);
+    return (
+      pad(hrs, 2) + ':' + pad(mins, 2) + ':' + pad(secs, 2) + '.' + pad(ms, 2)
+    );
   }
 
   function pad(n, z): string {
@@ -374,6 +398,4 @@ export function workerRunner(milliseconds) {
   }
 }
 
-
 // #endregion
-

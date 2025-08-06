@@ -2,24 +2,26 @@ import { Injectable } from '@angular/core';
 import { AssetsService } from '../../../Services/assets/assets.service';
 import { RegisterTrainingService } from '../../Register Training/register-training.service';
 import { CustomTrainingService } from '../custom-training.service';
+import { CycletteData } from 'src/app/Models/cyclette.data.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CycletteService {
-
+  // Nel rispettivo service
+  trainingMinutes: number = 0;
   choosenResistance: string;
   choosenPosition: string;
-
   consumedKcal: number = 0;
   canConsumeKcalShow = false;
   canShowNextTrain: boolean = false;
 
   public registerTrainingService: RegisterTrainingService;
 
-  constructor(public assets: AssetsService,
-    public customTrainingService: CustomTrainingService) { }
-
+  constructor(
+    public assets: AssetsService,
+    public customTrainingService: CustomTrainingService
+  ) {}
 
   /**Method prevening this component from showing
     the last training inserted values.  */
@@ -38,12 +40,13 @@ export class CycletteService {
     return JSON.parse(cyclette).resistance;
   }
 
-  async getSubmenu() : Promise<string> {
-    const struments = await this.assets.getFile('assets/struments-menu-cyclette.json');
+  async getSubmenu(): Promise<string> {
+    const struments = await this.assets.getFile(
+      'assets/struments-menu-cyclette.json'
+    );
     return JSON.stringify(struments);
   }
   //#endregion
-
 
   //#region kcal consume
 
@@ -57,38 +60,36 @@ export class CycletteService {
 
   getTrainingMillisec(expiredTime: string): number {
     const tokens = expiredTime.split(':');
-    const minutes = this.getMillisecs(tokens[0], tokens[1], tokens[2] );
+    const minutes = this.getMillisecs(tokens[0], tokens[1], tokens[2]);
     return minutes;
   }
 
-  getMillisecs(hours?: string, minutes?: string, seconds?: string):number {
+  getMillisecs(hours?: string, minutes?: string, seconds?: string): number {
     let millisecsCalc = 0;
     if (hours == null) return millisecsCalc;
-    millisecsCalc += (parseInt(hours)*1000*60*60);
+    millisecsCalc += parseInt(hours) * 1000 * 60 * 60;
     if (minutes == null) return millisecsCalc;
-    millisecsCalc += (parseInt(minutes) * 1000*60);
+    millisecsCalc += parseInt(minutes) * 1000 * 60;
     if (seconds == null) return millisecsCalc;
-    millisecsCalc += (parseInt(seconds) * 1000);
+    millisecsCalc += parseInt(seconds) * 1000;
 
     return millisecsCalc;
   }
 
   /**Method collecting all the data this component could get from the user */
-  getData() {
+  getData(): CycletteData {
     const obj = {
       choosenResistance: this.choosenResistance,
       choosenPosition: this.choosenPosition,
       consumedKcal: this.consumedKcal,
-      definedTime: this.registerTrainingService.definedTime
-    }
+      trainingMinutes: this.trainingMinutes,
+    };
     return obj;
   }
 
   //#endregion
 
-  public setA(registerTrainingService){
+  public setA(registerTrainingService) {
     this.registerTrainingService = registerTrainingService;
   }
-
-
 }

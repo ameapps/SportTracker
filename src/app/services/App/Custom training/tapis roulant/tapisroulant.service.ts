@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
 import { RegisterTrainingService } from '../../Register Training/register-training.service';
 import { CustomTrainingService } from '../custom-training.service';
+import { TapisRoulantData } from 'src/app/Models/tapis.roulant.data.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TapisroulantService {
-
+  // Nel rispettivo service
+  consumedKcal: number = 0;
+  trainingMinutes: number = 0;
   choosenSpeed = '';
   registerTrainingService: RegisterTrainingService;
 
-  constructor(public customTrainingService: CustomTrainingService) { }
+  constructor(public customTrainingService: CustomTrainingService) {}
 
-  getData(): any {
+  getData(): TapisRoulantData {
     const obj = {
       choosenSpeed: this.choosenSpeed,
-      definedTime: this.registerTrainingService.definedTime
+      consumedKcal: this.consumedKcal,
+      trainingMinutes: this.trainingMinutes,
     };
     return obj;
   }
@@ -26,8 +30,7 @@ export class TapisroulantService {
     this.choosenSpeed = null;
   }
 
-  public setA(registerTrainingService){
+  public setA(registerTrainingService) {
     this.registerTrainingService = registerTrainingService;
   }
-
 }

@@ -1,6 +1,4 @@
 <div id="container">
-
-
   <!-- Resistance choice -->
   <mat-form-field class="element">
     <mat-select [(value)]="this.componentService.choosenResistance" placeholder="Cyclette resistance">
@@ -19,16 +17,20 @@
     </mat-select>
   </mat-form-field>
 
+  <!-- Input per calorie bruciate -->
+  <mat-form-field class="element">
+    <input matInput type="number" min="0" [(ngModel)]="componentService.consumedKcal" placeholder="Calorie bruciate">
+  </mat-form-field>
+
+  <!-- Input per minuti di allenamento -->
+  <mat-form-field class="element">
+    <input matInput type="number" min="0" [(ngModel)]="componentService.trainingMinutes" placeholder="Minuti allenamento">
+  </mat-form-field>
 </div>
 
 <!-- Componente timer per la definizione, misura e visualizzazione del tempo -->
-<app-timer (definedTime)="definedTime($event)" 
+<!-- <app-timer (definedTime)="definedTime($event)" 
   (actualTime)="actualTime($event)" 
   (timeExpired)="onExpiredTimer($event)"
   [chronoType]="'input-clock'">
-</app-timer>
-
-<!-- Input for kcal insertion after cyclette training -->
-<mat-form-field id="kcal-input" *ngIf="this.componentService.canConsumeKcalShow">
-  <input matInput placeholder="Consumed kcal post training" [(ngModel)]="this.componentService.consumedKcal">
-</mat-form-field>
+</app-timer> -->

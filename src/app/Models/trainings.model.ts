@@ -1,18 +1,9 @@
+import { CycletteData } from "./cyclette.data.model";
+import { TapisRoulantData } from "./tapis.roulant.data.model";
+
 export class Trainings {
   id: number;
   type: string; // Tapis roulant, Cyclette, etc.
   data: TapisRoulantData | CycletteData; // Data specific to the training type
   photoName?: string; // Optional photo ID for the training
-}
-
-export class TapisRoulantData {
-  choosenSpeed: string;
-  definedTime: string;
-}
-
-export class CycletteData {
-  choosenResistance: string;
-  choosenPosition: string;
-  consumedKcal: number;
-  definedTime: string;
 }
