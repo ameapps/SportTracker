@@ -1,18 +1,17 @@
 export class StringHelper {
-/**
- * Converte una data in stringa UTC in formato locale "dd/MM/yy"
- *
- * @param utcString - La data in formato UTC (es. "2025-08-03T20:30:00Z")
- * @returns La data formattata in ora locale (es. "03/08/25")
- */
-static convertUtcToLocalDateString(utcString: string): string {
-  const date = new Date(utcString); // automaticamente interpretata come UTC
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = String(date.getFullYear()).slice(-2);
-  return `${day}/${month}/${year}`;
-}
-
+  /**
+   * Converte una data in stringa UTC in formato locale "dd/MM/yy"
+   *
+   * @param utcString - La data in formato UTC (es. "2025-08-03T20:30:00Z")
+   * @returns La data formattata in ora locale (es. "03/08/25")
+   */
+  static convertUtcToLocalDateString(utcString: string): string {
+    const date = new Date(utcString); // automaticamente interpretata come UTC
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = String(date.getFullYear()).slice(-2);
+    return `${day}/${month}/${year}`;
+  }
 
   /**Metodo che ritorna true se la stirnga passata come parametro contiene soli numeri, false altrimenti */
   static hasOnlyNumbers(param): boolean {
@@ -49,5 +48,16 @@ static convertUtcToLocalDateString(utcString: string): string {
     var s = absoluteSeconds > 9 ? absoluteSeconds : '0' + absoluteSeconds;
 
     return h + ':' + m + ':' + s;
+  }
+
+  static getReadableFileName(): string {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    return `${year}-${month}-${day}_${hours}-${minutes}-${seconds}.jpeg`;
   }
 }

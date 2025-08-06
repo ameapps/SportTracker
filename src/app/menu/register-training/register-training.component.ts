@@ -13,7 +13,10 @@ import { StringHelper } from 'src/app/helpers/StringHelper';
 import { CustomTrainingService } from 'src/app/services/App/Custom training/custom-training.service';
 import { CycletteService } from 'src/app/services/App/Custom training/cyclette/cyclette.service';
 import { TapisroulantService } from 'src/app/services/App/Custom training/tapis roulant/tapisroulant.service';
+import { DatabaseService } from 'src/app/services/App/Database/database.service';
 import { RegisterTrainingService } from 'src/app/services/App/Register Training/register-training.service';
+import { DbType } from 'src/app/services/Enums/DbType';
+import { PhotoService } from 'src/app/services/Services/camera/photo.service';
 
 @Component({
   selector: 'app-register-training',
@@ -49,6 +52,8 @@ export class RegisterTrainingComponent implements OnInit {
     public componentService: RegisterTrainingService,
     public customTrainingService: CustomTrainingService,
     public formBuilder: FormBuilder,
+    public databaseService: DatabaseService,
+    public photoService: PhotoService,
     public router: Router
   ) {
     this.asyncConstructor();
@@ -95,7 +100,18 @@ export class RegisterTrainingComponent implements OnInit {
   }
 
   /** Metodo per tornare alla homepage */
-  goToHome() {
+  async goToHome() {
+    //Richiedo il salvataggio dell'allenamento
+    console.log('Saving training data...');
+    const savedTrainings = await this.componentService.saveTraining(
+      this.photoService.lastPhoto?.filepath ?? 'NO-PHOTO'
+    );
+    await this.databaseService.saveTrainingData(
+      DbType.FIREBASE,
+      savedTrainings
+    );
+    this.componentService.stepsComplete[2] = true;
+    //vado alla home
     this.router.navigate(['/menu/homepage']);
   }
 

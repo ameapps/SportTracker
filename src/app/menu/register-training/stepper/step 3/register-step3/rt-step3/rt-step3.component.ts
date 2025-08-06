@@ -16,9 +16,7 @@ export class RtStep3Component implements OnInit {
   gallery: any[] = [];
 
   constructor(
-    public photoService: PhotoService,
-    public databaseService: DatabaseService,
-    public registerTrainingService: RegisterTrainingService
+    public photoService: PhotoService
   ) {}
 
   asyncConstructor() {}
@@ -34,17 +32,5 @@ export class RtStep3Component implements OnInit {
     console.log('Saving photo...');
     await this.photoService.savePhoto(savedImageFile, key);
     const photos = await this.photoService.loadSaved();
-    // saving training data
-    console.log('Saving training data...');
-    const savedTrainings = await this.registerTrainingService.saveTraining(
-      savedImageFile.filepath
-    );
-    // saving the training data to the database
-    await this.databaseService.saveTrainingData(
-      DbType.FIREBASE,
-      savedTrainings
-    );
-
-    this.registerTrainingService.stepsComplete[2] = true;
   }
 }
