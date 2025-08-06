@@ -9,10 +9,10 @@ import { CycletteData } from 'src/app/Models/cyclette.data.model';
 })
 export class CycletteService {
   // Nel rispettivo service
-  trainingMinutes: number = 0;
+  trainingMinutes: number;
   choosenResistance: string;
   choosenPosition: string;
-  consumedKcal: number = 0;
+  consumedKcal: number;
   canConsumeKcalShow = false;
   canShowNextTrain: boolean = false;
 

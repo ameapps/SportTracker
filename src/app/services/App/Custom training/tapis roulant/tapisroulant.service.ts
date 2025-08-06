@@ -8,8 +8,8 @@ import { TapisRoulantData } from 'src/app/Models/tapis.roulant.data.model';
 })
 export class TapisroulantService {
   // Nel rispettivo service
-  consumedKcal: number = 0;
-  trainingMinutes: number = 0;
+  consumedKcal: number;
+  trainingMinutes: number;
   choosenSpeed = '';
   registerTrainingService: RegisterTrainingService;
 
