@@ -51,6 +51,11 @@ export class StringHelper {
   }
 
   static getReadableFileName(): string {
+    const readableDate = StringHelper.getReadableDate();
+    return `${readableDate}.jpeg`;
+  }
+
+  static getReadableDate() {
     const now = new Date();
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -58,6 +63,20 @@ export class StringHelper {
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
-    return `${year}-${month}-${day}_${hours}-${minutes}-${seconds}.jpeg`;
+    const readableDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    return readableDate;
+  }
+
+  static getCurrentUtcDateString(): string {
+    const now = new Date();
+
+    const year = now.getUTCFullYear();
+    const month = String(now.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(now.getUTCDate()).padStart(2, '0');
+    const hours = String(now.getUTCHours()).padStart(2, '0');
+    const minutes = String(now.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(now.getUTCSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
   }
 }

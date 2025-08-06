@@ -157,13 +157,14 @@ export class RegisterTrainingService {
    */
   public saveTraining(photoName: string): Trainings[] {
     const id = this.customTrainingService.getSelectedTraining();
-    const data :any = this.getTrainingData(id);
+    const data: any = this.getTrainingData(id);
     console.log(`Data: ${data}`);
     const obj: Trainings = {
       id,
       type: this.getTraining(id),
       data,
-      photoName: photoName
+      photoName: photoName,
+      dateTime: StringHelper.getCurrentUtcDateString(),
     };
     this.savedTrainings.push(obj);
 
