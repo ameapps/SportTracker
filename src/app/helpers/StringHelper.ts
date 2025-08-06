@@ -77,6 +77,6 @@ export class StringHelper {
     const minutes = String(now.getUTCMinutes()).padStart(2, '0');
     const seconds = String(now.getUTCSeconds()).padStart(2, '0');
 
-    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000Z`;
   }
 }
