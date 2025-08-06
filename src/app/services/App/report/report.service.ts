@@ -4,7 +4,12 @@ import { DatabaseService } from '../Database/database.service';
 import { DbType } from '../../Enums/DbType';
 import { FirebaseHelper } from 'src/app/helpers/FirebaseHelper';
 import { ChartModel } from 'src/app/Models/chart.model';
-import { countByGroup, distinct, groupBy } from 'src/app/helpers/arrayHelper';
+import {
+  countByGroup,
+  distinct,
+  groupBy,
+  objectValuesToArray,
+} from 'src/app/helpers/arrayHelper';
 import { StringDecoder } from 'string_decoder';
 import { StringHelper } from 'src/app/helpers/StringHelper';
 
@@ -36,14 +41,16 @@ export class ReportService {
         return StringHelper.convertUtcToLocalDateString(label);
       });
       //04. Raggruppo per data e mostro le calorie bruciate per ogni strumento
-      const groupedByDate = groupBy(mapped, 'dateTime');
+      // 04. Raggruppo per tipo di esercizio (es. Cyclette, Tapis roulant)
+      const groupedByType = groupBy(mapped, 'type');
+      // 05. Creo i dati aggregati per il grafico
       const chartData: ChartModel = {
-        labels: labelsLocal,
-        data: Object.keys(groupedByDate).map((date) => ({
-          label: StringHelper.convertUtcToLocalDateString(date),
+        labels: labelsLocal, // Date in formato locale
+        data: Object.entries(groupedByType).map(([type, items]) => ({
+          label: type,
           data: [
-            groupedByDate[date].reduce(
-              (sum, item) => sum + item.data.consumedKcal,
+            (items as any[]).reduce(
+              (sum, i) => sum + (i.data.consumedKcal || 0),
               0
             ),
           ],

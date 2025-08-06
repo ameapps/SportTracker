@@ -1,4 +1,15 @@
 /**
+ * Converte le proprietà e i valori di un oggetto in un array di { key, value }.
+ *
+ * @param obj - L'oggetto da trasformare.
+ * @returns Un array con le coppie chiave-valore.
+ */
+export function objectValuesToArray<T extends object>(obj: T): T[keyof T][] {
+  return Object.values(obj);
+}
+
+
+/**
  * Raggruppa un array di oggetti per una determinata proprietà.
  * @param array - L'array di oggetti da raggruppare.
  * @param key - La chiave in base alla quale raggruppare.

@@ -35,18 +35,23 @@ export class ReportComponent implements OnInit {
   }
 
   get pagedTrainingLabels() {
+    if (!this.trainingChartData?.labels) return [];
     const start = this.trainingPage * this.pageSize;
     return this.trainingChartData.labels;
   }
   get pagedTrainingData() {
+    if (!this.trainingChartData?.data) return [];
     const start = this.trainingPage * this.pageSize;
     return this.trainingChartData.data.slice(start, start + this.pageSize);
   }
   get pagedFoodLabels() {
+    if (!this.foodChartData?.labels) return [];
     const start = this.foodPage * this.pageSize;
     return this.foodChartData.labels.slice(start, start + this.pageSize);
   }
+
   get pagedFoodData() {
+    if (!this.foodChartData?.data) return [];
     const start = this.foodPage * this.pageSize;
     return this.foodChartData.data.slice(start, start + this.pageSize);
   }
