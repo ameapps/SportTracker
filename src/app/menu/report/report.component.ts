@@ -25,7 +25,7 @@ export class ReportComponent implements OnInit {
 
   public trainingPage: number = 0;
   public foodPage: number = 0;
-  public pageSize: number = 2;
+  public pageSize: number = 10;
   Math: any = Math;
 
   constructor(public report_service: ReportService) {}
@@ -37,7 +37,7 @@ export class ReportComponent implements OnInit {
   get pagedTrainingLabels() {
     if (!this.trainingChartData?.labels) return [];
     const start = this.trainingPage * this.pageSize;
-    return this.trainingChartData.labels;
+    return this.trainingChartData.labels.slice(start, start + this.pageSize);
   }
   get pagedTrainingData() {
     if (!this.trainingChartData?.data) return [];
@@ -54,5 +54,9 @@ export class ReportComponent implements OnInit {
     if (!this.foodChartData?.data) return [];
     const start = this.foodPage * this.pageSize;
     return this.foodChartData.data.slice(start, start + this.pageSize);
+  }
+
+  get trainingTotalPages() {
+    return Math.ceil(this.trainingChartData.labels.length / this.pageSize);
   }
 }
