@@ -13,12 +13,8 @@ Dove:
 - --output-path docs serve a dare il nome 'doc' alla cartella di pubblicazione generata da angular (normalmente si chiama dist)
 - --base-href /CustomCv/ assegna al href dell'index.html il nome del branch in uso. Senza di questo, il server web di github non riesce a trovare i file del sito, perchè li cerca sempre al path 
 https://nome-utente-github.github.io/nome-branch
-ES LINK FUNZIONANTE: https://stefanoyoyo.github.io/CustomCv/#/homepage
+ES LINK FUNZIONANTE: https://github.com/ameapps/SportTracker
 
-
-https://stefanoyoyo.github.io/CustomCv/
-
-ng build --output-path docs --base-href /IONIC-SportTracker/
-
-
-ng build --configuration=production --output-path docs --base-href /IONIC-SportTracker/
+**PER PUBBLICARE SU GITHUB**
+ng  build --configuration=production --output-path docs --base
+-href /SportTracker/
