@@ -30,7 +30,7 @@ Vale a dire:
 **CONSOLE DI FIREBASE - REALTIME DATABASE**
 https://console.firebase.google.com/u/1/project/sportmonitoring-8b00f/database/sportmonitoring-8b00f-default-rtdb/data/~2F
 
-**COME FAR FUNZIONARE IL PROGETTO**
+**COME FAR FUNZIONARE IL PROGETTO** 
 Attualmente il progetto gira con Angular 12. Per farlo funzionare serve: 
 
 - eseguire nvm install 14.15.0
